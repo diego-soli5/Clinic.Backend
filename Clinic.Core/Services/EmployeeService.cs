@@ -23,6 +23,11 @@ namespace Clinic.Core.Services
             _paginationOptions = paginationOptions.Value;
         }
 
+        public async Task<Employee> GetByIdAsync(int id)
+        {
+            return await _unitOfWork.Employee.GetByIdAsync(id, includeProperties: $"{nameof(Employee.AppUser)},{nameof(Employee.Person)}");
+        }
+
         public PagedList<Employee> GetAll(EmployeeQueryFilter filters)
         {
             filters.PageNumber = filters.PageNumber != null && filters.PageNumber > 0 ? filters.PageNumber.Value : _paginationOptions.DefaultPageNumber;
@@ -76,6 +81,29 @@ namespace Clinic.Core.Services
             employee.HireDate = DateTime.Now;
 
             _unitOfWork.Employee.Create(employee);
+
+            return await _unitOfWork.Save();
+        }
+
+        public async Task<bool> DisableOrEnable(int id)
+        {
+            var employee = await _unitOfWork.Employee.GetByIdAsync(id);
+
+            if(employee == null)
+            {
+                throw new BusisnessException("El empleado no existe.");
+            }
+
+            if(employee.AppUser.EntityStatus == EntityStatus.Enabled)
+            {
+                employee.AppUser.EntityStatus = EntityStatus.Disabled;
+            }
+            else
+            {
+                employee.AppUser.EntityStatus = EntityStatus.Enabled;
+            }
+
+            _unitOfWork.Employee.Update(employee);
 
             return await _unitOfWork.Save();
         }

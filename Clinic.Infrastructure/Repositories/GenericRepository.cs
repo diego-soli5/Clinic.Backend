@@ -32,7 +32,7 @@ namespace ClinicSys.Infrastructure.Repositories
             return query.AsEnumerable();
         }
 
-        public async Task<TEntity> GetById(int id, string includeProperties = null)
+        public async Task<TEntity> GetByIdAsync(int id, string includeProperties = null)
         {
             IQueryable<TEntity> query = _dbEntity;
 
@@ -64,7 +64,7 @@ namespace ClinicSys.Infrastructure.Repositories
 
         public async Task Delete(int id)
         {
-            Delete(await GetById(id));
+            Delete(await GetByIdAsync(id));
         } 
     }
 }
