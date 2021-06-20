@@ -1,4 +1,5 @@
-﻿using Clinic.Core.Repositories.Interfaces;
+﻿using Clinic.Core.Options;
+using Clinic.Core.Repositories.Interfaces;
 using Clinic.Infrastructure.Data;
 using ClinicSys.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,15 @@ namespace Clinic.Infrastructure.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("DevelopmentLocalDb"));
             });
         }
+
         public static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        }
+
+        public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.Configure<PaginationOptions>(options => configuration.GetSection("ApplicationOptions:PaginationOptions"));
         }
     }
 }

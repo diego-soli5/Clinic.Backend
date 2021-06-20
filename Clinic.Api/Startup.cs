@@ -30,6 +30,8 @@ namespace Clinic.Api
 
             services.AddDbContext(Configuration);
 
+            services.AddOptions(Configuration);
+
             services.AddRepositories();
         }
 
