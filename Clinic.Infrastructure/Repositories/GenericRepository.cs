@@ -1,6 +1,7 @@
 ﻿using Clinic.Core.Entities;
 using Clinic.Core.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,14 +17,34 @@ namespace ClinicSys.Infrastructure.Repositories
             _dbEntity = context.Set<TEntity>();
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public IEnumerable<TEntity> GetAll(string includeProperties = null)
         {
-            return _dbEntity.AsEnumerable();
+            IQueryable<TEntity> query = _dbEntity;
+
+            if (includeProperties != string.Empty)
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            return query.AsEnumerable();
         }
 
-        public async Task<TEntity> GetById(int id)
+        public async Task<TEntity> GetById(int id, string includeProperties = null)
         {
-            return await _dbEntity.FindAsync(id);
+            IQueryable<TEntity> query = _dbEntity;
+
+            if(includeProperties != string.Empty)
+            {
+                foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+                {
+                    query = query.Include(includeProperty);
+                }
+            }
+
+            return await query.FirstAsync(x => x.Id == id);
         }
 
         public void Create(TEntity entity)

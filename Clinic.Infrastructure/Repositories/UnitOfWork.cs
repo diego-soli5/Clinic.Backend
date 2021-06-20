@@ -3,10 +3,6 @@ using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Repositories.Interfaces;
 using Clinic.Infrastructure.Data;
 using ClinicSys.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Clinic.Infrastructure.Repositories
