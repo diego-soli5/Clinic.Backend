@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Clinic.Infrastructure.Extensions;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -25,8 +26,9 @@ namespace Clinic.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
+
+            services.AddDbContext(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

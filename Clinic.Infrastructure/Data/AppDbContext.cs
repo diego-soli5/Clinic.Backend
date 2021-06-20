@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
-namespace ClinicSys.Infraestructure.Data
+namespace Clinic.Infrastructure.Data
 {
     public class AppDbContext : DbContext
     {
