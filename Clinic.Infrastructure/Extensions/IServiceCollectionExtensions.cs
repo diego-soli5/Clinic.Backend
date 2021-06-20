@@ -1,4 +1,6 @@
-﻿using Clinic.Infrastructure.Data;
+﻿using Clinic.Core.Repositories.Interfaces;
+using Clinic.Infrastructure.Data;
+using ClinicSys.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
