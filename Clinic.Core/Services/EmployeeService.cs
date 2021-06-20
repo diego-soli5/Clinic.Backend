@@ -1,11 +1,10 @@
-﻿using Clinic.Core.CustomExceptions;
+﻿using Clinic.Core.CustomEntities;
+using Clinic.Core.CustomExceptions;
 using Clinic.Core.Entities;
 using Clinic.Core.Enumerations;
 using Clinic.Core.Interfaces.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Clinic.Core.Services
@@ -43,5 +42,7 @@ namespace Clinic.Core.Services
 
             return await _unitOfWork.Save();
         }
+
+        
     }
 }
