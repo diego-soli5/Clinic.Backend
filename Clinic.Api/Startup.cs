@@ -29,6 +29,8 @@ namespace Clinic.Api
             services.AddControllers();
 
             services.AddDbContext(Configuration);
+
+            services.AddRepositories();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

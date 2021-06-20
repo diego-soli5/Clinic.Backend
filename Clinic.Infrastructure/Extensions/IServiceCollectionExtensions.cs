@@ -14,5 +14,9 @@ namespace Clinic.Infrastructure.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("DevelopmentLocalDb"));
             });
         }
+        public static void AddRepositories(this IServiceCollection services)
+        {
+            services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+        }
     }
 }
