@@ -31,6 +31,5 @@ namespace Clinic.Infrastructure.Data
 
             base.OnModelCreating(modelBuilder);
         }
-
     }
 }

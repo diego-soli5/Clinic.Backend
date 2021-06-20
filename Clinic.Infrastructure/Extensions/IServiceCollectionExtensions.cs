@@ -1,9 +1,11 @@
 ﻿using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Core.Interfaces.InfrastructureServices;
+using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Options;
 using Clinic.Core.Repositories.Interfaces;
 using Clinic.Core.Services;
 using Clinic.Infrastructure.Data;
+using Clinic.Infrastructure.Repositories;
 using Clinic.Infrastructure.Services;
 using ClinicSys.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
@@ -28,6 +30,8 @@ namespace Clinic.Infrastructure.Extensions
         public static void AddRepositories(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
         }
 
         public static void AddBusisnessServices(this IServiceCollection services)
