@@ -1,5 +1,5 @@
 ﻿using Clinic.Core.CustomExceptions;
-using Clinic.Infrastructure.Response;
+using Clinic.Infrastructure.Responses;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;

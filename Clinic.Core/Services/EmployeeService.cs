@@ -2,6 +2,7 @@
 using Clinic.Core.CustomExceptions;
 using Clinic.Core.Entities;
 using Clinic.Core.Enumerations;
+using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Options;
 using Clinic.Core.QueryFilters;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Clinic.Core.Services
 {
-    public class EmployeeService
+    public class EmployeeService : IEmployeeService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly PaginationOptions _paginationOptions;
@@ -89,12 +90,12 @@ namespace Clinic.Core.Services
         {
             var employee = await _unitOfWork.Employee.GetByIdAsync(id);
 
-            if(employee == null)
+            if (employee == null)
             {
                 throw new BusisnessException("El empleado no existe.");
             }
 
-            if(employee.AppUser.EntityStatus == EntityStatus.Enabled)
+            if (employee.AppUser.EntityStatus == EntityStatus.Enabled)
             {
                 employee.AppUser.EntityStatus = EntityStatus.Disabled;
             }

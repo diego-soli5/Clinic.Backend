@@ -1,10 +1,17 @@
-﻿using Clinic.Core.Options;
+﻿using Clinic.Core.Interfaces.BusisnessServices;
+using Clinic.Core.Interfaces.InfrastructureServices;
+using Clinic.Core.Options;
 using Clinic.Core.Repositories.Interfaces;
+using Clinic.Core.Services;
 using Clinic.Infrastructure.Data;
+using Clinic.Infrastructure.Services;
 using ClinicSys.Infrastructure.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Reflection;
 
 namespace Clinic.Infrastructure.Extensions
 {
@@ -23,9 +30,31 @@ namespace Clinic.Infrastructure.Extensions
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         }
 
+        public static void AddBusisnessServices(this IServiceCollection services)
+        {
+            services.AddScoped<IEmployeeService, EmployeeService>();
+        }
+
+        public static void AddInfrastructureServices(this IServiceCollection services)
+        {
+            services.AddSingleton<IUriService>(provider =>
+            {
+                var accesor = provider.GetRequiredService<IHttpContextAccessor>();
+                var request = accesor.HttpContext.Request;
+                var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
+
+                return new UriService(absoluteUri);
+            });
+        }
+
         public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<PaginationOptions>(options => configuration.GetSection("ApplicationOptions:PaginationOptions"));
+        }
+
+        public static void AddAutoMapper(this IServiceCollection services)
+        {
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());    
         }
     }
 }

@@ -14,6 +14,7 @@
   • ASP.NET Web Api <br>
   • Sql Server <br>
   • EntityFrameworkCore CodeFirst con Fluent Api <br>
+  • AutoMapper <br>
   • Etc.. (Iré actualizando la información conforme avance el proyecto)
 <h3>Arquitectura y Patrones de Diseño</h3>
   • Arquitectura Limpia Orientada al Dominio (Actualmente mis conocimientos de arquitecturas DDD son muy limitados por lo que hice una implementación básica de Api, Core e Infrastructure) <br>

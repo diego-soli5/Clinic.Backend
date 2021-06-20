@@ -1,4 +1,4 @@
-﻿namespace Clinic.Infrastructure.Response
+﻿namespace Clinic.Infrastructure.Responses
 {
     public class BadRequestResponse
     {

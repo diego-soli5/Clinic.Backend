@@ -28,7 +28,13 @@ namespace Clinic.Api
 
             services.AddRepositories();
 
+            services.AddBusisnessServices();
+
+            services.AddInfrastructureServices();
+
             services.AddOptions(Configuration);
+
+            services.AddAutoMapper();
 
         }
 
