@@ -26,7 +26,7 @@ namespace Clinic.Api.Controllers
             _mapper = mapper;
         }
 
-        [HttpGet]
+        [HttpGet(Name = nameof(GetAll))]
         public IActionResult GetAll([FromQuery] EmployeeQueryFilter filters)
         {
             var pagedList = _employeeService.GetAll(filters);
@@ -52,7 +52,7 @@ namespace Clinic.Api.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-            return Ok(response);
+            return Ok(new { metadata, response });
         }
     }
 }

@@ -33,7 +33,7 @@ namespace Clinic.Core.CustomEntities
             var count = entities.Count();
             var items = entities.Skip((pageNumber - 1) * pageSize).Take(pageSize).AsEnumerable();
 
-            return new PagedList<TEntity>(items, count, pageSize, pageSize);
+            return new PagedList<TEntity>(items, count, pageNumber, pageSize);
         }
     }
 }
