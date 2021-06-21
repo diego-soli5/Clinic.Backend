@@ -22,3 +22,12 @@
   • Repository <br>
   • UnitOfWork <br>
   • Etc.. (Iré actualizando la información conforme avance el proyecto) <br>
+<h3>Features</h3>
+  • Validación de reglas de negocio con Excepciones de negocio (CustomException) <br>
+  • Manejo de excepciones globales <br>
+  • Filtro de validacion del modelo <br>
+  • Consultas con filtros <br>
+  • Consultas paginadas <br>
+  • Metadatos en consultas paginadas (incluye generacion de Uri de la siguiente y anterior pagina de la consulta paginada) <br>
+  • Modelos de respuesta tipados <br>
+  • Etc.. (Iré actualizando la información conforme avance el proyecto) <br>
