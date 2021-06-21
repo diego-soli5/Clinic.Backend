@@ -7,6 +7,7 @@ namespace Clinic.Core.Interfaces.InfrastructureServices
 {
     public interface IUriService
     {
-        Uri GetEmployeePaginationUri(EmployeeQueryFilter filter, PagedList<Employee> pagedList, string actionUrl, bool IsNextPage = true);
+        Uri GetPaginationUri<TEntity, TQuery>(TQuery filter, PagedList<TEntity> pagedList, string actionUrl, bool IsNextPage = true)
+            where TEntity : BaseEntity where TQuery : BaseQueryFilter;
     }
 }

@@ -41,8 +41,8 @@ namespace Clinic.Api.Controllers
                 HasPreviousPage = pagedList.HasPreviousPage,
                 NextPageNumber = pagedList.NextPageNumber,
                 PreviousPageNumber = pagedList.PreviousPageNumber,
-                NextPageUrl = pagedList.HasNextPage ? _uriService.GetEmployeePaginationUri(filters, pagedList, Url.RouteUrl(nameof(GetAll)), true).ToString() : null,
-                PreviousPageUrl = pagedList.HasPreviousPage ? _uriService.GetEmployeePaginationUri(filters, pagedList, Url.RouteUrl(nameof(GetAll)), false).ToString() : null
+                NextPageUrl = _uriService.GetPaginationUri(filters, pagedList, Url.RouteUrl(nameof(GetAll)), true)?.ToString(),
+                PreviousPageUrl = _uriService.GetPaginationUri(filters, pagedList, Url.RouteUrl(nameof(GetAll)), false)?.ToString()
             };
 
             var response = new OkResponse

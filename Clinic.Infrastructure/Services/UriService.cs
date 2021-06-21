@@ -3,6 +3,8 @@ using Clinic.Core.Entities;
 using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.QueryFilters;
 using System;
+using System.Reflection;
+using System.Linq;
 
 namespace Clinic.Infrastructure.Services
 {
@@ -15,33 +17,34 @@ namespace Clinic.Infrastructure.Services
             _baseUri = baseUri;
         }
 
-        public Uri GetEmployeePaginationUri(EmployeeQueryFilter filter, PagedList<Employee> pagedList, string actionUrl, bool IsNextPage = true)
+        public Uri GetPaginationUri<TEntity, TQueryFilter>(TQueryFilter filter, PagedList<TEntity> pagedList, string actionUrl, bool IsNextPage = true)
+            where TEntity : BaseEntity where TQueryFilter : BaseQueryFilter
         {
-            string uri = $"{_baseUri}{actionUrl}";
-
-            uri += "?";
-
-            if (filter.Identification.HasValue)
+            if (IsNextPage)
             {
-                uri += $"{nameof(filter.Identification)}={filter.Identification.Value}&";
+                if (!pagedList.HasNextPage)
+                    return null;
+            }
+            else
+            {
+                if (!pagedList.HasPreviousPage)
+                    return null;
             }
 
-            if (filter.HireDate.HasValue)
-            {
-                uri += $"{nameof(filter.HireDate)}={filter.HireDate.Value}&";
-            }
+            string uri = $"{_baseUri}{actionUrl}?";
 
-            if (filter.EmployeeStatus.HasValue)
-            {
-                uri += $"{nameof(filter.EmployeeStatus)}={filter.EmployeeStatus.Value}&";
-            }
+            PropertyInfo[] properties = filter.GetType().GetProperties();
 
-            if (filter.EmployeeRole.HasValue)
+            properties.ToList().ForEach(prop =>
             {
-                uri += $"{nameof(filter.EmployeeRole)}={filter.EmployeeRole.Value}&";
-            }
+                if (prop.Name != nameof(filter.PageNumber))
+                {
+                    var value = prop.GetValue(filter);
 
-            uri += $"{nameof(filter.PageSize)}={filter.PageSize.Value}&";
+                    if (value != null)
+                        uri += $"{prop.Name}={value}&";
+                }
+            });
 
             if (IsNextPage)
                 uri += $"{nameof(filter.PageNumber)}={pagedList.NextPageNumber}";
