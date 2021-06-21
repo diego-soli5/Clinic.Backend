@@ -8,6 +8,7 @@ using Clinic.Infrastructure.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Clinic.Api.Controllers
 {
@@ -31,19 +32,7 @@ namespace Clinic.Api.Controllers
         {
             var pagedList = _employeeService.GetAll(filters);
 
-            var metadata = new Metadata
-            {
-                TotalCount = pagedList.TotalCount,
-                PageSize = pagedList.PageSize,
-                CurrentPage = pagedList.CurrentPage,
-                TotalPages = pagedList.TotalPages,
-                HasNextPage = pagedList.HasNextPage,
-                HasPreviousPage = pagedList.HasPreviousPage,
-                NextPageNumber = pagedList.NextPageNumber,
-                PreviousPageNumber = pagedList.PreviousPageNumber,
-                NextPageUrl = _uriService.GetPaginationUri(filters, pagedList, Url.RouteUrl(nameof(GetAll)), true)?.ToString(),
-                PreviousPageUrl = _uriService.GetPaginationUri(filters, pagedList, Url.RouteUrl(nameof(GetAll)), false)?.ToString()
-            };
+            var metadata = Metadata.Create(filters, pagedList, Url.RouteUrl(nameof(GetAll)), _uriService);
 
             var response = new OkResponse
             {
@@ -52,7 +41,9 @@ namespace Clinic.Api.Controllers
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
-            return Ok(new { metadata, response });
+            return Ok(response);
         }
+
+
     }
 }
