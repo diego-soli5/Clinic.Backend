@@ -27,7 +27,8 @@ namespace Clinic.Infrastructure.Data.Configurations
 
             builder.HasMany<MedicAttentionHour>(medSch => medSch.MedicAttentionHours)
                 .WithOne(medAtt => medAtt.MedicalSchedule)
-                .HasForeignKey(medAtt => medAtt.IdMedicalSchedule);
+                .HasForeignKey(medAtt => medAtt.IdMedicalSchedule)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

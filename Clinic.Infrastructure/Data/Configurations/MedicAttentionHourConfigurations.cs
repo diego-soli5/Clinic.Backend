@@ -21,7 +21,8 @@ namespace Clinic.Infrastructure.Data.Configurations
 
             builder.HasOne<MedicalSchedule>(medAtt => medAtt.MedicalSchedule)
                 .WithMany(medSch => medSch.MedicAttentionHours)
-                .HasForeignKey(medSch => medSch.IdMedicalSchedule);
+                .HasForeignKey(medSch => medSch.IdMedicalSchedule)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(a => a.EntityStatus)
                 .IsRequired()

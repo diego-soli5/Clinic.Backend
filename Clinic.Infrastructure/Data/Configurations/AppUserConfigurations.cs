@@ -35,7 +35,8 @@ namespace Clinic.Infrastructure.Data.Configurations
 
             builder.HasOne<Employee>(a => a.Employee)
                 .WithOne(e => e.AppUser)
-                .HasForeignKey<Employee>(e => e.IdAppUser);
+                .HasForeignKey<Employee>(e => e.IdAppUser)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

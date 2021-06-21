@@ -20,7 +20,8 @@ namespace Clinic.Infrastructure.Data.Configurations
 
             builder.HasMany(c => c.Diagnostics)
                 .WithOne(d => d.ClinicalHistory)
-                .HasForeignKey(d => d.IdClinicalHistory);
+                .HasForeignKey(d => d.IdClinicalHistory)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

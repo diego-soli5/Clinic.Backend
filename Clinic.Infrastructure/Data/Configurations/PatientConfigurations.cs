@@ -27,11 +27,13 @@ namespace Clinic.Infrastructure.Data.Configurations
 
             builder.HasMany<Appointment>(p => p.Appointments)
                 .WithOne(a => a.Patient)
-                .HasForeignKey(a => a.IdPacient);
+                .HasForeignKey(a => a.IdPacient)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasOne<ClinicalHistory>(p => p.ClinicalHistory)
                  .WithOne(c => c.Patient)
-                 .HasForeignKey<ClinicalHistory>(c => c.IdPatient);
+                 .HasForeignKey<ClinicalHistory>(c => c.IdPatient)
+                 .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

@@ -26,7 +26,8 @@ namespace Clinic.Infrastructure.Data.Configurations
 
             builder.HasMany<Medic>(c => c.Medics)
                 .WithOne(m => m.ConsultingRoom)
-                .HasForeignKey(m => m.IdConsultingRoom);
+                .HasForeignKey(m => m.IdConsultingRoom)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
