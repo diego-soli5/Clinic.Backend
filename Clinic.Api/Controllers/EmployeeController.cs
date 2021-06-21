@@ -57,7 +57,7 @@ namespace Clinic.Api.Controllers
 
             OkResponse response = new()
             {
-                Data = _mapper.Map<EmployeeListDTO>(oEmployee)
+                Data = _mapper.Map<EmployeeDTO>(oEmployee)
             };
 
             return Ok(response);
