@@ -98,23 +98,81 @@ namespace Clinic.Core.Services
             return await _unitOfWork.Save();
         }
 
-        public async Task<bool> DisableOrEnable(int id)
+        public async Task<bool> Update(Employee employee, int id)
         {
-            var employee = await _unitOfWork.Employee.GetByIdAsync(id);
+            var employeeList = _unitOfWork.Employee.GetAll(includeProperties: $"{nameof(Employee.AppUser)},{nameof(Employee.Person)}");
+
+            var employeeFromDb = await _unitOfWork.Employee.GetByIdAsync(id);
+
+            if (employeeFromDb == null)
+            {
+                throw new BusisnessException("La cuenta de empleado no existe.");
+            }
+
+            if (employeeList.Any(x => x.AppUser.UserName == employee.AppUser.UserName))
+            {
+                throw new BusisnessException("El nombre de usuario ya está en uso.");
+            }
+
+            if (employeeList.Any(x => x.Person.Identification == employee.Person.Identification))
+            {
+                throw new BusisnessException("El número de identificación ya está en uso.");
+            }
+
+            if (employee.EmployeeRole == EmployeeRole.Medic)
+            {
+                if (employee.Medic == null)
+                {
+                    throw new BusisnessException("Debe indicar los datos del perfil medico.");
+                }
+
+                employeeFromDb.Medic.IdConsultingRoom = employee.Medic.IdConsultingRoom;
+                employeeFromDb.Medic.IdMedicalSpecialty = employee.Medic.IdMedicalSpecialty;
+            }
+            else if (employee.Medic != null)
+            {
+                employee.Medic = null;
+            }
+
+            employeeFromDb.Person.Address = employee.Person.Address;
+            employeeFromDb.Person.Birthdate = employee.Person.Birthdate;
+            employeeFromDb.Person.Email = employee.Person.Email;
+            employeeFromDb.Person.Identification = employee.Person.Identification;
+            employeeFromDb.Person.Names = employee.Person.Names;
+            employeeFromDb.Person.Surnames = employee.Person.Surnames;
+            employeeFromDb.Person.PhoneNumber = employee.Person.PhoneNumber;
+
+            _unitOfWork.Employee.Update(employee);
+
+            return await _unitOfWork.Save();
+        }
+
+        public async Task<bool> Enable(int id)
+        {
+            var employee = await _unitOfWork.Employee.GetByIdAsync(id, includeProperties: $"{nameof(Employee.AppUser)}");
 
             if (employee == null)
             {
-                throw new BusisnessException("El empleado no existe.");
+                throw new BusisnessException("La cuenta de empleado no existe.");
             }
 
-            if (employee.AppUser.EntityStatus == EntityStatus.Enabled)
+            employee.AppUser.EntityStatus = EntityStatus.Enabled;
+
+            _unitOfWork.Employee.Update(employee);
+
+            return await _unitOfWork.Save();
+        }
+
+        public async Task<bool> Disable(int id)
+        {
+            var employee = await _unitOfWork.Employee.GetByIdAsync(id, includeProperties: $"{nameof(Employee.AppUser)}");
+
+            if (employee == null)
             {
-                employee.AppUser.EntityStatus = EntityStatus.Disabled;
+                throw new BusisnessException("La cuenta de empleado no existe.");
             }
-            else
-            {
-                employee.AppUser.EntityStatus = EntityStatus.Enabled;
-            }
+
+            employee.AppUser.EntityStatus = EntityStatus.Disabled;
 
             _unitOfWork.Employee.Update(employee);
 

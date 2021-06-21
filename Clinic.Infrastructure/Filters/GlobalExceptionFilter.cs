@@ -10,20 +10,23 @@ namespace Clinic.Infrastructure.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            var exceptionType = context.Exception.GetType();
-
-            if(context.Exception is BusisnessException)
+            if (context.Exception is BusisnessException)
             {
                 var exception = context.Exception as BusisnessException;
 
                 var response = new BadRequestResponse
                 {
                     Message = exception.Message,
-                    Success = false
                 };
 
                 context.Result = new BadRequestObjectResult(response);
                 context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
+            }
+            else if (context.Exception is NotFoundBusisnessException)
+            {
+
+                context.Result = new NotFoundObjectResult(new NotFoundResponse());
+                context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
             }
         }
     }

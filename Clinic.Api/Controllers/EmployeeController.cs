@@ -2,6 +2,7 @@
 using Clinic.Core.CustomEntities;
 using Clinic.Core.DTOs.Employee;
 using Clinic.Core.Entities;
+using Clinic.Core.Enumerations;
 using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.QueryFilters;
@@ -50,9 +51,9 @@ namespace Clinic.Api.Controllers
         {
             var oEmployee = await _employeeService.GetByIdAsync(id);
 
-            if(oEmployee == null)
+            if(oEmployee == null || oEmployee.AppUser.EntityStatus == EntityStatus.Disabled)
             {
-                return NotFound(new NotFoundResponse());
+                return NotFound(new NotFoundResponse("El recurso solicitado no existe o está desactivado."));
             }
 
             OkResponse response = new()
@@ -71,6 +72,32 @@ namespace Clinic.Api.Controllers
             await _employeeService.Create(oEmployee);
 
             return CreatedAtRoute(nameof(GetById), new { oEmployee.Id }, null);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(int id, EmployeeCreateDTO model)
+        {
+            var oEmployee = _mapper.Map<Employee>(model);
+
+            await _employeeService.Update(oEmployee, id);
+
+            return CreatedAtRoute(nameof(GetById), new { oEmployee.Id }, null);
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Enable(int id)
+        {
+            await _employeeService.Enable(id);
+
+            return NoContent();
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Disable(int id)
+        {
+            await _employeeService.Disable(id);
+
+            return NoContent();
         }
     }
 }
