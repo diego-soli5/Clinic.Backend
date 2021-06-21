@@ -176,7 +176,8 @@ namespace Clinic.Infrastructure.Data
             {
                 IdConsultingRoom = 4,
                 IdEmployee = 4,
-                IdMedicalSpecialty = 4
+                IdMedicalSpecialty = 4,
+                Id = 4
             });
 
             modelBuilder.Entity<ConsultingRoom>().HasData(new ConsultingRoom

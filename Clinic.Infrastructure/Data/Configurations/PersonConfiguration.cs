@@ -45,12 +45,12 @@ namespace Clinic.Infrastructure.Data.Configurations
             builder.HasOne<Employee>(p => p.Employee)
                 .WithOne(e => e.Person)
                 .HasForeignKey<Employee>(e => e.IdPerson)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne<Patient>(pe => pe.Patient)
                 .WithOne(pa => pa.Person)
                 .HasForeignKey<Patient>(pa => pa.IdPerson)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

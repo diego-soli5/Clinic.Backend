@@ -31,7 +31,7 @@ namespace Clinic.Infrastructure.Data.Configurations
             builder.HasOne<Medic>(e => e.Medic)
                 .WithOne(m => m.Employee)
                 .HasForeignKey<Medic>(m => m.IdEmployee)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.NoAction);
 
            
         }

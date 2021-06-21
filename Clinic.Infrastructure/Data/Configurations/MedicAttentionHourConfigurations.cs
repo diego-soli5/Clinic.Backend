@@ -19,15 +19,15 @@ namespace Clinic.Infrastructure.Data.Configurations
             builder.Property(m => m.IdMedicalSchedule)
                 .IsRequired();
 
-            builder.HasOne<MedicalSchedule>(medAtt => medAtt.MedicalSchedule)
-                .WithMany(medSch => medSch.MedicAttentionHours)
-                .HasForeignKey(medSch => medSch.IdMedicalSchedule)
-                .OnDelete(DeleteBehavior.Cascade);
-
             builder.Property(a => a.EntityStatus)
                 .IsRequired()
                 .HasConversion(a => a.ToString(),
                                a => (EntityStatus)Enum.Parse(typeof(EntityStatus), a));
+
+            builder.HasOne<MedicalSchedule>(medAtt => medAtt.MedicalSchedule)
+                .WithMany(medSch => medSch.MedicAttentionHours)
+                .HasForeignKey(medSch => medSch.IdMedicalSchedule)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }
