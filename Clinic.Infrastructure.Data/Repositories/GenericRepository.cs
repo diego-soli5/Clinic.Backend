@@ -21,7 +21,7 @@ namespace ClinicSys.Infrastructure.Repositories
         {
             IQueryable<TEntity> query = _dbEntity;
 
-            if (includeProperties != string.Empty)
+            if (includeProperties != null)
             {
                 foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -36,7 +36,7 @@ namespace ClinicSys.Infrastructure.Repositories
         {
             IQueryable<TEntity> query = _dbEntity;
 
-            if(includeProperties != string.Empty)
+            if(includeProperties != null)
             {
                 foreach (var includeProperty in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
                 {
@@ -44,7 +44,7 @@ namespace ClinicSys.Infrastructure.Repositories
                 }
             }
 
-            return await query.FirstAsync(x => x.Id == id);
+            return await query.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public void Create(TEntity entity)

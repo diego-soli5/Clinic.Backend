@@ -75,6 +75,18 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("El número de identificación ya está en uso.");
             }
 
+            if (employee.EmployeeRole == EmployeeRole.Medic)
+            {
+                if (employee.Medic == null)
+                {
+                    throw new BusisnessException("Debe indicar los datos del perfil medico.");
+                }
+            }
+            else if (employee.Medic != null)
+            {
+                employee.Medic = null;
+            }
+
             employee.AppUser.EntityStatus = EntityStatus.Enabled;
 
             employee.EmployeeStatus = EmployeeStatus.Active;

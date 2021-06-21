@@ -8,6 +8,7 @@ using Clinic.Infrastructure.Filters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Clinic.Api
 {
@@ -26,6 +27,11 @@ namespace Clinic.Api
             {
                 options.Filters.Add<GlobalExceptionFilter>();
                 options.Filters.Add<ModelValidationFilter>();
+            });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
             });
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();

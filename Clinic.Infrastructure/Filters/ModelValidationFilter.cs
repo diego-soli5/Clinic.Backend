@@ -18,7 +18,7 @@ namespace Clinic.Infrastructure.Filters
                 {
                     Success = false,
                     Message = "Se han incumplido 1 o más validaciones.",
-                    Errors = GetModelErrors(context.ModelState)
+                    ModelErrors = GetModelErrors(context.ModelState)
                 };
 
                 context.Result = new BadRequestObjectResult(response);
