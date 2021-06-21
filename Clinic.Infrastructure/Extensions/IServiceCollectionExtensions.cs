@@ -53,7 +53,7 @@ namespace Clinic.Infrastructure.Extensions
 
         public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
         {
-            services.Configure<PaginationOptions>(options => configuration.GetSection("ApplicationOptions:PaginationOptions"));
+            services.Configure<PaginationOptions>(configuration.GetSection("ApplicationOptions:PaginationOptions"));
         }
 
         public static void AddAutoMapper(this IServiceCollection services)

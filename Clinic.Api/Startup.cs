@@ -5,6 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Clinic.Infrastructure.Filters;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace Clinic.Api
 {
@@ -24,6 +27,10 @@ namespace Clinic.Api
                 options.Filters.Add<GlobalExceptionFilter>();
             });
 
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.TryAddSingleton<IActionContextAccessor, ActionContextAccessor>();
+
             services.AddDbContext(Configuration);
 
             services.AddRepositories();
@@ -35,7 +42,6 @@ namespace Clinic.Api
             services.AddOptions(Configuration);
 
             services.AddAutoMapper();
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

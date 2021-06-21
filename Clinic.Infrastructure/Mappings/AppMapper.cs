@@ -11,6 +11,10 @@ namespace Clinic.Infrastructure.Mappings
             CreateMap<Employee, EmployeeDTO>()
                 .ForMember(dest => dest.FullName,
                            opt => opt.MapFrom(src => src.Person.Names + " " + src.Person.Surnames))
+                .ForMember(dest => dest.Identification,
+                           opt => opt.MapFrom(src => src.Person.Identification))
+                .ForMember(dest => dest.EntityStatus,
+                           opt => opt.MapFrom(src => src.AppUser.EntityStatus))
                 .ReverseMap();
         }
     }

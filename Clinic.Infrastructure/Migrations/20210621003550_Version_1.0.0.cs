@@ -91,14 +91,12 @@ namespace Clinic.Infrastructure.Migrations
                         name: "FK_Employee_AppUser_IdAppUser",
                         column: x => x.IdAppUser,
                         principalTable: "AppUser",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Employee_Person_IdPerson",
                         column: x => x.IdPerson,
                         principalTable: "Person",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -118,8 +116,7 @@ namespace Clinic.Infrastructure.Migrations
                         name: "FK_Patient_Person_IdPerson",
                         column: x => x.IdPerson,
                         principalTable: "Person",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -139,20 +136,17 @@ namespace Clinic.Infrastructure.Migrations
                         name: "FK_Medic_ConsultingRoom_IdConsultingRoom",
                         column: x => x.IdConsultingRoom,
                         principalTable: "ConsultingRoom",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Medic_Employee_IdEmployee",
                         column: x => x.IdEmployee,
                         principalTable: "Employee",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Medic_MedicalSpecialty_IdMedicalSpecialty",
                         column: x => x.IdMedicalSpecialty,
                         principalTable: "MedicalSpecialty",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -162,7 +156,7 @@ namespace Clinic.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdPatient = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 20, 18, 31, 58, 624, DateTimeKind.Local).AddTicks(4458))
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 20, 18, 35, 49, 208, DateTimeKind.Local).AddTicks(6060))
                 },
                 constraints: table =>
                 {
@@ -171,8 +165,7 @@ namespace Clinic.Infrastructure.Migrations
                         name: "FK_ClinicalHistory_Patient_IdPatient",
                         column: x => x.IdPatient,
                         principalTable: "Patient",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -192,8 +185,7 @@ namespace Clinic.Infrastructure.Migrations
                         name: "FK_MedicalSchedule_Medic_IdMedic",
                         column: x => x.IdMedic,
                         principalTable: "Medic",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -205,7 +197,7 @@ namespace Clinic.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Observations = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     IdClinicalHistory = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 20, 18, 31, 58, 639, DateTimeKind.Local).AddTicks(8425)),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 20, 18, 35, 49, 225, DateTimeKind.Local).AddTicks(6469)),
                     EntityStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -215,8 +207,7 @@ namespace Clinic.Infrastructure.Migrations
                         name: "FK_Diagnostic_ClinicalHistory_IdClinicalHistory",
                         column: x => x.IdClinicalHistory,
                         principalTable: "ClinicalHistory",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -236,8 +227,7 @@ namespace Clinic.Infrastructure.Migrations
                         name: "FK_AttentionHour_MedicalSchedule_IdMedicalSchedule",
                         column: x => x.IdMedicalSchedule,
                         principalTable: "MedicalSchedule",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -266,14 +256,12 @@ namespace Clinic.Infrastructure.Migrations
                         name: "FK_Appointment_Medic_IdMedic",
                         column: x => x.IdMedic,
                         principalTable: "Medic",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Appointment_Patient_IdPacient",
                         column: x => x.IdPacient,
                         principalTable: "Patient",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.InsertData(
@@ -302,9 +290,9 @@ namespace Clinic.Infrastructure.Migrations
                 columns: new[] { "Id", "Address", "Birthdate", "Email", "Identification", "ImageName", "Names", "PhoneNumber", "Surnames" },
                 values: new object[,]
                 {
-                    { 1, "San Jose Costa Rica", new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(5339), "usuario001@mail.com", 1231651631, null, "Miguel", 88556161, "Hernandez Corrales" },
-                    { 2, "Cartago Costa Rica", new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8658), "usuario002@mail.com", 1891925, null, "Susan", 8919651, "Brenes Ilama" },
-                    { 3, "Limon Costa Rica", new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8807), "usuario003@mail.com", 298498198, null, "Carlos", 865498198, "Rojas Salas" },
+                    { 1, "San Jose Costa Rica", new DateTime(2021, 6, 20, 18, 35, 49, 260, DateTimeKind.Local).AddTicks(8076), "usuario001@mail.com", 1231651631, null, "Miguel", 88556161, "Hernandez Corrales" },
+                    { 2, "Cartago Costa Rica", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1481), "usuario002@mail.com", 1891925, null, "Susan", 8919651, "Brenes Ilama" },
+                    { 3, "Limon Costa Rica", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1633), "usuario003@mail.com", 298498198, null, "Carlos", 865498198, "Rojas Salas" },
                     { 4, "Santa Elena Abajo de San Jose Costa Rica", new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "1diego321@gmail.com", 117310010, null, "Luis Diego", 83358092, "Solis Camacho" }
                 });
 
@@ -313,10 +301,10 @@ namespace Clinic.Infrastructure.Migrations
                 columns: new[] { "Id", "EmployeeRole", "EmployeeStatus", "HireDate", "IdAppUser", "IdPerson" },
                 values: new object[,]
                 {
-                    { 1, "Secretary", "Active", new DateTime(2021, 6, 20, 18, 31, 58, 672, DateTimeKind.Local).AddTicks(4255), 1, 1 },
-                    { 2, "Secretary", "Active", new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8474), 2, 2 },
-                    { 3, "Secretary", "Fired", new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8716), 3, 3 },
-                    { 4, "Medic", "Active", new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8858), 4, 4 }
+                    { 1, "Secretary", "Active", new DateTime(2021, 6, 20, 18, 35, 49, 258, DateTimeKind.Local).AddTicks(6788), 1, 1 },
+                    { 2, "Secretary", "Active", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1291), 2, 2 },
+                    { 3, "Secretary", "Fired", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1539), 3, 3 },
+                    { 4, "Medic", "Active", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1686), 4, 4 }
                 });
 
             migrationBuilder.InsertData(

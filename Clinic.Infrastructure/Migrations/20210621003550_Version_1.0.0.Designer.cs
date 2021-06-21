@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinic.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210621003159_Version_1.0.0")]
+    [Migration("20210621003550_Version_1.0.0")]
     partial class Version_100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,7 +135,7 @@ namespace Clinic.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 6, 20, 18, 31, 58, 624, DateTimeKind.Local).AddTicks(4458));
+                        .HasDefaultValue(new DateTime(2021, 6, 20, 18, 35, 49, 208, DateTimeKind.Local).AddTicks(6060));
 
                     b.Property<int>("IdPatient")
                         .HasColumnType("int");
@@ -190,7 +190,7 @@ namespace Clinic.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 6, 20, 18, 31, 58, 639, DateTimeKind.Local).AddTicks(8425));
+                        .HasDefaultValue(new DateTime(2021, 6, 20, 18, 35, 49, 225, DateTimeKind.Local).AddTicks(6469));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -254,7 +254,7 @@ namespace Clinic.Infrastructure.Migrations
                             Id = 1,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 6, 20, 18, 31, 58, 672, DateTimeKind.Local).AddTicks(4255),
+                            HireDate = new DateTime(2021, 6, 20, 18, 35, 49, 258, DateTimeKind.Local).AddTicks(6788),
                             IdAppUser = 1,
                             IdPerson = 1
                         },
@@ -263,7 +263,7 @@ namespace Clinic.Infrastructure.Migrations
                             Id = 2,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8474),
+                            HireDate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1291),
                             IdAppUser = 2,
                             IdPerson = 2
                         },
@@ -272,7 +272,7 @@ namespace Clinic.Infrastructure.Migrations
                             Id = 3,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Fired",
-                            HireDate = new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8716),
+                            HireDate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1539),
                             IdAppUser = 3,
                             IdPerson = 3
                         },
@@ -281,7 +281,7 @@ namespace Clinic.Infrastructure.Migrations
                             Id = 4,
                             EmployeeRole = "Medic",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8858),
+                            HireDate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1686),
                             IdAppUser = 4,
                             IdPerson = 4
                         });
@@ -491,7 +491,7 @@ namespace Clinic.Infrastructure.Migrations
                         {
                             Id = 1,
                             Address = "San Jose Costa Rica",
-                            Birthdate = new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(5339),
+                            Birthdate = new DateTime(2021, 6, 20, 18, 35, 49, 260, DateTimeKind.Local).AddTicks(8076),
                             Email = "usuario001@mail.com",
                             Identification = 1231651631,
                             Names = "Miguel",
@@ -502,7 +502,7 @@ namespace Clinic.Infrastructure.Migrations
                         {
                             Id = 2,
                             Address = "Cartago Costa Rica",
-                            Birthdate = new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8658),
+                            Birthdate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1481),
                             Email = "usuario002@mail.com",
                             Identification = 1891925,
                             Names = "Susan",
@@ -513,7 +513,7 @@ namespace Clinic.Infrastructure.Migrations
                         {
                             Id = 3,
                             Address = "Limon Costa Rica",
-                            Birthdate = new DateTime(2021, 6, 20, 18, 31, 58, 674, DateTimeKind.Local).AddTicks(8807),
+                            Birthdate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1633),
                             Email = "usuario003@mail.com",
                             Identification = 298498198,
                             Names = "Carlos",
@@ -538,13 +538,13 @@ namespace Clinic.Infrastructure.Migrations
                     b.HasOne("Clinic.Core.Entities.Medic", "Medic")
                         .WithMany("Appointments")
                         .HasForeignKey("IdMedic")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Clinic.Core.Entities.Patient", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("IdPacient")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Clinic.Core.Entities.MedicAttentionHour", "MedicAttentionHour")
@@ -563,7 +563,7 @@ namespace Clinic.Infrastructure.Migrations
                     b.HasOne("Clinic.Core.Entities.Patient", "Patient")
                         .WithOne("ClinicalHistory")
                         .HasForeignKey("Clinic.Core.Entities.ClinicalHistory", "IdPatient")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Patient");
@@ -574,7 +574,7 @@ namespace Clinic.Infrastructure.Migrations
                     b.HasOne("Clinic.Core.Entities.ClinicalHistory", "ClinicalHistory")
                         .WithMany("Diagnostics")
                         .HasForeignKey("IdClinicalHistory")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ClinicalHistory");
@@ -585,13 +585,13 @@ namespace Clinic.Infrastructure.Migrations
                     b.HasOne("Clinic.Core.Entities.AppUser", "AppUser")
                         .WithOne("Employee")
                         .HasForeignKey("Clinic.Core.Entities.Employee", "IdAppUser")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Clinic.Core.Entities.Person", "Person")
                         .WithOne("Employee")
                         .HasForeignKey("Clinic.Core.Entities.Employee", "IdPerson")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("AppUser");
@@ -604,19 +604,19 @@ namespace Clinic.Infrastructure.Migrations
                     b.HasOne("Clinic.Core.Entities.ConsultingRoom", "ConsultingRoom")
                         .WithMany("Medics")
                         .HasForeignKey("IdConsultingRoom")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Clinic.Core.Entities.Employee", "Employee")
                         .WithOne("Medic")
                         .HasForeignKey("Clinic.Core.Entities.Medic", "IdEmployee")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Clinic.Core.Entities.MedicalSpecialty", "MedicalSpecialty")
                         .WithMany("Medics")
                         .HasForeignKey("IdMedicalSpecialty")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("ConsultingRoom");
@@ -631,7 +631,7 @@ namespace Clinic.Infrastructure.Migrations
                     b.HasOne("Clinic.Core.Entities.MedicalSchedule", "MedicalSchedule")
                         .WithMany("MedicAttentionHours")
                         .HasForeignKey("IdMedicalSchedule")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("MedicalSchedule");
@@ -642,7 +642,7 @@ namespace Clinic.Infrastructure.Migrations
                     b.HasOne("Clinic.Core.Entities.Medic", "Medic")
                         .WithMany("MedicalSchedules")
                         .HasForeignKey("IdMedic")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Medic");
@@ -653,7 +653,7 @@ namespace Clinic.Infrastructure.Migrations
                     b.HasOne("Clinic.Core.Entities.Person", "Person")
                         .WithOne("Patient")
                         .HasForeignKey("Clinic.Core.Entities.Patient", "IdPerson")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Person");
