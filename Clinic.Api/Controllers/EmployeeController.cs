@@ -44,6 +44,12 @@ namespace Clinic.Api.Controllers
             return Ok(response);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Create()
+        {
 
+
+            return Ok();
+        }
     }
 }

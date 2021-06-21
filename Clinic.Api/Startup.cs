@@ -25,6 +25,7 @@ namespace Clinic.Api
             services.AddControllers(options =>
             {
                 options.Filters.Add<GlobalExceptionFilter>();
+                options.Filters.Add<ModelValidationFilter>();
             });
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
