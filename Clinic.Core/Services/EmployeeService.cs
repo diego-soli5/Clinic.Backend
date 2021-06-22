@@ -3,9 +3,11 @@ using Clinic.Core.CustomExceptions;
 using Clinic.Core.Entities;
 using Clinic.Core.Enumerations;
 using Clinic.Core.Interfaces.BusisnessServices;
+using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Options;
 using Clinic.Core.QueryFilters;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
@@ -16,12 +18,14 @@ namespace Clinic.Core.Services
     public class EmployeeService : IEmployeeService
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IAzureBlobFileService _blobFileService;
         private readonly PaginationOptions _paginationOptions;
 
-        public EmployeeService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> paginationOptions)
+        public EmployeeService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> paginationOptions, IAzureBlobFileService blobFileService)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = paginationOptions.Value;
+            _blobFileService = blobFileService;
         }
 
         public async Task<Employee> GetByIdAsync(int id)
@@ -61,7 +65,7 @@ namespace Clinic.Core.Services
             return pagedEmployees;
         }
 
-        public async Task<bool> Create(Employee employee)
+        public async Task<bool> Create(Employee employee, IFormFile image)
         {
             var employeeList = _unitOfWork.Employee.GetAll(includeProperties: $"{nameof(Employee.AppUser)},{nameof(Employee.Person)}");
 
@@ -92,6 +96,11 @@ namespace Clinic.Core.Services
             employee.EmployeeStatus = EmployeeStatus.Active;
 
             employee.HireDate = DateTime.Now;
+
+            if (image != null)
+            {
+                employee.Person.ImageName = await _blobFileService.CreateBlobAsync(image);
+            }
 
             _unitOfWork.Employee.Create(employee);
 

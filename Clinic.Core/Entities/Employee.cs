@@ -5,7 +5,7 @@ namespace Clinic.Core.Entities
 {
     public class Employee : BaseEntity
     {
-        public int? IdAppUser { get; set; }
+        public int IdAppUser { get; set; }
         public int IdPerson { get; set; }
         public DateTime HireDate { get; set; }
         public EmployeeRole EmployeeRole { get; set; }

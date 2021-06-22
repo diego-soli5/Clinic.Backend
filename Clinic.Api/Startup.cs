@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Clinic.Api
 {
@@ -48,7 +49,9 @@ namespace Clinic.Api
 
             services.AddOptions(Configuration);
 
-            services.AddAutoMapper();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddAzureClients(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

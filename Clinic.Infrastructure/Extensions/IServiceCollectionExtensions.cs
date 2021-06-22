@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Azure;
 using System;
 
 namespace Clinic.Infrastructure.Extensions
@@ -53,11 +54,16 @@ namespace Clinic.Infrastructure.Extensions
         public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<PaginationOptions>(configuration.GetSection("ApplicationOptions:PaginationOptions"));
+
+            services.Configure<AzureBlobServiceOptions>(configuration.GetSection("ApplicationOptions:AzureBlobServiceOptions"));
         }
 
-        public static void AddAutoMapper(this IServiceCollection services)
+        public static void AddAzureClients(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());    
+            services.AddAzureClients(builder =>
+            {
+                builder.AddBlobServiceClient(configuration.GetConnectionString("DevelopmentAzureBlobStorage"));
+            });
         }
     }
 }

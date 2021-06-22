@@ -51,7 +51,7 @@ namespace Clinic.Api.Controllers
         {
             var oEmployee = await _employeeService.GetByIdAsync(id);
 
-            if(oEmployee == null || oEmployee.AppUser.EntityStatus == EntityStatus.Disabled)
+            if (oEmployee == null || oEmployee.AppUser.EntityStatus == EntityStatus.Disabled)
             {
                 return NotFound(new NotFoundResponse("El recurso solicitado no existe o está desactivado."));
             }
@@ -65,11 +65,11 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(EmployeeCreateDTO model)
+        public async Task<IActionResult> Create([FromForm] EmployeeCreateDTO model)
         {
             var oEmployee = _mapper.Map<Employee>(model);
 
-            await _employeeService.Create(oEmployee);
+            await _employeeService.Create(oEmployee, model.Image);
 
             return CreatedAtRoute(nameof(GetById), new { oEmployee.Id }, null);
         }
