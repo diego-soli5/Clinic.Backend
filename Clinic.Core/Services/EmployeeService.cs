@@ -3,6 +3,7 @@ using Clinic.Core.CustomExceptions;
 using Clinic.Core.Entities;
 using Clinic.Core.Enumerations;
 using Clinic.Core.Interfaces.BusisnessServices;
+using Clinic.Core.Interfaces.EmailServices;
 using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Options;
@@ -10,6 +11,7 @@ using Clinic.Core.QueryFilters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,13 +21,15 @@ namespace Clinic.Core.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAzureBlobFileService _blobFileService;
+        private readonly IBusisnessMailService _mailService;
         private readonly PaginationOptions _paginationOptions;
 
-        public EmployeeService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> paginationOptions, IAzureBlobFileService blobFileService)
+        public EmployeeService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> paginationOptions, IAzureBlobFileService blobFileService, IBusisnessMailService mailService)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = paginationOptions.Value;
             _blobFileService = blobFileService;
+            _mailService = mailService;
         }
 
         public async Task<Employee> GetByIdAsync(int id)
@@ -157,7 +161,20 @@ namespace Clinic.Core.Services
 
             _unitOfWork.Employee.Update(employee);
 
-            return await _unitOfWork.Save();
+            var ok = await _unitOfWork.Save();
+
+            if (ok)
+            {
+                string subject = "Modificación de Perfil";
+                string body = @$"Hola {employeeFromDb.Person.Names},
+                                 se ha actualizado la información de tu perfil el día
+                                 {DateTime.Now.ToShortDateString()} a las 
+                                 {DateTime.Now.ToShortTimeString()}.";
+
+                _mailService.SendMail(subject, body, new List<string>() { employeeFromDb.Person.Email });
+            }
+
+            return ok;
         }
 
         public async Task<bool> Enable(int id)
