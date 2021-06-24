@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Clinic.Infrastructure.Migrations
+namespace Clinic.Infrastructure.Data.Migrations
 {
     public partial class Version_100 : Migration
     {
@@ -156,7 +156,7 @@ namespace Clinic.Infrastructure.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdPatient = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 20, 18, 35, 49, 208, DateTimeKind.Local).AddTicks(6060))
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 24, 13, 37, 55, 375, DateTimeKind.Local).AddTicks(6043))
                 },
                 constraints: table =>
                 {
@@ -197,7 +197,7 @@ namespace Clinic.Infrastructure.Migrations
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Observations = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     IdClinicalHistory = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 20, 18, 35, 49, 225, DateTimeKind.Local).AddTicks(6469)),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 24, 13, 37, 55, 394, DateTimeKind.Local).AddTicks(2438)),
                     EntityStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -271,8 +271,8 @@ namespace Clinic.Infrastructure.Migrations
                 {
                     { 1, "Enabled", "contraseña001", "User", "Usuario001" },
                     { 2, "Enabled", "contraseña002", "User", "Usuario002" },
-                    { 3, "Disabled", "contraseña003", "User", "Usuario003" },
-                    { 4, "Enabled", "123", "Administrator", "1diego321" }
+                    { 3, "Disabled", "123", "User", "1diego321" },
+                    { 4, "Enabled", "123", "Administrator", "Karamiko" }
                 });
 
             migrationBuilder.InsertData(
@@ -290,10 +290,10 @@ namespace Clinic.Infrastructure.Migrations
                 columns: new[] { "Id", "Address", "Birthdate", "Email", "Identification", "ImageName", "Names", "PhoneNumber", "Surnames" },
                 values: new object[,]
                 {
-                    { 1, "San Jose Costa Rica", new DateTime(2021, 6, 20, 18, 35, 49, 260, DateTimeKind.Local).AddTicks(8076), "usuario001@mail.com", 1231651631, null, "Miguel", 88556161, "Hernandez Corrales" },
-                    { 2, "Cartago Costa Rica", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1481), "usuario002@mail.com", 1891925, null, "Susan", 8919651, "Brenes Ilama" },
-                    { 3, "Limon Costa Rica", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1633), "usuario003@mail.com", 298498198, null, "Carlos", 865498198, "Rojas Salas" },
-                    { 4, "Santa Elena Abajo de San Jose Costa Rica", new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "1diego321@gmail.com", 117310010, null, "Luis Diego", 83358092, "Solis Camacho" }
+                    { 1, "San Jose Costa Rica", new DateTime(2021, 6, 24, 13, 37, 55, 432, DateTimeKind.Local).AddTicks(5860), "usuario001@mail.com", 1231651631, null, "Miguel", 88556161, "Hernandez Corrales" },
+                    { 2, "Cartago Costa Rica", new DateTime(2021, 6, 24, 13, 37, 55, 432, DateTimeKind.Local).AddTicks(9686), "usuario002@mail.com", 1891925, null, "Susan", 8919651, "Brenes Ilama" },
+                    { 3, "Santa Elena abajo, barrio la Rosa.", new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "1diego321@mail.com", 117310010, null, "Luis Diego", 83358092, "Solis Camacho" },
+                    { 4, "Santa Elena Abajo de San Jose Costa Rica", new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "1221sdsadas@gmail.com", 988310010, null, "Martes Trece", 159156, "Solis Camacho" }
                 });
 
             migrationBuilder.InsertData(
@@ -301,10 +301,10 @@ namespace Clinic.Infrastructure.Migrations
                 columns: new[] { "Id", "EmployeeRole", "EmployeeStatus", "HireDate", "IdAppUser", "IdPerson" },
                 values: new object[,]
                 {
-                    { 1, "Secretary", "Active", new DateTime(2021, 6, 20, 18, 35, 49, 258, DateTimeKind.Local).AddTicks(6788), 1, 1 },
-                    { 2, "Secretary", "Active", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1291), 2, 2 },
-                    { 3, "Secretary", "Fired", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1539), 3, 3 },
-                    { 4, "Medic", "Active", new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1686), 4, 4 }
+                    { 1, "Secretary", "Active", new DateTime(2021, 6, 24, 13, 37, 55, 429, DateTimeKind.Local).AddTicks(2538), 1, 1 },
+                    { 2, "Secretary", "Active", new DateTime(2021, 6, 24, 13, 37, 55, 432, DateTimeKind.Local).AddTicks(9474), 2, 2 },
+                    { 3, "Secretary", "Active", new DateTime(2021, 6, 24, 13, 37, 55, 432, DateTimeKind.Local).AddTicks(9752), 3, 3 },
+                    { 4, "Medic", "Active", new DateTime(2021, 6, 24, 13, 37, 55, 433, DateTimeKind.Local).AddTicks(49), 4, 4 }
                 });
 
             migrationBuilder.InsertData(
@@ -398,12 +398,6 @@ namespace Clinic.Infrastructure.Migrations
                 name: "IX_Patient_IdPerson",
                 table: "Patient",
                 column: "IdPerson",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Person_Identification",
-                table: "Person",
-                column: "Identification",
                 unique: true);
         }
 

@@ -110,7 +110,7 @@ namespace Clinic.Infrastructure.Data
             {
                 HireDate = DateTime.Now,
                 EmployeeRole = EmployeeRole.Secretary,
-                EmployeeStatus = EmployeeStatus.Fired,
+                EmployeeStatus = EmployeeStatus.Active,
                 Id = 3,
                 IdAppUser = 3,
                 IdPerson = 3
@@ -118,8 +118,8 @@ namespace Clinic.Infrastructure.Data
 
             modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
-                UserName = "Usuario003",
-                Password = "contraseña003",
+                UserName = "1diego321",
+                Password = "123",
                 EntityStatus = EntityStatus.Disabled,
                 Role = AppUserRole.User,
                 Id = 3
@@ -127,14 +127,14 @@ namespace Clinic.Infrastructure.Data
 
             modelBuilder.Entity<Person>().HasData(new Person
             {
-                Address = "Limon Costa Rica",
-                Birthdate = DateTime.Now,
-                Email = "usuario003@mail.com",
-                Identification = 298498198,
-                Names = "Carlos",
-                PhoneNumber = 865498198,
+                Address = "Santa Elena abajo, barrio la Rosa.",
+                Birthdate = new DateTime(1999, 1, 3),
+                Email = "1diego321@mail.com",
+                Identification = 117310010,
+                Names = "Luis Diego",
+                PhoneNumber = 83358092,
                 ImageName = null,
-                Surnames = "Rojas Salas",
+                Surnames = "Solis Camacho",
                 Id = 3
             });
 
@@ -152,7 +152,7 @@ namespace Clinic.Infrastructure.Data
 
             modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
-                UserName = "1diego321",
+                UserName = "Karamiko",
                 Password = "123",
                 EntityStatus = EntityStatus.Enabled,
                 Role = AppUserRole.Administrator,
@@ -163,10 +163,10 @@ namespace Clinic.Infrastructure.Data
             {
                 Address = "Santa Elena Abajo de San Jose Costa Rica",
                 Birthdate = new DateTime(1999, 1, 3),
-                Email = "1diego321@gmail.com",
-                Identification = 117310010,
-                Names = "Luis Diego",
-                PhoneNumber = 83358092,
+                Email = "1221sdsadas@gmail.com",
+                Identification = 988310010,
+                Names = "Martes Trece",
+                PhoneNumber = 159156,
                 ImageName = null,
                 Surnames = "Solis Camacho",
                 Id = 4

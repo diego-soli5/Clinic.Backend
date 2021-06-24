@@ -1,11 +1,9 @@
 ﻿using Clinic.Core.Entities;
 using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Repositories.Interfaces;
-using Clinic.Infrastructure.Data;
-using ClinicSys.Infrastructure.Repositories;
 using System.Threading.Tasks;
 
-namespace Clinic.Infrastructure.Repositories
+namespace Clinic.Infrastructure.Data.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {

@@ -52,6 +52,8 @@ namespace Clinic.Api
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.AddAzureClients(Configuration);
+
+            services.AddEmailServices();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

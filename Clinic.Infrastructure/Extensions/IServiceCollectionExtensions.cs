@@ -5,17 +5,15 @@ using Clinic.Core.Options;
 using Clinic.Core.Repositories.Interfaces;
 using Clinic.Core.Services;
 using Clinic.Infrastructure.Data;
-using Clinic.Infrastructure.Repositories;
 using Clinic.Infrastructure.Services;
-using ClinicSys.Infrastructure.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Azure;
-using System;
 using Clinic.Core.Interfaces.EmailServices;
 using Clinic.Infrastructure.EmailService;
+using Clinic.Infrastructure.Data.Repositories;
 
 namespace Clinic.Infrastructure.Extensions
 {
@@ -51,6 +49,8 @@ namespace Clinic.Infrastructure.Extensions
 
                 return new UriService(absoluteUri);
             });
+
+            services.AddScoped<IAzureBlobFileService, AzureBlobFileService>();
         }
 
         public static void AddEmailServices(this IServiceCollection services)

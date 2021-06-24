@@ -127,19 +127,25 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("La cuenta de empleado no existe.");
             }
 
-            if (employeeList.Any(x => x.Person.Email.Trim().ToLower() == employee.Person.Email.Trim().ToLower()))
+            int empValidationId = employeeList.Where(x => x.Person.Email.Trim().ToLower() == employee.Person.Email.Trim().ToLower()).Select(x => x.Id).FirstOrDefault();
+
+            if (empValidationId != 0)
             {
-                throw new BusisnessException("La dirección de correo electrónico ya está en uso.");
+                if (empValidationId != id)
+                    throw new BusisnessException("La dirección de correo electrónico ya está en uso.");
             }
 
-            if (employeeList.Any(x => x.Person.PhoneNumber == employee.Person.PhoneNumber))
+            empValidationId = employeeList.Where(x => x.Person.PhoneNumber == employee.Person.PhoneNumber).Select(x => x.Id).FirstOrDefault();
+
+            if (empValidationId != 0)
             {
-                throw new BusisnessException("El número de telefono ya está en uso.");
+                if (empValidationId != id)
+                    throw new BusisnessException("El número de telefono ya está en uso.");
             }
 
             if (employeeFromDb.EmployeeRole == EmployeeRole.Medic)
             {
-                if (employeeFromDb.Medic == null)
+                if (employee.Medic == null)
                 {
                     throw new BusisnessException("Debe indicar los datos del perfil medico.");
                 }

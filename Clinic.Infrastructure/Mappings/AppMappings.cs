@@ -19,6 +19,9 @@ namespace Clinic.Infrastructure.Mappings
         {
             CreateMap<PersonDTO, Person>()
                .ReverseMap();
+
+            CreateMap<PersonUpdateDTO, Person>()
+                .ReverseMap();
         }
 
         private void CreateAppUserMaps()

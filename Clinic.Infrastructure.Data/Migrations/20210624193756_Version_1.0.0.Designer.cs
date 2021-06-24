@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace Clinic.Infrastructure.Migrations
+namespace Clinic.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210621003550_Version_1.0.0")]
+    [Migration("20210624193756_Version_1.0.0")]
     partial class Version_100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -74,9 +74,9 @@ namespace Clinic.Infrastructure.Migrations
                         {
                             Id = 3,
                             EntityStatus = "Disabled",
-                            Password = "contraseña003",
+                            Password = "123",
                             Role = "User",
-                            UserName = "Usuario003"
+                            UserName = "1diego321"
                         },
                         new
                         {
@@ -84,7 +84,7 @@ namespace Clinic.Infrastructure.Migrations
                             EntityStatus = "Enabled",
                             Password = "123",
                             Role = "Administrator",
-                            UserName = "1diego321"
+                            UserName = "Karamiko"
                         });
                 });
 
@@ -135,7 +135,7 @@ namespace Clinic.Infrastructure.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 6, 20, 18, 35, 49, 208, DateTimeKind.Local).AddTicks(6060));
+                        .HasDefaultValue(new DateTime(2021, 6, 24, 13, 37, 55, 375, DateTimeKind.Local).AddTicks(6043));
 
                     b.Property<int>("IdPatient")
                         .HasColumnType("int");
@@ -190,7 +190,7 @@ namespace Clinic.Infrastructure.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 6, 20, 18, 35, 49, 225, DateTimeKind.Local).AddTicks(6469));
+                        .HasDefaultValue(new DateTime(2021, 6, 24, 13, 37, 55, 394, DateTimeKind.Local).AddTicks(2438));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -254,7 +254,7 @@ namespace Clinic.Infrastructure.Migrations
                             Id = 1,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 6, 20, 18, 35, 49, 258, DateTimeKind.Local).AddTicks(6788),
+                            HireDate = new DateTime(2021, 6, 24, 13, 37, 55, 429, DateTimeKind.Local).AddTicks(2538),
                             IdAppUser = 1,
                             IdPerson = 1
                         },
@@ -263,7 +263,7 @@ namespace Clinic.Infrastructure.Migrations
                             Id = 2,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1291),
+                            HireDate = new DateTime(2021, 6, 24, 13, 37, 55, 432, DateTimeKind.Local).AddTicks(9474),
                             IdAppUser = 2,
                             IdPerson = 2
                         },
@@ -271,8 +271,8 @@ namespace Clinic.Infrastructure.Migrations
                         {
                             Id = 3,
                             EmployeeRole = "Secretary",
-                            EmployeeStatus = "Fired",
-                            HireDate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1539),
+                            EmployeeStatus = "Active",
+                            HireDate = new DateTime(2021, 6, 24, 13, 37, 55, 432, DateTimeKind.Local).AddTicks(9752),
                             IdAppUser = 3,
                             IdPerson = 3
                         },
@@ -281,7 +281,7 @@ namespace Clinic.Infrastructure.Migrations
                             Id = 4,
                             EmployeeRole = "Medic",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1686),
+                            HireDate = new DateTime(2021, 6, 24, 13, 37, 55, 433, DateTimeKind.Local).AddTicks(49),
                             IdAppUser = 4,
                             IdPerson = 4
                         });
@@ -481,9 +481,6 @@ namespace Clinic.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Identification")
-                        .IsUnique();
-
                     b.ToTable("Person");
 
                     b.HasData(
@@ -491,7 +488,7 @@ namespace Clinic.Infrastructure.Migrations
                         {
                             Id = 1,
                             Address = "San Jose Costa Rica",
-                            Birthdate = new DateTime(2021, 6, 20, 18, 35, 49, 260, DateTimeKind.Local).AddTicks(8076),
+                            Birthdate = new DateTime(2021, 6, 24, 13, 37, 55, 432, DateTimeKind.Local).AddTicks(5860),
                             Email = "usuario001@mail.com",
                             Identification = 1231651631,
                             Names = "Miguel",
@@ -502,7 +499,7 @@ namespace Clinic.Infrastructure.Migrations
                         {
                             Id = 2,
                             Address = "Cartago Costa Rica",
-                            Birthdate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1481),
+                            Birthdate = new DateTime(2021, 6, 24, 13, 37, 55, 432, DateTimeKind.Local).AddTicks(9686),
                             Email = "usuario002@mail.com",
                             Identification = 1891925,
                             Names = "Susan",
@@ -512,23 +509,23 @@ namespace Clinic.Infrastructure.Migrations
                         new
                         {
                             Id = 3,
-                            Address = "Limon Costa Rica",
-                            Birthdate = new DateTime(2021, 6, 20, 18, 35, 49, 261, DateTimeKind.Local).AddTicks(1633),
-                            Email = "usuario003@mail.com",
-                            Identification = 298498198,
-                            Names = "Carlos",
-                            PhoneNumber = 865498198,
-                            Surnames = "Rojas Salas"
+                            Address = "Santa Elena abajo, barrio la Rosa.",
+                            Birthdate = new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Email = "1diego321@mail.com",
+                            Identification = 117310010,
+                            Names = "Luis Diego",
+                            PhoneNumber = 83358092,
+                            Surnames = "Solis Camacho"
                         },
                         new
                         {
                             Id = 4,
                             Address = "Santa Elena Abajo de San Jose Costa Rica",
                             Birthdate = new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "1diego321@gmail.com",
-                            Identification = 117310010,
-                            Names = "Luis Diego",
-                            PhoneNumber = 83358092,
+                            Email = "1221sdsadas@gmail.com",
+                            Identification = 988310010,
+                            Names = "Martes Trece",
+                            PhoneNumber = 159156,
                             Surnames = "Solis Camacho"
                         });
                 });
