@@ -10,8 +10,8 @@ namespace Clinic.Core.Interfaces.Repositories
         public IGenericRepository<Employee> Employee { get; }
         public IGenericRepository<Person> Person { get; }
         public IGenericRepository<AppUser> AppUser { get; }
-        Task BeginTransaction();
-        Task RollBack();
+        Task BeginTransactionAsync();
+        Task RollBackAsync();
         Task<bool> Save();
     }
 }

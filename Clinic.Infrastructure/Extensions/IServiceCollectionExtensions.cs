@@ -64,7 +64,7 @@ namespace Clinic.Infrastructure.Extensions
 
             services.Configure<AzureBlobServiceOptions>(configuration.GetSection("ApplicationOptions:AzureBlobServiceOptions"));
 
-            services.Configure<EmailServiceOptions>(configuration.GetSection("ApplicationOptions:EmailSServiceOptions"));
+            services.Configure<EmailServiceOptions>(configuration.GetSection("ApplicationOptions:EmailServiceOptions"));
 
         }
 

@@ -29,12 +29,12 @@ namespace Clinic.Infrastructure.Data.Repositories
             _context.Dispose();
         }
 
-        public async Task BeginTransaction()
+        public async Task BeginTransactionAsync()
         {
             await _context.Database.BeginTransactionAsync();
         }
 
-        public async Task RollBack()
+        public async Task RollBackAsync()
         {
             await _context.Database.RollbackTransactionAsync();
         }

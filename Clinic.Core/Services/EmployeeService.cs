@@ -150,19 +150,16 @@ namespace Clinic.Core.Services
             employeeFromDb.Person.Surnames = employee.Person.Surnames;
             employeeFromDb.Person.PhoneNumber = employee.Person.PhoneNumber;
 
-            _unitOfWork.Employee.Update(employee);
+            _unitOfWork.Person.Update(employeeFromDb.Person);
 
-            var ok = await _unitOfWork.Save();
+            bool ok = await _unitOfWork.Save();
 
             if (ok)
             {
                 string subject = "Modificación de Perfil";
-                string body = @$"Hola {employeeFromDb.Person.Names},
-                                 se ha actualizado la información de tu perfil el día
-                                 {DateTime.Now.ToShortDateString()} a las 
-                                 {DateTime.Now.ToShortTimeString()}.";
+                string body = $"Hola {employeeFromDb.Person.Names}, se ha actualizado la información de tu perfil el día {DateTime.Now.ToShortDateString()} a las {DateTime.Now.ToShortTimeString()}.";
 
-                _mailService.SendMail(subject, body, new List<string>() { employeeFromDb.Person.Email });
+                    _mailService.SendMail(subject, body, new List<string>() { employeeFromDb.Person.Email });
             }
 
             return ok;
