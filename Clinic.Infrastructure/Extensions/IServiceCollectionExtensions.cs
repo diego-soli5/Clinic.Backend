@@ -14,6 +14,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Azure;
 using System;
+using Clinic.Core.Interfaces.EmailServices;
+using Clinic.Infrastructure.EmailService;
 
 namespace Clinic.Infrastructure.Extensions
 {
@@ -51,11 +53,19 @@ namespace Clinic.Infrastructure.Extensions
             });
         }
 
+        public static void AddEmailServices(this IServiceCollection services)
+        {
+            services.AddScoped<IBusisnessMailService, BusisnessMailService>();
+        }
+
         public static void AddOptions(this IServiceCollection services, IConfiguration configuration)
         {
             services.Configure<PaginationOptions>(configuration.GetSection("ApplicationOptions:PaginationOptions"));
 
             services.Configure<AzureBlobServiceOptions>(configuration.GetSection("ApplicationOptions:AzureBlobServiceOptions"));
+
+            services.Configure<EmailServiceOptions>(configuration.GetSection("ApplicationOptions:EmailSServiceOptions"));
+
         }
 
         public static void AddAzureClients(this IServiceCollection services, IConfiguration configuration)

@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Clinic.Core\Clinic.Core.csproj" />
     <ProjectReference Include="..\Clinic.Infrastructure.Data\Clinic.Infrastructure.Data.csproj" />
+    <ProjectReference Include="..\Clinic.Infrastructure.EmailService\Clinic.Infrastructure.EmailService.csproj" />
   </ItemGroup>
 
   <ItemGroup>
