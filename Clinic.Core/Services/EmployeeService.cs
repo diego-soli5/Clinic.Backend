@@ -143,21 +143,6 @@ namespace Clinic.Core.Services
                     throw new BusisnessException("El número de telefono ya está en uso.");
             }
 
-            if (employeeFromDb.EmployeeRole == EmployeeRole.Medic)
-            {
-                if (employee.Medic == null)
-                {
-                    throw new BusisnessException("Debe indicar los datos del perfil medico.");
-                }
-
-                employeeFromDb.Medic.IdConsultingRoom = employee.Medic.IdConsultingRoom;
-                employeeFromDb.Medic.IdMedicalSpecialty = employee.Medic.IdMedicalSpecialty;
-            }
-            else if (employee.Medic != null)
-            {
-                employee.Medic = null;
-            }
-
             employeeFromDb.Person.Address = employee.Person.Address;
             employeeFromDb.Person.Birthdate = employee.Person.Birthdate;
             employeeFromDb.Person.Email = employee.Person.Email;

@@ -13,9 +13,8 @@ namespace Clinic.Infrastructure.Data.Configurations
             builder.Property(p => p.Identification)
                 .IsRequired();
 
-            // Comentado debido a que el EF hace el Update como si fuera un INSERT por lo que viola la restriccion... Esta es una solucion Temporal
-            /*builder.HasIndex(p => p.Identification)
-                .IsUnique();*/
+            builder.HasIndex(p => p.Identification)
+                .IsUnique();
 
             builder.Property(p => p.Names)
                 .HasMaxLength(50)
@@ -29,9 +28,8 @@ namespace Clinic.Infrastructure.Data.Configurations
                 .HasMaxLength(50)
                 .IsRequired();
 
-            // Comentado debido a que el EF hace el Update como si fuera un INSERT por lo que viola la restriccion... Esta es una solucion Temporal
-            /*builder.HasIndex(p => p.Email)
-                .IsUnique();*/
+            builder.HasIndex(p => p.Email)
+                .IsUnique();
 
             builder.Property(p => p.Address)
                 .HasMaxLength(50)
@@ -39,9 +37,8 @@ namespace Clinic.Infrastructure.Data.Configurations
 
             builder.Property(p => p.PhoneNumber)
                 .IsRequired();
-            // Comentado debido a que el EF hace el Update como si fuera un INSERT por lo que viola la restriccion... Esta es una solucion Temporal
-            /*builder.HasIndex(p => p.PhoneNumber)
-                .IsUnique();*/
+            builder.HasIndex(p => p.PhoneNumber)
+                .IsUnique();
 
             builder.Property(p => p.Birthdate)
                 .IsRequired();

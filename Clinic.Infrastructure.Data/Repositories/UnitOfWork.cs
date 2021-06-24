@@ -9,18 +9,34 @@ namespace Clinic.Infrastructure.Data.Repositories
     {
         private readonly AppDbContext _context;
         private readonly IGenericRepository<Employee> _employeeRepository;
+        private readonly IGenericRepository<Person> _personRepository;
+        private readonly IGenericRepository<AppUser> _appUserRepository;
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
             _employeeRepository = new GenericRepository<Employee>(_context);
+            _personRepository = new GenericRepository<Person>(_context);
+            _appUserRepository = new GenericRepository<AppUser>(_context);
         }
 
         public IGenericRepository<Employee> Employee => _employeeRepository;
+        public IGenericRepository<Person> Person => _personRepository;
+        public IGenericRepository<AppUser> AppUser => _appUserRepository;
 
         public void Dispose()
         {
             _context.Dispose();
+        }
+
+        public async Task BeginTransaction()
+        {
+            await _context.Database.BeginTransactionAsync();
+        }
+
+        public async Task RollBack()
+        {
+            await _context.Database.RollbackTransactionAsync();
         }
 
         public async Task<bool> Save()
