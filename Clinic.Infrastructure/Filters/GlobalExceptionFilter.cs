@@ -24,9 +24,15 @@ namespace Clinic.Infrastructure.Filters
             }
             else if (context.Exception is NotFoundBusisnessException)
             {
-
                 context.Result = new NotFoundObjectResult(new NotFoundResponse());
                 context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
+            }
+            else
+            {
+                //Must log this exception..
+                var exception = context.Exception;
+
+                context.Result = new StatusCodeResult(StatusCodes.Status500InternalServerError);
             }
         }
     }

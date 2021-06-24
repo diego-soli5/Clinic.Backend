@@ -28,12 +28,18 @@ namespace Clinic.Infrastructure.Data.Configurations
                 .HasMaxLength(50)
                 .IsRequired();
 
+            builder.HasIndex(p => p.Email)
+                .IsUnique();
+
             builder.Property(p => p.Address)
                 .HasMaxLength(50)
                 .IsRequired();
 
             builder.Property(p => p.PhoneNumber)
                 .IsRequired();
+
+            builder.HasIndex(p => p.PhoneNumber)
+                .IsUnique();
 
             builder.Property(p => p.Birthdate)
                 .IsRequired();

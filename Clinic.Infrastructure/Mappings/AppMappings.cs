@@ -47,6 +47,11 @@ namespace Clinic.Infrastructure.Mappings
                            opt => opt.MapFrom(src => src.Person))
                 .ReverseMap();
 
+            CreateMap<EmployeeUpdateDTO, Employee>()
+                .ForMember(dest => dest.Person,
+                           opt => opt.MapFrom(src => src.Person))
+                .ReverseMap();
+
             CreateMap<Employee, EmployeeListDTO>()
                 .ForMember(dest => dest.FullName,
                            opt => opt.MapFrom(src => src.Person.Names + " " + src.Person.Surnames))

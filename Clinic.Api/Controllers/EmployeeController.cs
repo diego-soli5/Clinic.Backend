@@ -75,13 +75,13 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(int id, EmployeeCreateDTO model)
+        public async Task<IActionResult> Update(int id, EmployeeUpdateDTO model)
         {
             var oEmployee = _mapper.Map<Employee>(model);
 
             await _employeeService.Update(oEmployee, id);
 
-            return CreatedAtRoute(nameof(GetById), new { oEmployee.Id }, null);
+            return NoContent();
         }
 
         [HttpPatch("{id}")]

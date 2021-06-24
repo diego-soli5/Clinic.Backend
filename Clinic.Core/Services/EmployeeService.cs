@@ -79,6 +79,11 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("El número de identificación ya está en uso.");
             }
 
+            if (employeeList.Any(x => x.Person.PhoneNumber == employee.Person.PhoneNumber))
+            {
+                throw new BusisnessException("El número de teléfono ya está en uso.");
+            }
+
             if (employee.EmployeeRole == EmployeeRole.Medic)
             {
                 if (employee.Medic == null)
@@ -109,7 +114,7 @@ namespace Clinic.Core.Services
 
         public async Task<bool> Update(Employee employee, int id)
         {
-            var employeeList = _unitOfWork.Employee.GetAll(includeProperties: $"{nameof(Employee.AppUser)},{nameof(Employee.Person)}");
+            var employeeList = _unitOfWork.Employee.GetAll(includeProperties: $"{nameof(Employee.Person)}");
 
             var employeeFromDb = await _unitOfWork.Employee.GetByIdAsync(id);
 
@@ -118,19 +123,19 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("La cuenta de empleado no existe.");
             }
 
-            if (employeeList.Any(x => x.AppUser.UserName == employee.AppUser.UserName))
+            if (employeeList.Any(x => x.Person.Email.Trim().ToLower() == employee.Person.Email.Trim().ToLower()))
             {
-                throw new BusisnessException("El nombre de usuario ya está en uso.");
+                throw new BusisnessException("La dirección de correo electrónico ya está en uso.");
             }
 
-            if (employeeList.Any(x => x.Person.Identification == employee.Person.Identification))
+            if (employeeList.Any(x => x.Person.PhoneNumber == employee.Person.PhoneNumber))
             {
-                throw new BusisnessException("El número de identificación ya está en uso.");
+                throw new BusisnessException("El número de telefono ya está en uso.");
             }
 
-            if (employee.EmployeeRole == EmployeeRole.Medic)
+            if (employeeFromDb.EmployeeRole == EmployeeRole.Medic)
             {
-                if (employee.Medic == null)
+                if (employeeFromDb.Medic == null)
                 {
                     throw new BusisnessException("Debe indicar los datos del perfil medico.");
                 }
@@ -146,7 +151,6 @@ namespace Clinic.Core.Services
             employeeFromDb.Person.Address = employee.Person.Address;
             employeeFromDb.Person.Birthdate = employee.Person.Birthdate;
             employeeFromDb.Person.Email = employee.Person.Email;
-            employeeFromDb.Person.Identification = employee.Person.Identification;
             employeeFromDb.Person.Names = employee.Person.Names;
             employeeFromDb.Person.Surnames = employee.Person.Surnames;
             employeeFromDb.Person.PhoneNumber = employee.Person.PhoneNumber;
