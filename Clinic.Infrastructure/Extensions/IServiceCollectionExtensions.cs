@@ -2,7 +2,6 @@
 using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Options;
-using Clinic.Core.Repositories.Interfaces;
 using Clinic.Core.Services;
 using Clinic.Infrastructure.Data;
 using Clinic.Infrastructure.Services;
@@ -40,6 +39,8 @@ namespace Clinic.Infrastructure.Extensions
         public static void AddBusisnessServices(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeService, EmployeeService>();
+
+            services.AddScoped<IAccountService, AccountService>();
         }
 
         public static void AddInfrastructureServices(this IServiceCollection services)
@@ -55,7 +56,10 @@ namespace Clinic.Infrastructure.Extensions
 
             services.AddScoped<IAzureBlobFileService, AzureBlobFileService>();
 
-            services.AddScoped<IJWTokenService, JWTokenService>();
+            services.AddScoped<ITokenService, TokenService>();
+
+            services.AddScoped<IPasswordService, PasswordService>();
+
         }
 
         public static void AddEmailServices(this IServiceCollection services)
@@ -72,6 +76,8 @@ namespace Clinic.Infrastructure.Extensions
             services.Configure<EmailServiceOptions>(configuration.GetSection("ApplicationOptions:EmailServiceOptions"));
 
             services.Configure<AuthenticationOptions>(configuration.GetSection("ApplicationOptions:AuthenticationOptions"));
+
+            services.Configure<PasswordOptions>(configuration.GetSection("ApplicationOptions:PasswordOptions"));
         }
 
         public static void AddAzureClients(this IServiceCollection services, IConfiguration configuration)

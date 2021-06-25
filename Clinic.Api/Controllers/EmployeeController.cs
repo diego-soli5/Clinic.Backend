@@ -65,7 +65,7 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] EmployeeCreateDTO model)
+        public async Task<IActionResult> Create([FromBody] EmployeeCreateDTO model)
         {
             var oEmployee = _mapper.Map<Employee>(model);
 

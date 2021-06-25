@@ -28,7 +28,7 @@ namespace Clinic.Infrastructure.Services
             byte[] salt = Convert.FromBase64String(parts[1]);
             byte[] key = Convert.FromBase64String(parts[2]);
 
-            using (var algorithm = new Rfc2898DeriveBytes(plainPassword, salt, iterations))
+            using (var algorithm = new Rfc2898DeriveBytes(plainPassword, salt, iterations,HashAlgorithmName.SHA512))
             {
                 byte[] keyToCheck = algorithm.GetBytes(_passwordOptions.KeySize);
 

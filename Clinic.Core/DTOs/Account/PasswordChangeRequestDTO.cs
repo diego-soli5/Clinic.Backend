@@ -1,8 +1,8 @@
 ﻿namespace Clinic.Core.DTOs.Account
 {
-    public class LoginRequestDTO
+    public class PasswordChangeRequestDTO
     {
-        public string EmailOrIdentification { get; set; }
+        public int Id { get; set; }
         public string Password { get; set; }
     }
 }

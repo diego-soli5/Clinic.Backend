@@ -10,16 +10,16 @@ using Clinic.Core.Interfaces.InfrastructureServices;
 
 namespace Clinic.Infrastructure.Services
 {
-    public class JWTokenService : IJWTokenService
+    public class TokenService : ITokenService
     {
         private readonly AuthenticationOptions _options;
-        
-        public JWTokenService(IOptions<AuthenticationOptions> options)
+
+        public TokenService(IOptions<AuthenticationOptions> options)
         {
             _options = options.Value;
         }
 
-        public string GenerateToken(Employee employee)
+        public string GenerateJWToken(Employee employee)
         {
             //Header
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key));
@@ -51,5 +51,11 @@ namespace Clinic.Infrastructure.Services
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
+        public string GenerateSMToken()
+        {
+            string token = Guid.NewGuid().ToString().Split('-')[1];
+
+            return token;
+        }
     }
 }

@@ -23,6 +23,9 @@ namespace Clinic.Infrastructure.Data.Configurations
                 .HasMaxLength(100)
                 .IsRequired();
 
+            builder.Property(a => a.SMToken)
+                .HasMaxLength(4);
+
             builder.Property(a => a.Role)
                 .IsRequired()
                 .HasConversion(a => a.ToString(),

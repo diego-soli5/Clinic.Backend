@@ -22,14 +22,20 @@ namespace Clinic.Core.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IAzureBlobFileService _blobFileService;
         private readonly IBusisnessMailService _mailService;
+        private readonly IPasswordService _passwordService;
         private readonly PaginationOptions _paginationOptions;
 
-        public EmployeeService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> paginationOptions, IAzureBlobFileService blobFileService, IBusisnessMailService mailService)
+        public EmployeeService(IUnitOfWork unitOfWork,
+                               IOptions<PaginationOptions> paginationOptions,
+                               IAzureBlobFileService blobFileService,
+                               IBusisnessMailService mailService,
+                               IPasswordService passwordService)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = paginationOptions.Value;
             _blobFileService = blobFileService;
             _mailService = mailService;
+            _passwordService = passwordService;
         }
 
         public async Task<Employee> GetByIdAsync(int id)
@@ -100,11 +106,11 @@ namespace Clinic.Core.Services
                 employee.Medic = null;
             }
 
+            string encPass = _passwordService.Hash(employee.AppUser.Password);
             employee.AppUser.EntityStatus = EntityStatus.Enabled;
-
             employee.EmployeeStatus = EmployeeStatus.Active;
-
             employee.HireDate = DateTime.Now;
+            employee.AppUser.Password = encPass;
 
             if (image != null)
             {

@@ -1,6 +1,7 @@
 ﻿using Clinic.Core.DTOs.Account;
 using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Infrastructure.Responses;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -31,8 +32,23 @@ namespace Clinic.Api.Controllers
             {
                 Data = result.Item3
             };
-        
+
             return Ok(response);
+        }
+
+        [HttpPost(nameof(PasswordChangeRequest))]
+        public async Task<IActionResult> PasswordChangeRequest(PasswordChangeRequestDTO request)
+        {
+            return (await _accountService.PasswordChangeRequest(request)) ? Ok(null) : Unauthorized(null);
+        }
+
+        [HttpPost(nameof(ChangePassword))]
+        public async Task<IActionResult> ChangePassword(ChangePasswordDTO request)
+        {
+            return await _accountService.ChangePassword(request) 
+                                        ? Ok(null) 
+                                        : StatusCode(StatusCodes.Status500InternalServerError,
+                                                     new { Message = "Ocurrio un error, intentalo más tarde." });
         }
     }
 }

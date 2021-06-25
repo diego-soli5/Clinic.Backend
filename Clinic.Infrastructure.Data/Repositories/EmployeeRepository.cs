@@ -15,12 +15,12 @@ namespace Clinic.Infrastructure.Data.Repositories
 
         public async Task<Employee> GetByEmail(string email)
         {
-            return await _dbEntity.Include(e => e.Person).FirstOrDefaultAsync(e => e.Person.Email.ToLower() == email.ToLower());
+            return await _dbEntity.Include(e => e.Person).Include(e => e.AppUser).FirstOrDefaultAsync(e => e.Person.Email.ToLower() == email.ToLower());
         }
 
         public async Task<Employee> GetByIdentification(int identification)
         {
-            return await _dbEntity.Include(e => e.Person).FirstOrDefaultAsync(e => e.Person.Identification == identification);
+            return await _dbEntity.Include(e => e.Person).Include(e => e.AppUser).FirstOrDefaultAsync(e => e.Person.Identification == identification);
         }
     }
 }

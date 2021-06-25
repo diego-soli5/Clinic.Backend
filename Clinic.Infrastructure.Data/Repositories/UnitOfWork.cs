@@ -9,19 +9,19 @@ namespace Clinic.Infrastructure.Data.Repositories
         private readonly AppDbContext _context;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IGenericRepository<Person> _personRepository;
-        private readonly IGenericRepository<AppUser> _appUserRepository;
+        private readonly IAppUserRepository _appUserRepository;
 
         public UnitOfWork(AppDbContext context)
         {
             _context = context;
             _employeeRepository = new EmployeeRepository(_context);
             _personRepository = new GenericRepository<Person>(_context);
-            _appUserRepository = new GenericRepository<AppUser>(_context);
+            _appUserRepository = new AppUserRepository(_context);
         }
 
         public IEmployeeRepository Employee => _employeeRepository;
         public IGenericRepository<Person> Person => _personRepository;
-        public IGenericRepository<AppUser> AppUser => _appUserRepository;
+        public IAppUserRepository AppUser => _appUserRepository;
 
         public void Dispose()
         {
