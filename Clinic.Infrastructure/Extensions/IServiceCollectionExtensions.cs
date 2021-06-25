@@ -14,6 +14,9 @@ using Microsoft.Extensions.Azure;
 using Clinic.Core.Interfaces.EmailServices;
 using Clinic.Infrastructure.EmailService;
 using Clinic.Infrastructure.Data.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace Clinic.Infrastructure.Extensions
 {
@@ -51,6 +54,8 @@ namespace Clinic.Infrastructure.Extensions
             });
 
             services.AddScoped<IAzureBlobFileService, AzureBlobFileService>();
+
+            services.AddScoped<IJWTokenService, JWTokenService>();
         }
 
         public static void AddEmailServices(this IServiceCollection services)
@@ -66,6 +71,7 @@ namespace Clinic.Infrastructure.Extensions
 
             services.Configure<EmailServiceOptions>(configuration.GetSection("ApplicationOptions:EmailServiceOptions"));
 
+            services.Configure<AuthenticationOptions>(configuration.GetSection("ApplicationOptions:AuthenticationOptions"));
         }
 
         public static void AddAzureClients(this IServiceCollection services, IConfiguration configuration)
@@ -73,6 +79,27 @@ namespace Clinic.Infrastructure.Extensions
             services.AddAzureClients(builder =>
             {
                 builder.AddBlobServiceClient(configuration.GetConnectionString("DevelopmentAzureBlobStorage"));
+            });
+        }
+
+        public static void AddJWTAuth(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = configuration["ApplicationOptions:AuthenticationOptions:Authentication:Issuer"],
+                    ValidAudience = configuration["ApplicationOptions:AuthenticationOptions:Audience"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["ApplicationOptions:AuthenticationOptions:Key"]))
+                };
             });
         }
     }

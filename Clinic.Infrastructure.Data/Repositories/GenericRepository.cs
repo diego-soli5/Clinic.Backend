@@ -1,5 +1,5 @@
 ﻿using Clinic.Core.Entities;
-using Clinic.Core.Repositories.Interfaces;
+using Clinic.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

@@ -54,6 +54,8 @@ namespace Clinic.Api
             services.AddAzureClients(Configuration);
 
             services.AddEmailServices();
+
+            services.AddJWTAuth(Configuration);
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -66,6 +68,8 @@ namespace Clinic.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

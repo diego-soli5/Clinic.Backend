@@ -159,7 +159,7 @@ namespace Clinic.Core.Services
                 string subject = "Modificación de Perfil";
                 string body = $"Hola {employeeFromDb.Person.Names}, se ha actualizado la información de tu perfil el día {DateTime.Now.ToShortDateString()} a las {DateTime.Now.ToShortTimeString()}.";
 
-                    _mailService.SendMail(subject, body, new List<string>() { employeeFromDb.Person.Email });
+                _mailService.SendMail(subject, body, new List<string>() { employeeFromDb.Person.Email });
             }
 
             return ok;
