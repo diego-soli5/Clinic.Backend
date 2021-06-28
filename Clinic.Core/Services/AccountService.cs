@@ -103,9 +103,7 @@ namespace Clinic.Core.Services
             await _unitOfWork.Save();
 
             string subject = "Solicitud de cambio de contraseña.";
-            string body = @$"<h3>Hola {oEmployee.Person.Names}!<h3>
-                             hemos recibido una solicitud de cambio de contraseña, tu token es el siguiente:
-                             <b>{token}<b>.";
+            string body = $"Hola {oEmployee.Person.Names}!\nHemos recibido una solicitud de cambio de contraseña, tu token es el siguiente:\n{token}.";
 
             _mailService.SendMail(subject, body, new List<string> { oEmployee.Person.Email });
 

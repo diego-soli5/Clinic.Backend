@@ -39,14 +39,14 @@ namespace Clinic.Api.Controllers
         [HttpPost(nameof(PasswordChangeRequest))]
         public async Task<IActionResult> PasswordChangeRequest(PasswordChangeRequestDTO request)
         {
-            return (await _accountService.PasswordChangeRequest(request)) ? Ok(null) : Unauthorized(null);
+            return (await _accountService.PasswordChangeRequest(request)) ? NoContent() : Unauthorized(null);
         }
 
         [HttpPost(nameof(ChangePassword))]
         public async Task<IActionResult> ChangePassword(ChangePasswordDTO request)
         {
             return await _accountService.ChangePassword(request) 
-                                        ? Ok(null) 
+                                        ? NoContent() 
                                         : StatusCode(StatusCodes.Status500InternalServerError,
                                                      new { Message = "Ocurrio un error, intentalo más tarde." });
         }
