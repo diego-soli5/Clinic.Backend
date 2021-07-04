@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="Azure.Storage.Blobs" Version="12.9.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.9.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="5.0.7" />
@@ -20,7 +20,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Clinic.Core\Clinic.Core.csproj" />
     <ProjectReference Include="..\Clinic.Infrastructure.Data\Clinic.Infrastructure.Data.csproj" />
-    <ProjectReference Include="..\Clinic.Infrastructure.EmailService\Clinic.Infrastructure.EmailService.csproj" />
+    <ProjectReference Include="..\Clinic.Infrastructure.EmailService\Clinic.Infrastructure.EmailServices.csproj" />
+    <ProjectReference Include="..\Clinic.Infrastructure.ExternalServices\Clinic.Infrastructure.ExternalServices.csproj" />
   </ItemGroup>
 
   <ItemGroup>

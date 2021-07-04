@@ -60,8 +60,8 @@ namespace Clinic.Infrastructure.Mappings
                            opt => opt.MapFrom(src => src.Person.Names + " " + src.Person.Surnames))
                 .ForMember(dest => dest.Identification,
                            opt => opt.MapFrom(src => src.Person.Identification))
-                .ForMember(dest => dest.EntityStatus,
-                           opt => opt.MapFrom(src => src.AppUser.EntityStatus))
+                .ForMember(dest => dest.EmployeeStatus,
+                           opt => opt.MapFrom(src => src.EmployeeStatus))
                 .ReverseMap();
         }
     }

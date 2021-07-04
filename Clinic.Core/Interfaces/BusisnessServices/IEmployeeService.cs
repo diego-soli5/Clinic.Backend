@@ -14,5 +14,7 @@ namespace Clinic.Core.Interfaces.BusisnessServices
         Task<bool> Disable(int id);
         PagedList<Employee> GetAll(EmployeeQueryFilter filters);
         Task<Employee> GetByIdAsync(int id);
+        Task<bool> Fire(int id);
+        Task<bool> Activate(int id);
     }
 }

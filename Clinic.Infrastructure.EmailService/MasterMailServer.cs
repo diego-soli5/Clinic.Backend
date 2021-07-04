@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-namespace Clinic.Infrastructure.EmailService
+namespace Clinic.Infrastructure.EmailServices
 {
     public abstract class MasterMailServer
     {

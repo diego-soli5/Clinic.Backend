@@ -4,6 +4,7 @@ using Clinic.Core.Entities;
 using Clinic.Core.Enumerations;
 using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Core.Interfaces.EmailServices;
+using Clinic.Core.Interfaces.ExternalServices;
 using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Options;
@@ -197,6 +198,38 @@ namespace Clinic.Core.Services
             }
 
             employee.AppUser.EntityStatus = EntityStatus.Disabled;
+
+            _unitOfWork.Employee.Update(employee);
+
+            return await _unitOfWork.Save();
+        }
+
+        public async Task<bool> Fire(int id)
+        {
+            var employee = await _unitOfWork.Employee.GetByIdAsync(id);
+
+            if (employee == null)
+            {
+                throw new BusisnessException("La cuenta de empleado no existe.");
+            }
+
+            employee.EmployeeStatus = EmployeeStatus.Fired;
+
+            _unitOfWork.Employee.Update(employee);
+
+            return await _unitOfWork.Save();
+        }
+
+        public async Task<bool> Activate(int id)
+        {
+            var employee = await _unitOfWork.Employee.GetByIdAsync(id);
+
+            if (employee == null)
+            {
+                throw new BusisnessException("La cuenta de empleado no existe.");
+            }
+
+            employee.EmployeeStatus = EmployeeStatus.Active;
 
             _unitOfWork.Employee.Update(employee);
 

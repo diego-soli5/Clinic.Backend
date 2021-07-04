@@ -2,7 +2,7 @@
 using Clinic.Core.Options;
 using Microsoft.Extensions.Options;
 
-namespace Clinic.Infrastructure.EmailService
+namespace Clinic.Infrastructure.EmailServices
 {
     public class BusisnessMailService : MasterMailServer, IBusisnessMailService
     {

@@ -1,5 +1,6 @@
 ﻿using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Core.Interfaces.InfrastructureServices;
+using Clinic.Core.Interfaces.ExternalServices;
 using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Options;
 using Clinic.Core.Services;
@@ -11,11 +12,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Azure;
 using Clinic.Core.Interfaces.EmailServices;
-using Clinic.Infrastructure.EmailService;
+using Clinic.Infrastructure.EmailServices;
 using Clinic.Infrastructure.Data.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Clinic.Infrastructure.ExternalServices.Azure;
 
 namespace Clinic.Infrastructure.Extensions
 {

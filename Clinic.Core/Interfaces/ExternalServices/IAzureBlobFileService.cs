@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Clinic.Core.Interfaces.InfrastructureServices
+namespace Clinic.Core.Interfaces.ExternalServices
 {
     public interface IAzureBlobFileService
     {

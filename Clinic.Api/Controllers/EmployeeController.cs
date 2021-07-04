@@ -99,5 +99,21 @@ namespace Clinic.Api.Controllers
 
             return NoContent();
         }
+
+        [HttpPatch("Fire/{id}")]
+        public async Task<IActionResult> Fire(int id)
+        {
+            await _employeeService.Fire(id);
+
+            return NoContent();
+        }
+
+        [HttpPatch("Activate/{id}")]
+        public async Task<IActionResult> Activate(int id)
+        {
+            await _employeeService.Activate(id);
+
+            return NoContent();
+        }
     }
 }

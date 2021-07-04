@@ -1,6 +1,6 @@
 ﻿using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
-using Clinic.Core.Interfaces.InfrastructureServices;
+using Clinic.Core.Interfaces.ExternalServices;
 using Clinic.Core.Options;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
@@ -8,7 +8,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Clinic.Infrastructure.Services
+namespace Clinic.Infrastructure.ExternalServices.Azure
 {
     public class AzureBlobFileService : IAzureBlobFileService
     {

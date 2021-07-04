@@ -1,4 +1,4 @@
-﻿using Clinic.Core.Interfaces.InfrastructureServices;
+﻿using Clinic.Core.Interfaces.ExternalServices;
 using Clinic.Infrastructure.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
