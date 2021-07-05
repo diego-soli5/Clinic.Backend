@@ -47,7 +47,7 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpGet("{id}", Name = nameof(GetById))]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> GetById(int id, bool isUpdate)
         {
             var oEmployee = await _employeeService.GetByIdAsync(id);
 
@@ -58,7 +58,7 @@ namespace Clinic.Api.Controllers
 
             OkResponse response = new()
             {
-                Data = _mapper.Map<EmployeeDTO>(oEmployee)
+                Data = (isUpdate) ? _mapper.Map<EmployeeUpdateDTO>(oEmployee) : _mapper.Map<EmployeeDTO>(oEmployee)
             };
 
             return Ok(response);

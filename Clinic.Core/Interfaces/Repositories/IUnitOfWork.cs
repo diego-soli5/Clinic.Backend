@@ -11,6 +11,7 @@ namespace Clinic.Core.Interfaces.Repositories
         public IAppUserRepository AppUser { get; }
         Task BeginTransactionAsync();
         Task RollBackAsync();
+        Task CommitTransactionAsync();
         Task<bool> Save();
     }
 }

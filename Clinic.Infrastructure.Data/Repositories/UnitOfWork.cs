@@ -33,6 +33,11 @@ namespace Clinic.Infrastructure.Data.Repositories
             await _context.Database.BeginTransactionAsync();
         }
 
+        public async Task CommitTransactionAsync()
+        {
+            await _context.Database.CommitTransactionAsync();
+        }
+
         public async Task RollBackAsync()
         {
             await _context.Database.RollbackTransactionAsync();

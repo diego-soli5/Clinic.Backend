@@ -142,6 +142,14 @@ namespace Clinic.Core.Services
                     throw new BusisnessException("La dirección de correo electrónico ya está en uso.");
             }
 
+            empValidationId = employeeList.Where(x => x.Person.Identification == employee.Person.Identification).Select(x => x.Id).FirstOrDefault();
+
+            if (empValidationId != 0)
+            {
+                if (empValidationId != id)
+                    throw new BusisnessException("El número de identificación ya está en uso.");
+            }
+
             empValidationId = employeeList.Where(x => x.Person.PhoneNumber == employee.Person.PhoneNumber).Select(x => x.Id).FirstOrDefault();
 
             if (empValidationId != 0)
@@ -150,24 +158,42 @@ namespace Clinic.Core.Services
                     throw new BusisnessException("El número de telefono ya está en uso.");
             }
 
-            employeeFromDb.Person.Address = employee.Person.Address;
-            employeeFromDb.Person.Birthdate = employee.Person.Birthdate;
-            employeeFromDb.Person.Email = employee.Person.Email;
-            employeeFromDb.Person.Names = employee.Person.Names;
-            employeeFromDb.Person.Surnames = employee.Person.Surnames;
-            employeeFromDb.Person.PhoneNumber = employee.Person.PhoneNumber;
+            bool ok = false;
 
-            _unitOfWork.Person.Update(employeeFromDb.Person);
-
-            bool ok = await _unitOfWork.Save();
-
-            if (ok)
+            try
             {
-                string subject = "Modificación de Perfil";
-                string body = $"Hola {employeeFromDb.Person.Names}, se ha actualizado la información de tu perfil el día {DateTime.Now.ToShortDateString()} a las {DateTime.Now.ToShortTimeString()}.";
+                await _unitOfWork.BeginTransactionAsync();
 
-                _mailService.SendMail(subject, body, new List<string>() { employeeFromDb.Person.Email });
+                employeeFromDb.EmployeeRole = employee.EmployeeRole;
+                employeeFromDb.Person.Identification = employee.Person.Identification;
+                employeeFromDb.Person.Address = employee.Person.Address;
+                employeeFromDb.Person.Birthdate = employee.Person.Birthdate;
+                employeeFromDb.Person.Email = employee.Person.Email;
+                employeeFromDb.Person.Names = employee.Person.Names;
+                employeeFromDb.Person.Surnames = employee.Person.Surnames;
+                employeeFromDb.Person.PhoneNumber = employee.Person.PhoneNumber;
+
+                _unitOfWork.Person.Update(employeeFromDb.Person);
+
+                ok = await _unitOfWork.Save();
+
+                _unitOfWork.Employee.Update(employeeFromDb);
+
+                await _unitOfWork.Save();
+
+                await _unitOfWork.CommitTransactionAsync();
             }
+            catch (Exception ex)
+            {
+                await _unitOfWork.RollBackAsync();
+
+                throw ex;
+            }
+
+            string subject = "Modificación de Perfil";
+            string body = $"Hola {employeeFromDb.Person.Names}, se ha actualizado la información de tu perfil el día {DateTime.Now.ToShortDateString()} a las {DateTime.Now.ToShortTimeString()}.";
+
+            _mailService.SendMail(subject, body, new List<string>() { employeeFromDb.Person.Email });
 
             return ok;
         }
