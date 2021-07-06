@@ -22,6 +22,9 @@ namespace Clinic.Infrastructure.Mappings
 
             CreateMap<PersonUpdateDTO, Person>()
                 .ReverseMap();
+
+            CreateMap<PersonCreateDTO, Person>()
+                .ReverseMap();
         }
 
         private void CreateAppUserMaps()
@@ -36,8 +39,6 @@ namespace Clinic.Infrastructure.Mappings
         private void CreateEmployeeMaps()
         {
             CreateMap<Employee, EmployeeDTO>()
-                .ForMember(dest => dest.AppUser,
-                           opt => opt.MapFrom(src => src.AppUser))
                 .ForMember(dest => dest.Person,
                            opt => opt.MapFrom(src => src.Person));
 

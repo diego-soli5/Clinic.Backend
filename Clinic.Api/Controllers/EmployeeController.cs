@@ -9,7 +9,9 @@ using Clinic.Core.QueryFilters;
 using Clinic.Infrastructure.Responses;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Clinic.Api.Controllers
@@ -47,7 +49,7 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpGet("{id}", Name = nameof(GetById))]
-        public async Task<IActionResult> GetById(int id, bool isUpdate)
+        public async Task<IActionResult> GetById(int id, bool isToUpdate)
         {
             var oEmployee = await _employeeService.GetByIdAsync(id);
 
@@ -58,7 +60,7 @@ namespace Clinic.Api.Controllers
 
             OkResponse response = new()
             {
-                Data = (isUpdate) ? _mapper.Map<EmployeeUpdateDTO>(oEmployee) : _mapper.Map<EmployeeDTO>(oEmployee)
+                Data = (isToUpdate) ? _mapper.Map<EmployeeUpdateDTO>(oEmployee) : _mapper.Map<EmployeeDTO>(oEmployee)
             };
 
             return Ok(response);
@@ -79,23 +81,17 @@ namespace Clinic.Api.Controllers
         {
             var oEmployee = _mapper.Map<Employee>(model);
 
-            await _employeeService.Update(oEmployee, id);
-
-            return NoContent();
-        }
-
-        [HttpPatch("{id}")]
-        public async Task<IActionResult> Enable(int id)
-        {
-            await _employeeService.Enable(id);
+            await _employeeService.Update(oEmployee, id, model.Image);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Disable(int id)
+        public async Task<IActionResult> Delete(int id, [FromBody]EmployeeDeleteDTO model)
         {
-            await _employeeService.Disable(id);
+            var appUserId = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+
+            await _employeeService.Delete(id, appUserId, model.Password);
 
             return NoContent();
         }

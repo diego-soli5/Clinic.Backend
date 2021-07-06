@@ -2,7 +2,7 @@
 
 namespace Clinic.Core.DTOs.Person
 {
-    public class PersonDTO
+    public class PersonCreateDTO
     {
         public int Identification { get; set; }
         public string Names { get; set; }

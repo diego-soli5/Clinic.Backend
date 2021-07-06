@@ -7,9 +7,9 @@ namespace Clinic.Core.DTOs.Employee
 {
     public class EmployeeCreateDTO
     {
-        public AppUserCreateDTO AppUser { get; set; }
-        public PersonDTO Person { get; set; }
         public EmployeeRole EmployeeRole { get; set; }
+        public AppUserCreateDTO AppUser { get; set; }
+        public PersonCreateDTO Person { get; set; }
         public IFormFile Image { get; set; }
     }
 }

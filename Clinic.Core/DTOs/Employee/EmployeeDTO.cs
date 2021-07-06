@@ -11,7 +11,6 @@ namespace Clinic.Core.DTOs.Employee
         public EmployeeRole EmployeeRole { get; set; }
         public EmployeeStatus EmployeeStatus { get; set; }
         public DateTime HireDate { get; set; }
-        public AppUserDTO AppUser { get; set; }
         public PersonDTO Person { get; set; }
     }
 }

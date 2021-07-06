@@ -9,9 +9,8 @@ namespace Clinic.Core.Interfaces.BusisnessServices
     public interface IEmployeeService
     {
         Task<bool> Create(Employee employee, IFormFile image);
-        Task<bool> Update(Employee employee, int id);
-        Task<bool> Enable(int id);
-        Task<bool> Disable(int id);
+        Task<bool> Update(Employee employee, int id, IFormFile image);
+        Task<bool> Delete(int id, int appUserId, string pass);
         PagedList<Employee> GetAll(EmployeeQueryFilter filters);
         Task<Employee> GetByIdAsync(int id);
         Task<bool> Fire(int id);

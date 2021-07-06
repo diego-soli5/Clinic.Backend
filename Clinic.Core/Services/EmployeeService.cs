@@ -71,6 +71,8 @@ namespace Clinic.Core.Services
                 employeeList = employeeList.Where(x => x.EmployeeStatus == filters.EmployeeStatus);
             }
 
+            employeeList = employeeList.Where(x => x.AppUser.EntityStatus == EntityStatus.Enabled);
+
             var pagedEmployees = PagedList<Employee>.Create(employeeList, filters.PageNumber.Value, filters.PageSize.Value);
 
             return pagedEmployees;
@@ -93,6 +95,11 @@ namespace Clinic.Core.Services
             if (employeeList.Any(x => x.Person.PhoneNumber == employee.Person.PhoneNumber))
             {
                 throw new BusisnessException("El número de teléfono ya está en uso.");
+            }
+
+            if (employeeList.Any(x => x.Person.Email == employee.Person.Email))
+            {
+                throw new BusisnessException("La dirección de correo electrónico ya está en uso.");
             }
 
             if (employee.EmployeeRole == EmployeeRole.Medic)
@@ -123,7 +130,7 @@ namespace Clinic.Core.Services
             return await _unitOfWork.Save();
         }
 
-        public async Task<bool> Update(Employee employee, int id)
+        public async Task<bool> Update(Employee employee, int id, IFormFile image)
         {
             var employeeList = _unitOfWork.Employee.GetAll(includeProperties: $"{nameof(Employee.Person)}");
 
@@ -159,6 +166,16 @@ namespace Clinic.Core.Services
             }
 
             bool ok = false;
+
+            if (image != null)
+            {
+                if (employeeFromDb.Person.ImageName?.Length > 0)
+                {
+                    await _blobFileService.DeleteBlobAsync(employeeFromDb.Person.ImageName);
+                }
+
+                employeeFromDb.Person.ImageName = await _blobFileService.CreateBlobAsync(image);
+            }
 
             try
             {
@@ -198,7 +215,7 @@ namespace Clinic.Core.Services
             return ok;
         }
 
-        public async Task<bool> Enable(int id)
+        public async Task<bool> Delete(int id, int appUserId, string pass)
         {
             var employee = await _unitOfWork.Employee.GetByIdAsync(id, includeProperties: $"{nameof(Employee.AppUser)}");
 
@@ -207,25 +224,16 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("La cuenta de empleado no existe.");
             }
 
-            employee.AppUser.EntityStatus = EntityStatus.Enabled;
+            string passwordFromDb = employee.AppUser.Password;
 
-            _unitOfWork.Employee.Update(employee);
-
-            return await _unitOfWork.Save();
-        }
-
-        public async Task<bool> Disable(int id)
-        {
-            var employee = await _unitOfWork.Employee.GetByIdAsync(id, includeProperties: $"{nameof(Employee.AppUser)}");
-
-            if (employee == null)
+            if(!_passwordService.Check(passwordFromDb, pass))
             {
-                throw new BusisnessException("La cuenta de empleado no existe.");
+                throw new BusisnessException("La contraseña es incorrecta.");
             }
 
             employee.AppUser.EntityStatus = EntityStatus.Disabled;
 
-            _unitOfWork.Employee.Update(employee);
+            _unitOfWork.AppUser.Update(employee.AppUser);
 
             return await _unitOfWork.Save();
         }
