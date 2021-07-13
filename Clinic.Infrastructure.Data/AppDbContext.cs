@@ -51,7 +51,7 @@ namespace Clinic.Infrastructure.Data
             modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
                 UserName = "Usuario001",
-                Password = "contraseña001",
+                Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
                 EntityStatus = EntityStatus.Enabled,
                 Role = AppUserRole.User,
                 Id = 1
@@ -85,8 +85,8 @@ namespace Clinic.Infrastructure.Data
             modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
                 UserName = "Usuario002",
-                Password = "contraseña002",
-                EntityStatus = EntityStatus.Enabled,
+                Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
+                EntityStatus = EntityStatus.Disabled,
                 Role = AppUserRole.User,
                 Id = 2
             });
@@ -119,8 +119,8 @@ namespace Clinic.Infrastructure.Data
             modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
                 UserName = "1diego321",
-                Password = "123",
-                EntityStatus = EntityStatus.Disabled,
+                Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
+                EntityStatus = EntityStatus.Enabled,
                 Role = AppUserRole.User,
                 Id = 3
             });
@@ -129,7 +129,7 @@ namespace Clinic.Infrastructure.Data
             {
                 Address = "Santa Elena abajo, barrio la Rosa.",
                 Birthdate = new DateTime(1999, 1, 3),
-                Email = "1diego321@mail.com",
+                Email = "1diego321@gmail.com",
                 Identification = 117310010,
                 Names = "Luis Diego",
                 PhoneNumber = 83358092,
@@ -153,7 +153,7 @@ namespace Clinic.Infrastructure.Data
             modelBuilder.Entity<AppUser>().HasData(new AppUser
             {
                 UserName = "Karamiko",
-                Password = "123",
+                Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
                 EntityStatus = EntityStatus.Enabled,
                 Role = AppUserRole.Administrator,
                 Id = 4
