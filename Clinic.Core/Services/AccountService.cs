@@ -7,6 +7,7 @@ using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.Interfaces.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Clinic.Core.Services
@@ -32,7 +33,7 @@ namespace Clinic.Core.Services
             _mailService = mailService;
         }
 
-        public async Task<(bool, string, LoginResultDTO)> TryAuthenticateAsync(LoginRequestDTO login)
+        public async Task<(bool, string, LoginResultDTO, ClaimsPrincipal)> TryAuthenticateAsync(LoginRequestDTO login)
         {
             int? identification = null;
             Employee oEmployee;
@@ -53,15 +54,17 @@ namespace Clinic.Core.Services
             }
 
             if (oEmployee == null)
-                return (false, _INVALIDCREDENTIALS, null);
+                return (false, _INVALIDCREDENTIALS, null, null);
 
             if (oEmployee.AppUser.EntityStatus == Enumerations.EntityStatus.Disabled)
-                return (false, _DISABLEDACCOUNT, null);
+                return (false, _DISABLEDACCOUNT, null, null);
 
             if (!_passwordService.Check(oEmployee.AppUser.Password, login.Password))
-                return (false, _INVALIDCREDENTIALS, null);
+                return (false, _INVALIDCREDENTIALS, null, null);
 
-            string token = _tokenService.GenerateJWToken(oEmployee);
+            var tokenGenerationResult = _tokenService.GenerateJWToken(oEmployee);
+
+            string token = tokenGenerationResult.Item1;
 
             var loginResult = new LoginResultDTO
             {
@@ -74,7 +77,7 @@ namespace Clinic.Core.Services
                 Token = token
             };
 
-            return (true, null, loginResult);
+            return (true, null, loginResult, tokenGenerationResult.Item2);
         }
 
         public async Task<bool> PasswordChangeRequest(PasswordChangeRequestDTO request)
@@ -124,7 +127,7 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("La cuenta de empleado está deshabilitada.");
             }
 
-            if(appUser.SMToken == null)
+            if (appUser.SMToken == null)
             {
                 throw new BusisnessException("Primero se debe realizar la solicitud del token.");
             }

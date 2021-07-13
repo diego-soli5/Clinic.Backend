@@ -1,10 +1,11 @@
 ﻿using Clinic.Core.Entities;
+using System.Security.Claims;
 
 namespace Clinic.Core.Interfaces.InfrastructureServices
 {
     public interface ITokenService
     {
-        string GenerateJWToken(Employee employee);
+        (string, ClaimsPrincipal) GenerateJWToken(Employee employee);
         string GenerateSMToken();
     }
 }

@@ -1,6 +1,8 @@
 ﻿using Clinic.Core.DTOs.Account;
 using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Infrastructure.Responses;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,6 +11,7 @@ namespace Clinic.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
@@ -19,6 +22,7 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpPost(nameof(Authenticate))]
+        [AllowAnonymous]
         public async Task<IActionResult> Authenticate(LoginRequestDTO login)
         {
             var result = await _accountService.TryAuthenticateAsync(login);
@@ -45,8 +49,8 @@ namespace Clinic.Api.Controllers
         [HttpPost(nameof(ChangePassword))]
         public async Task<IActionResult> ChangePassword(ChangePasswordDTO request)
         {
-            return await _accountService.ChangePassword(request) 
-                                        ? NoContent() 
+            return await _accountService.ChangePassword(request)
+                                        ? NoContent()
                                         : StatusCode(StatusCodes.Status500InternalServerError,
                                                      new { Message = "Ocurrio un error, intentalo más tarde." });
         }

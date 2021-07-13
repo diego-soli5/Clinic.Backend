@@ -157,7 +157,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdPatient = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 25, 11, 37, 0, 849, DateTimeKind.Local).AddTicks(4863))
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 13, 12, 32, 33, 630, DateTimeKind.Local).AddTicks(6511))
                 },
                 constraints: table =>
                 {
@@ -198,7 +198,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Observations = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     IdClinicalHistory = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 6, 25, 11, 37, 0, 865, DateTimeKind.Local).AddTicks(8845)),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 13, 12, 32, 33, 648, DateTimeKind.Local).AddTicks(3362)),
                     EntityStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -270,10 +270,10 @@ namespace Clinic.Infrastructure.Data.Migrations
                 columns: new[] { "Id", "EntityStatus", "Password", "Role", "SMToken", "UserName" },
                 values: new object[,]
                 {
-                    { 1, "Enabled", "contraseña001", "User", null, "Usuario001" },
-                    { 2, "Enabled", "contraseña002", "User", null, "Usuario002" },
-                    { 3, "Disabled", "123", "User", null, "1diego321" },
-                    { 4, "Enabled", "123", "Administrator", null, "Karamiko" }
+                    { 1, "Enabled", "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=", "User", null, "Usuario001" },
+                    { 2, "Disabled", "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=", "User", null, "Usuario002" },
+                    { 3, "Enabled", "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=", "User", null, "1diego321" },
+                    { 4, "Enabled", "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=", "Administrator", null, "Karamiko" }
                 });
 
             migrationBuilder.InsertData(
@@ -291,9 +291,9 @@ namespace Clinic.Infrastructure.Data.Migrations
                 columns: new[] { "Id", "Address", "Birthdate", "Email", "Identification", "ImageName", "Names", "PhoneNumber", "Surnames" },
                 values: new object[,]
                 {
-                    { 1, "San Jose Costa Rica", new DateTime(2021, 6, 25, 11, 37, 0, 902, DateTimeKind.Local).AddTicks(6142), "usuario001@mail.com", 1231651631, null, "Miguel", 88556161, "Hernandez Corrales" },
-                    { 2, "Cartago Costa Rica", new DateTime(2021, 6, 25, 11, 37, 0, 903, DateTimeKind.Local).AddTicks(45), "usuario002@mail.com", 1891925, null, "Susan", 8919651, "Brenes Ilama" },
-                    { 3, "Santa Elena abajo, barrio la Rosa.", new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "1diego321@mail.com", 117310010, null, "Luis Diego", 83358092, "Solis Camacho" },
+                    { 1, "San Jose Costa Rica", new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(1496), "usuario001@mail.com", 1231651631, null, "Miguel", 88556161, "Hernandez Corrales" },
+                    { 2, "Cartago Costa Rica", new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(5254), "usuario002@mail.com", 1891925, null, "Susan", 8919651, "Brenes Ilama" },
+                    { 3, "Santa Elena abajo, barrio la Rosa.", new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "1diego321@gmail.com", 117310010, null, "Luis Diego", 83358092, "Solis Camacho" },
                     { 4, "Santa Elena Abajo de San Jose Costa Rica", new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "1221sdsadas@gmail.com", 988310010, null, "Martes Trece", 159156, "Solis Camacho" }
                 });
 
@@ -302,10 +302,10 @@ namespace Clinic.Infrastructure.Data.Migrations
                 columns: new[] { "Id", "EmployeeRole", "EmployeeStatus", "HireDate", "IdAppUser", "IdPerson" },
                 values: new object[,]
                 {
-                    { 1, "Secretary", "Active", new DateTime(2021, 6, 25, 11, 37, 0, 900, DateTimeKind.Local).AddTicks(3416), 1, 1 },
-                    { 2, "Secretary", "Active", new DateTime(2021, 6, 25, 11, 37, 0, 902, DateTimeKind.Local).AddTicks(9840), 2, 2 },
-                    { 3, "Secretary", "Active", new DateTime(2021, 6, 25, 11, 37, 0, 903, DateTimeKind.Local).AddTicks(107), 3, 3 },
-                    { 4, "Medic", "Active", new DateTime(2021, 6, 25, 11, 37, 0, 903, DateTimeKind.Local).AddTicks(294), 4, 4 }
+                    { 1, "Secretary", "Active", new DateTime(2021, 7, 13, 12, 32, 33, 685, DateTimeKind.Local).AddTicks(8582), 1, 1 },
+                    { 2, "Secretary", "Active", new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(5003), 2, 2 },
+                    { 3, "Secretary", "Active", new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(5443), 3, 3 },
+                    { 4, "Medic", "Active", new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(5618), 4, 4 }
                 });
 
             migrationBuilder.InsertData(

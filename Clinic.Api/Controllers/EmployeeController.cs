@@ -7,6 +7,7 @@ using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.QueryFilters;
 using Clinic.Infrastructure.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -18,6 +19,7 @@ namespace Clinic.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class EmployeeController : ControllerBase
     {
         private readonly IEmployeeService _employeeService;
@@ -89,7 +91,7 @@ namespace Clinic.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id, [FromBody]EmployeeDeleteDTO model)
         {
-            var appUserId = Convert.ToInt32(User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value);
+            var appUserId = int.Parse(GetClaimValue(ClaimTypes.NameIdentifier));
 
             await _employeeService.Delete(id, appUserId, model.Password);
 
@@ -110,6 +112,13 @@ namespace Clinic.Api.Controllers
             await _employeeService.Activate(id);
 
             return NoContent();
+        }
+
+        private string GetClaimValue(string claimType)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            return identity.FindFirst(claimType).Value;
         }
     }
 }

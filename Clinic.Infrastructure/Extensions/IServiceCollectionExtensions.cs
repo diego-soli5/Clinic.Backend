@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Clinic.Infrastructure.ExternalServices.Azure;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Clinic.Infrastructure.Extensions
 {
@@ -104,7 +105,7 @@ namespace Clinic.Infrastructure.Extensions
                     ValidateAudience = true,
                     ValidateLifetime = true,
                     ValidateIssuerSigningKey = true,
-                    ValidIssuer = configuration["ApplicationOptions:AuthenticationOptions:Authentication:Issuer"],
+                    ValidIssuer = configuration["ApplicationOptions:AuthenticationOptions:Issuer"],
                     ValidAudience = configuration["ApplicationOptions:AuthenticationOptions:Audience"],
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["ApplicationOptions:AuthenticationOptions:Key"]))
                 };

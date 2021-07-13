@@ -7,6 +7,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
 using Clinic.Core.Interfaces.InfrastructureServices;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Clinic.Infrastructure.Services
 {
@@ -19,7 +20,7 @@ namespace Clinic.Infrastructure.Services
             _options = options.Value;
         }
 
-        public string GenerateJWToken(Employee employee)
+        public (string, ClaimsPrincipal) GenerateJWToken(Employee employee)
         {
             //Header
             var symmetricSecurityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_options.Key));
@@ -37,6 +38,10 @@ namespace Clinic.Infrastructure.Services
                 new Claim(ClaimTypes.Role,employee.EmployeeRole.ToString())
             };
 
+            //identity | principal
+            var identity = new ClaimsIdentity(claims, JwtBearerDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
+
             //payload 
             var payload = new JwtPayload(
                 _options.Issuer,
@@ -47,8 +52,8 @@ namespace Clinic.Infrastructure.Services
 
             //signature
             var token = new JwtSecurityToken(header, payload);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
+            
+            return (new JwtSecurityTokenHandler().WriteToken(token),principal);
         }
 
         public string GenerateSMToken()
