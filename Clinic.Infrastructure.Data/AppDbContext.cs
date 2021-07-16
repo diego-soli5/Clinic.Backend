@@ -178,7 +178,6 @@ namespace Clinic.Infrastructure.Data
                 IdEmployee = 4,
                 IdMedicalSpecialty = 4,
                 Id = 4,
-                MustUpdateInfo = false
             });
 
             modelBuilder.Entity<ConsultingRoom>().HasData(new ConsultingRoom

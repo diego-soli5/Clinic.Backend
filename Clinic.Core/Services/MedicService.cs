@@ -40,5 +40,12 @@ namespace Clinic.Core.Services
 
             return listMedSpec;
         }
+
+        public async Task<IEnumerable<Medic>> GetAllPendingForUpdate()
+        {
+            var medicList = await _unitOfWork.Medic.GetAllPendingForUpdateAsync();
+
+            return medicList;
+        }
     }
 }

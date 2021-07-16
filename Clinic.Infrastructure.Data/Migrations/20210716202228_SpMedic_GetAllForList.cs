@@ -5,9 +5,9 @@ namespace Clinic.Infrastructure.Data.Migrations
 {
     public partial class SpMedic_GetAllForList : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            string sql = @"CREATE PROCEDURE SpMedic_GetAllForList(
+		protected override void Up(MigrationBuilder migrationBuilder)
+		{
+			string sql = @"CREATE PROCEDURE SpMedic_GetAllForList(
 								@medicSpecialtyId int = null,
 								@identification int = null
 							)
@@ -17,8 +17,7 @@ namespace Clinic.Infrastructure.Data.Migrations
 										p.Identification,
 										p.Names,
 										p.Surnames,
-										ms.Name,
-										m.MustUpdateInfo
+										ms.Name
 								FROM Medic m
 								INNER JOIN Employee e
 								ON m.IdEmployee = e.Id
@@ -32,14 +31,14 @@ namespace Clinic.Infrastructure.Data.Migrations
 								AND ((@identification IS NULL) OR (p.Identification LIKE CONCAT('%',@identification,'%')));
 							END;";
 
-            migrationBuilder.Sql(sql);
-        }
+			migrationBuilder.Sql(sql);
+		}
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+		protected override void Down(MigrationBuilder migrationBuilder)
+		{
 			string sql = "DROP PROCEDURE SpMedic_GetAllForList";
 
 			migrationBuilder.Sql(sql);
 		}
-    }
+	}
 }

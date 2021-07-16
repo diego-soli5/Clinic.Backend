@@ -4,5 +4,6 @@
     {
         public int? Identification { get; set; }
         public int? MedicalSpecialty { get; set; }
+        public bool PendingUpdate { get; set; }
     }
 }

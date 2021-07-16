@@ -7,7 +7,6 @@ namespace Clinic.Core.Entities
         public int IdConsultingRoom { get; set; }
         public int IdEmployee { get; set; }
         public int IdMedicalSpecialty { get; set; }
-        public bool MustUpdateInfo { get; set; }
 
         public ConsultingRoom ConsultingRoom { get; set; }
         public MedicalSpecialty MedicalSpecialty { get; set; }

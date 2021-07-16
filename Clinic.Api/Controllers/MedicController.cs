@@ -37,11 +37,25 @@ namespace Clinic.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllForList([FromQuery] MedicQueryFilter filters)
         {
+            OkResponse response;
+
+            if (filters.PendingUpdate)
+            {
+                var medPendingList = await _medicService.GetAllPendingForUpdate();
+
+                response = new OkResponse
+                {
+                    Data = medPendingList.Select(med => _mapper.Map<MedicPendingForUpdateDTO>(med))
+                };
+
+                return Ok(response);
+            }
+            
             var pagedListMedics = await _medicService.GetAllAsync(filters);
 
             var metadata = Metadata.Create(filters, pagedListMedics, Url.RouteUrl(nameof(GetAllForList)), _uriService);
 
-            var response = new OkResponse
+            response = new OkResponse
             {
                 Data = pagedListMedics.Select(med => _mapper.Map<MedicListDTO>(med)).ToList()
             };

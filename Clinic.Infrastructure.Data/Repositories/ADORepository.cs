@@ -15,14 +15,17 @@ namespace Clinic.Infrastructure.Data.Repositories
             : base(configuration)
         { }
 
-        protected async Task<DataTable> ExecuteQuery(string spName, SqlParameter[] parameters)
+        protected async Task<DataTable> ExecuteQuery(string spName, SqlParameter[] parameters = null)
         {
             using (var connection = GetConnection())
             {
                 using (var command = new SqlCommand(spName, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddRange(parameters);
+
+                    if (parameters != null)
+                        command.Parameters.AddRange(parameters);
+
                     await connection.OpenAsync();
 
                     using (var table = new DataTable())

@@ -19,9 +19,6 @@ namespace Clinic.Infrastructure.Data.Configurations
             builder.Property(m => m.IdMedicalSpecialty)
                 .IsRequired();
 
-            builder.Property(m => m.MustUpdateInfo)
-                .HasDefaultValue(true);
-
             builder.HasMany<MedicalSchedule>(med => med.MedicalSchedules)
                 .WithOne(medSch => medSch.Medic)
                 .HasForeignKey(medSch => medSch.IdMedic)
