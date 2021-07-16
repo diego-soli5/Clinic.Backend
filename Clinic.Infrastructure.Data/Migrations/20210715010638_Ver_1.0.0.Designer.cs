@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinic.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210713183235_Version_1.0.0")]
-    partial class Version_100
+    [Migration("20210715010638_Ver_1.0.0")]
+    partial class Ver_100
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -139,7 +139,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 13, 12, 32, 33, 630, DateTimeKind.Local).AddTicks(6511));
+                        .HasDefaultValue(new DateTime(2021, 7, 14, 19, 6, 36, 882, DateTimeKind.Local).AddTicks(7296));
 
                     b.Property<int>("IdPatient")
                         .HasColumnType("int");
@@ -194,7 +194,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 13, 12, 32, 33, 648, DateTimeKind.Local).AddTicks(3362));
+                        .HasDefaultValue(new DateTime(2021, 7, 14, 19, 6, 36, 902, DateTimeKind.Local).AddTicks(1733));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -258,7 +258,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                             Id = 1,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 13, 12, 32, 33, 685, DateTimeKind.Local).AddTicks(8582),
+                            HireDate = new DateTime(2021, 7, 14, 19, 6, 36, 942, DateTimeKind.Local).AddTicks(4595),
                             IdAppUser = 1,
                             IdPerson = 1
                         },
@@ -267,7 +267,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                             Id = 2,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(5003),
+                            HireDate = new DateTime(2021, 7, 14, 19, 6, 36, 945, DateTimeKind.Local).AddTicks(5156),
                             IdAppUser = 2,
                             IdPerson = 2
                         },
@@ -276,7 +276,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                             Id = 3,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(5443),
+                            HireDate = new DateTime(2021, 7, 14, 19, 6, 36, 945, DateTimeKind.Local).AddTicks(5520),
                             IdAppUser = 3,
                             IdPerson = 3
                         },
@@ -285,7 +285,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                             Id = 4,
                             EmployeeRole = "Medic",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(5618),
+                            HireDate = new DateTime(2021, 7, 14, 19, 6, 36, 945, DateTimeKind.Local).AddTicks(5744),
                             IdAppUser = 4,
                             IdPerson = 4
                         });
@@ -307,6 +307,11 @@ namespace Clinic.Infrastructure.Data.Migrations
                     b.Property<int>("IdMedicalSpecialty")
                         .HasColumnType("int");
 
+                    b.Property<bool>("MustUpdateInfo")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true);
+
                     b.HasKey("Id");
 
                     b.HasIndex("IdConsultingRoom");
@@ -324,7 +329,8 @@ namespace Clinic.Infrastructure.Data.Migrations
                             Id = 4,
                             IdConsultingRoom = 4,
                             IdEmployee = 4,
-                            IdMedicalSpecialty = 4
+                            IdMedicalSpecialty = 4,
+                            MustUpdateInfo = false
                         });
                 });
 
@@ -501,7 +507,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                         {
                             Id = 1,
                             Address = "San Jose Costa Rica",
-                            Birthdate = new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(1496),
+                            Birthdate = new DateTime(2021, 7, 14, 19, 6, 36, 945, DateTimeKind.Local).AddTicks(910),
                             Email = "usuario001@mail.com",
                             Identification = 1231651631,
                             Names = "Miguel",
@@ -512,7 +518,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                         {
                             Id = 2,
                             Address = "Cartago Costa Rica",
-                            Birthdate = new DateTime(2021, 7, 13, 12, 32, 33, 688, DateTimeKind.Local).AddTicks(5254),
+                            Birthdate = new DateTime(2021, 7, 14, 19, 6, 36, 945, DateTimeKind.Local).AddTicks(5446),
                             Email = "usuario002@mail.com",
                             Identification = 1891925,
                             Names = "Susan",

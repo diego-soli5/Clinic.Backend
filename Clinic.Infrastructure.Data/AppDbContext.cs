@@ -121,7 +121,7 @@ namespace Clinic.Infrastructure.Data
                 UserName = "1diego321",
                 Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
                 EntityStatus = EntityStatus.Enabled,
-                Role = AppUserRole.User,
+                Role = AppUserRole.Administrator,
                 Id = 3
             });
 
@@ -155,7 +155,7 @@ namespace Clinic.Infrastructure.Data
                 UserName = "Karamiko",
                 Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
                 EntityStatus = EntityStatus.Enabled,
-                Role = AppUserRole.Administrator,
+                Role = AppUserRole.User,
                 Id = 4
             });
 
@@ -177,7 +177,8 @@ namespace Clinic.Infrastructure.Data
                 IdConsultingRoom = 4,
                 IdEmployee = 4,
                 IdMedicalSpecialty = 4,
-                Id = 4
+                Id = 4,
+                MustUpdateInfo = false
             });
 
             modelBuilder.Entity<ConsultingRoom>().HasData(new ConsultingRoom

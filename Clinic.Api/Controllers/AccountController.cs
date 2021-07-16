@@ -29,7 +29,7 @@ namespace Clinic.Api.Controllers
 
             if (!result.Item1)
             {
-                return Unauthorized(new UnauthorizedResponse(result.Item2));
+                return BadRequest(new BadRequestResponse(result.Item2));
             }
 
             var response = new OkResponse()

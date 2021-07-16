@@ -102,23 +102,11 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("La dirección de correo electrónico ya está en uso.");
             }
 
-            if (employee.EmployeeRole == EmployeeRole.Medic)
-            {
-                if (employee.Medic == null)
-                {
-                    throw new BusisnessException("Debe indicar los datos del perfil medico.");
-                }
-            }
-            else if (employee.Medic != null)
-            {
-                employee.Medic = null;
-            }
-
-            string encPass = _passwordService.Hash(employee.AppUser.Password);
+            string encryptedPassword = _passwordService.Hash(employee.AppUser.Password);
             employee.AppUser.EntityStatus = EntityStatus.Enabled;
             employee.EmployeeStatus = EmployeeStatus.Active;
             employee.HireDate = DateTime.Now;
-            employee.AppUser.Password = encPass;
+            employee.AppUser.Password = encryptedPassword;
 
             if (image != null)
             {
