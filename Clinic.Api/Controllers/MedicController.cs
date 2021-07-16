@@ -35,7 +35,7 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllForList([FromQuery]MedicQueryFilter filters)
+        public async Task<IActionResult> GetAllForList([FromQuery] MedicQueryFilter filters)
         {
             var pagedListMedics = await _medicService.GetAllAsync(filters);
 
@@ -47,6 +47,19 @@ namespace Clinic.Api.Controllers
             };
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            return Ok(response);
+        }
+
+        [HttpGet("Specialties")]
+        public IActionResult GetAllSpecialties()
+        {
+            var listMedSpecialties = _medicService.GetAllMedicalSpecialties();
+
+            var response = new OkResponse
+            {
+                Data = listMedSpecialties.Select(ms => _mapper.Map<MedicalSpecialtyListDTO>(ms)).ToList()
+            };
 
             return Ok(response);
         }

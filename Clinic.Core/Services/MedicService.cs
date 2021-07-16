@@ -5,6 +5,7 @@ using Clinic.Core.Interfaces.Repositories;
 using Clinic.Core.Options;
 using Clinic.Core.QueryFilters;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Clinic.Core.Services
@@ -31,6 +32,13 @@ namespace Clinic.Core.Services
             var pagedMedics = PagedList<Medic>.Create(medicList, filters.PageNumber.Value, filters.PageSize.Value);
             
             return pagedMedics;        
+        }
+
+        public IEnumerable<MedicalSpecialty> GetAllMedicalSpecialties()
+        {
+            var listMedSpec = _unitOfWork.MedicalSpecialty.GetAll();
+
+            return listMedSpec;
         }
     }
 }

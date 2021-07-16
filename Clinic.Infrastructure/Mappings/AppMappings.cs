@@ -15,6 +15,7 @@ namespace Clinic.Infrastructure.Mappings
             CreatePersonMaps();
             CreateAppUserMaps();
             CreateMedicMaps();
+            CreateMedicalSpecialtiesMaps();
         }
 
         private void CreateMedicMaps()
@@ -30,6 +31,12 @@ namespace Clinic.Infrastructure.Mappings
                            opt => opt.MapFrom(src => src.MedicalSpecialty.Name))
                 .ForMember(dest => dest.MustUpdateInfo,
                            opt => opt.MapFrom(src => src.MustUpdateInfo))
+                .ReverseMap();
+        }
+
+        private void CreateMedicalSpecialtiesMaps()
+        {
+            CreateMap<MedicalSpecialty, MedicalSpecialtyListDTO>()
                 .ReverseMap();
         }
 

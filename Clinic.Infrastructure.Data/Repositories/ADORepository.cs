@@ -27,21 +27,12 @@ namespace Clinic.Infrastructure.Data.Repositories
 
                     using (var table = new DataTable())
                     {
-                        try
+                        using (var reader = await command.ExecuteReaderAsync())
                         {
-                            using (var reader = await command.ExecuteReaderAsync())
-                            {
-                                table.Load(reader);
+                            table.Load(reader);
 
-                                return table;
-                            }
+                            return table;
                         }
-                        catch (Exception ex)
-                        {
-
-                            throw;
-                        }
-                        
                     }
                 }
             }
