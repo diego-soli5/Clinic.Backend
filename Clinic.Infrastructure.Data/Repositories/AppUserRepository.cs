@@ -2,13 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using Clinic.Core.Interfaces.Repositories;
+using Microsoft.Extensions.Configuration;
 
 namespace Clinic.Infrastructure.Data.Repositories
 {
     public class AppUserRepository : GenericRepository<AppUser>, IAppUserRepository
     {
-        public AppUserRepository(AppDbContext context)
-            : base(context)
+        public AppUserRepository(AppDbContext context, IConfiguration configuration)
+            : base(context, configuration)
         {
 
         }

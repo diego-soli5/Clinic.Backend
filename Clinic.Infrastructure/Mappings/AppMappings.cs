@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Clinic.Core.DTOs.AppUser;
 using Clinic.Core.DTOs.Employee;
+using Clinic.Core.DTOs.Medic;
 using Clinic.Core.DTOs.Person;
 using Clinic.Core.Entities;
 
@@ -13,6 +14,23 @@ namespace Clinic.Infrastructure.Mappings
             CreateEmployeeMaps();
             CreatePersonMaps();
             CreateAppUserMaps();
+            CreateMedicMaps();
+        }
+
+        private void CreateMedicMaps()
+        {
+            CreateMap<Medic, MedicListDTO>()
+                .ForMember(dest => dest.Id,
+                           opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Identification,
+                           opt => opt.MapFrom(src => src.Employee.Person.Identification))
+                .ForMember(dest => dest.FullName,
+                           opt => opt.MapFrom(src => $"{src.Employee.Person.Names} {src.Employee.Person.Surnames}"))
+                .ForMember(dest => dest.MedicalSpecialtyName,
+                           opt => opt.MapFrom(src => src.MedicalSpecialty.Name))
+                .ForMember(dest => dest.MustUpdateInfo,
+                           opt => opt.MapFrom(src => src.MustUpdateInfo))
+                .ReverseMap();
         }
 
         private void CreatePersonMaps()

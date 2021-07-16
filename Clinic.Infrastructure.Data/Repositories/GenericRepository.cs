@@ -1,6 +1,7 @@
 ﻿using Clinic.Core.Entities;
 using Clinic.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace Clinic.Infrastructure.Data.Repositories
 {
-    public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : BaseEntity
+    public class GenericRepository<TEntity> : ADORepository, IGenericRepository<TEntity> where TEntity : BaseEntity
     {
         protected readonly DbSet<TEntity> _dbEntity;
 
-        public GenericRepository(DbContext context)
+        public GenericRepository(DbContext context, IConfiguration configuration)
+            : base(configuration)
         {
             _dbEntity = context.Set<TEntity>();
         }

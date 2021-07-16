@@ -1,14 +1,15 @@
 ﻿using Clinic.Core.Entities;
 using Clinic.Core.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 
 namespace Clinic.Infrastructure.Data.Repositories
 {
     public class EmployeeRepository : GenericRepository<Employee>, IEmployeeRepository
     {
-        public EmployeeRepository(AppDbContext context)
-            : base(context)
+        public EmployeeRepository(AppDbContext context, IConfiguration configuration)
+            : base(context, configuration)
         {
             
         }

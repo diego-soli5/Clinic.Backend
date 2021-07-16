@@ -10,5 +10,6 @@ namespace Clinic.Core.QueryFilters
     {
         public int? PageSize { get; set; }
         public int? PageNumber { get; set; }
+        public bool IsPagination { get; set; }
     }
 }

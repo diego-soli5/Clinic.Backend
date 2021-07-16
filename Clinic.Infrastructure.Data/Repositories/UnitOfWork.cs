@@ -1,5 +1,6 @@
 ﻿using Clinic.Core.Entities;
 using Clinic.Core.Interfaces.Repositories;
+using Microsoft.Extensions.Configuration;
 using System.Threading.Tasks;
 
 namespace Clinic.Infrastructure.Data.Repositories
@@ -7,21 +8,22 @@ namespace Clinic.Infrastructure.Data.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly AppDbContext _context;
+        private readonly IConfiguration _configuration;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly IGenericRepository<Person> _personRepository;
         private readonly IAppUserRepository _appUserRepository;
+        private readonly IMedicRepository _medicRepository;
 
-        public UnitOfWork(AppDbContext context)
+        public UnitOfWork(AppDbContext context, IConfiguration configuration)
         {
             _context = context;
-            _employeeRepository = new EmployeeRepository(_context);
-            _personRepository = new GenericRepository<Person>(_context);
-            _appUserRepository = new AppUserRepository(_context);
+            _configuration = configuration;
         }
 
-        public IEmployeeRepository Employee => _employeeRepository;
-        public IGenericRepository<Person> Person => _personRepository;
-        public IAppUserRepository AppUser => _appUserRepository;
+        public IEmployeeRepository Employee => _employeeRepository ?? new EmployeeRepository(_context, _configuration);
+        public IGenericRepository<Person> Person => _personRepository ?? new GenericRepository<Person>(_context, _configuration);
+        public IAppUserRepository AppUser => _appUserRepository ?? new AppUserRepository(_context, _configuration);
+        public IMedicRepository Medic => _medicRepository ?? new MedicRepository(_context, _configuration);
 
         public void Dispose()
         {

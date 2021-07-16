@@ -44,6 +44,9 @@ namespace Clinic.Infrastructure.Extensions
             services.AddScoped<IEmployeeService, EmployeeService>();
 
             services.AddScoped<IAccountService, AccountService>();
+
+            services.AddScoped<IMedicService, MedicService>();
+
         }
 
         public static void AddInfrastructureServices(this IServiceCollection services)
