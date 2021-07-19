@@ -10,8 +10,9 @@ namespace Clinic.Infrastructure.Data.Repositories
 {
     public class MedicRepository : GenericRepository<Medic>, IMedicRepository
     {
-        private const string SpMedic_GetAllForList = "SpMedic_GetAllForList";
-        private const string SpMedic_GetAllPendingForUpdate = "SpMedic_GetAllPendingForUpdate";
+        private const string SpMedic_GetAllForList = nameof(SpMedic_GetAllForList);
+        private const string SpMedic_GetAllPendingForUpdate = nameof(SpMedic_GetAllPendingForUpdate);
+        private const string SpMedic_GetPendingForUpdate = nameof(SpMedic_GetPendingForUpdate);
 
         public MedicRepository(AppDbContext context, IConfiguration configuration)
             : base(context: context, configuration: configuration)
@@ -57,7 +58,7 @@ namespace Clinic.Infrastructure.Data.Repositories
         {
             List<Medic> medicList = new List<Medic>();
 
-            var table = await ExecuteQuery(SpMedic_GetAllForList);
+            var table = await ExecuteQuery(SpMedic_GetAllPendingForUpdate);
 
             foreach (DataRow row in table?.Rows)
             {

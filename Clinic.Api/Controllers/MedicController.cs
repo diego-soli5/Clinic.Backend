@@ -45,7 +45,7 @@ namespace Clinic.Api.Controllers
 
                 response = new OkResponse
                 {
-                    Data = medPendingList.Select(med => _mapper.Map<MedicPendingForUpdateDTO>(med))
+                    Data = medPendingList.Select(med => _mapper.Map<MedicDisplayPendingForUpdateDTO>(med))
                 };
 
                 return Ok(response);
@@ -61,6 +61,19 @@ namespace Clinic.Api.Controllers
             };
 
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            return Ok(response);
+        }
+
+        [HttpGet("Pending/{idEmployee}")]
+        public async Task<IActionResult> GetMedicPendingForUpdate(int idEmployee)
+        {
+            var emp = await _medicService.GetMedicPendingForUpdate(idEmployee);
+
+            var response = new OkResponse()
+            {
+                Data = _mapper.Map<MedicPendingUpdateDTO>(emp)
+            };
 
             return Ok(response);
         }

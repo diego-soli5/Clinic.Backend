@@ -137,7 +137,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 16, 14, 48, 31, 291, DateTimeKind.Local).AddTicks(987));
+                        .HasDefaultValue(new DateTime(2021, 7, 18, 17, 0, 52, 126, DateTimeKind.Local).AddTicks(4659));
 
                     b.Property<int>("IdPatient")
                         .HasColumnType("int");
@@ -192,7 +192,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 16, 14, 48, 31, 310, DateTimeKind.Local).AddTicks(6663));
+                        .HasDefaultValue(new DateTime(2021, 7, 18, 17, 0, 52, 159, DateTimeKind.Local).AddTicks(9760));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -256,7 +256,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                             Id = 1,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 16, 14, 48, 31, 349, DateTimeKind.Local).AddTicks(5928),
+                            HireDate = new DateTime(2021, 7, 18, 17, 0, 52, 194, DateTimeKind.Local).AddTicks(241),
                             IdAppUser = 1,
                             IdPerson = 1
                         },
@@ -265,7 +265,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                             Id = 2,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 16, 14, 48, 31, 353, DateTimeKind.Local).AddTicks(2335),
+                            HireDate = new DateTime(2021, 7, 18, 17, 0, 52, 196, DateTimeKind.Local).AddTicks(7697),
                             IdAppUser = 2,
                             IdPerson = 2
                         },
@@ -274,7 +274,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                             Id = 3,
                             EmployeeRole = "Secretary",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 16, 14, 48, 31, 353, DateTimeKind.Local).AddTicks(2846),
+                            HireDate = new DateTime(2021, 7, 18, 17, 0, 52, 196, DateTimeKind.Local).AddTicks(7970),
                             IdAppUser = 3,
                             IdPerson = 3
                         },
@@ -283,7 +283,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                             Id = 4,
                             EmployeeRole = "Medic",
                             EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 16, 14, 48, 31, 353, DateTimeKind.Local).AddTicks(3104),
+                            HireDate = new DateTime(2021, 7, 18, 17, 0, 52, 196, DateTimeKind.Local).AddTicks(8166),
                             IdAppUser = 4,
                             IdPerson = 4
                         });
@@ -499,7 +499,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                         {
                             Id = 1,
                             Address = "San Jose Costa Rica",
-                            Birthdate = new DateTime(2021, 7, 16, 14, 48, 31, 352, DateTimeKind.Local).AddTicks(8201),
+                            Birthdate = new DateTime(2021, 7, 18, 17, 0, 52, 196, DateTimeKind.Local).AddTicks(4187),
                             Email = "usuario001@mail.com",
                             Identification = 1231651631,
                             Names = "Miguel",
@@ -510,7 +510,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                         {
                             Id = 2,
                             Address = "Cartago Costa Rica",
-                            Birthdate = new DateTime(2021, 7, 16, 14, 48, 31, 353, DateTimeKind.Local).AddTicks(2719),
+                            Birthdate = new DateTime(2021, 7, 18, 17, 0, 52, 196, DateTimeKind.Local).AddTicks(7908),
                             Email = "usuario002@mail.com",
                             Identification = 1891925,
                             Names = "Susan",
