@@ -6,7 +6,7 @@ namespace Clinic.Core.Interfaces.Repositories
 {
     public interface IMedicRepository : IGenericRepository<Medic>
     {
-        Task<IEnumerable<Medic>> GetAllForListAsync(int? medicalSpecialtyId, int? identification);
+        IEnumerable<Medic> GetAllForList(int? medicalSpecialtyId, int? identification);
         Task<IEnumerable<Medic>> GetAllPendingForUpdateAsync();
     }
 }

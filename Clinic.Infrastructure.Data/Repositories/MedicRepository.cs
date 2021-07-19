@@ -1,57 +1,33 @@
 ﻿using Clinic.Core.Entities;
 using Clinic.Core.Interfaces.Repositories;
-using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Clinic.Infrastructure.Data.Repositories
 {
     public class MedicRepository : GenericRepository<Medic>, IMedicRepository
     {
-        private const string SpMedic_GetAllForList = nameof(SpMedic_GetAllForList);
         private const string SpMedic_GetAllPendingForUpdate = nameof(SpMedic_GetAllPendingForUpdate);
-        private const string SpMedic_GetPendingForUpdate = nameof(SpMedic_GetPendingForUpdate);
 
         public MedicRepository(AppDbContext context, IConfiguration configuration)
             : base(context: context, configuration: configuration)
         { }
 
-        public async Task<IEnumerable<Medic>> GetAllForListAsync(int? medicalSpecialtyId, int? identification)
+        public IEnumerable<Medic> GetAllForList(int? medicalSpecialtyId, int? identification)
         {
-            List<Medic> medicList = new List<Medic>();
+            var lst = _dbEntity.Include(med => med.Employee).ThenInclude(emp => emp.AppUser)
+                               .Include(med => med.Employee).ThenInclude(emp => emp.Person)
+                               .Include(med => med.MedicalSpecialty)
+                               .Where(med => med.Employee.AppUser.EntityStatus == Core.Enumerations.EntityStatus.Enabled)
+                               .Where(med => med.IdMedicalSpecialty == (medicalSpecialtyId ?? med.IdMedicalSpecialty))
+                               .Where(med => med.Employee.Person.Identification == (identification ?? med.Employee.Person.Identification))
+                               .AsEnumerable();
 
-            var parameters = new[]
-            {
-                new SqlParameter("@medicSpecialtyId", medicalSpecialtyId),
-                new SqlParameter("@identification", identification)
-            };
-
-            var table = await ExecuteQuery(SpMedic_GetAllForList, parameters);
-
-            foreach (DataRow row in table?.Rows)
-            {
-                medicList.Add(new Medic
-                {
-                    Id = (int)row["Id"],
-                    Employee = new Employee
-                    {
-                        Person = new Person
-                        {
-                            Identification = (int)row["Identification"],
-                            Names = row["Names"].ToString(),
-                            Surnames = row["Surnames"].ToString()
-                        }
-                    },
-                    MedicalSpecialty = new MedicalSpecialty
-                    {
-                        Name = row["Name"].ToString()
-                    }
-                });
-            }
-
-            return medicList;
+            return lst;
         }
 
         public async Task<IEnumerable<Medic>> GetAllPendingForUpdateAsync()

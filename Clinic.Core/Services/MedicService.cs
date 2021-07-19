@@ -1,6 +1,5 @@
 ﻿using Clinic.Core.CustomEntities;
 using Clinic.Core.CustomExceptions;
-using Clinic.Core.DTOs.Medic;
 using Clinic.Core.Entities;
 using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Core.Interfaces.Repositories;
@@ -24,12 +23,12 @@ namespace Clinic.Core.Services
             _paginationOptions = paginationOptions.Value;
         }
 
-        public async Task<PagedList<Medic>> GetAllAsync(MedicQueryFilter filters)
+        public PagedList<Medic> GetAllForList(MedicQueryFilter filters)
         {
             filters.PageNumber ??= _paginationOptions.DefaultPageNumber;
             filters.PageSize ??= _paginationOptions.DefaultPageSize;
 
-            var medicList = await _unitOfWork.Medic.GetAllForListAsync(filters.MedicalSpecialty, filters.Identification);
+            var medicList = _unitOfWork.Medic.GetAllForList(filters.MedicalSpecialty, filters.Identification);
 
             var pagedMedics = PagedList<Medic>.Create(medicList, filters.PageNumber.Value, filters.PageSize.Value);
 

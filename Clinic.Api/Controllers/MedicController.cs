@@ -52,7 +52,7 @@ namespace Clinic.Api.Controllers
                 return Ok(response);
             }
             
-            var pagedListMedics = await _medicService.GetAllAsync(filters);
+            var pagedListMedics = _medicService.GetAllForList(filters);
 
             var metadata = Metadata.Create(filters, pagedListMedics, Url.RouteUrl(nameof(GetAllForList)), _uriService);
 
