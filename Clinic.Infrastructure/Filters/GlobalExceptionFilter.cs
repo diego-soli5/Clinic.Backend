@@ -16,15 +16,22 @@ namespace Clinic.Infrastructure.Filters
 
                 var response = new BadRequestResponse
                 {
-                    Message = exception.Message,
+                    Message = exception.Message
                 };
 
                 context.Result = new BadRequestObjectResult(response);
                 context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
             }
-            else if (context.Exception is NotFoundBusisnessException)
+            else if(context.Exception is NotFoundException)
             {
-                context.Result = new NotFoundObjectResult(new NotFoundResponse());
+                var exception = context.Exception as NotFoundException;
+
+                var response = new NotFoundResponse(exception.Message);
+
+                if (exception.Id.HasValue)
+                    response.Id = exception.Id;
+
+                context.Result = new NotFoundObjectResult(response);
                 context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;
             }
             else

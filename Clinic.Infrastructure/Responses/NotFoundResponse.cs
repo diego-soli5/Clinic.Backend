@@ -12,6 +12,13 @@
             Message = message;
         }
 
+        public NotFoundResponse(string message, int id)
+        {
+            Message = message;
+            Id = id;
+        }
+
         public string Message { get; set; }
+        public int? Id { get; set; }
     }
 }

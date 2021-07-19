@@ -48,7 +48,7 @@ namespace Clinic.Core.Services
             var emp = await _unitOfWork.Employee.GetByIdAsync(idEmployee, includeProperties: $"{nameof(Employee.Medic)},{nameof(Employee.Person)},{nameof(Employee.AppUser)}");
 
             if (emp == null)
-                throw new BusisnessException("El médico no existe.");
+                throw new NotFoundException("El médico no existe.", idEmployee);
 
             if (emp.AppUser.EntityStatus == Enumerations.EntityStatus.Disabled)
                 throw new BusisnessException("El empleado está desactivado, debe activarlo para poder consultarlo.");
@@ -74,7 +74,7 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("El empleado no tiene rol de médico.");
             if (emp.Medic != null)
                 throw new BusisnessException("El médico ya tiene su información actualizada.");
-            
+
             var medicalSpecialty = await _unitOfWork.MedicalSpecialty.GetByIdAsync(entity.IdMedicalSpecialty);
 
             if (medicalSpecialty == null)

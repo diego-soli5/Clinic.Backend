@@ -43,6 +43,9 @@ namespace Clinic.Core.Services
         {
             var emp = await _unitOfWork.Employee.GetByIdAsync(id, includeProperties: $"{nameof(Employee.AppUser)},{nameof(Employee.Person)}");
 
+            if (emp == null)
+                throw new NotFoundException("El empleado no existe.", id);
+
             if (emp.AppUser.EntityStatus == EntityStatus.Disabled)
                 throw new BusisnessException("El empleado está desactivado, debe activarlo para poder consultarlo.");
 
