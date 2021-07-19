@@ -13,7 +13,13 @@ namespace Clinic.Core.Interfaces.BusisnessServices
         Task<bool> Delete(int id, int appUserId, string pass);
         PagedList<Employee> GetAll(EmployeeQueryFilter filters);
         Task<Employee> GetByIdAsync(int id);
+
+        #region DESECHADO
+        //Codigo comentado por posibilidad de reintegrar la funcionalidad
+        /*
         Task<bool> Fire(int id);
         Task<bool> Activate(int id);
+        */
+        #endregion
     }
 }

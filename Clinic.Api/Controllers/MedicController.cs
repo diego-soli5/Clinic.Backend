@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Clinic.Core.CustomEntities;
 using Clinic.Core.DTOs.Medic;
+using Clinic.Core.Entities;
 using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.QueryFilters;
@@ -76,6 +77,21 @@ namespace Clinic.Api.Controllers
             };
 
             return Ok(response);
+        }
+
+        [HttpPatch("{idEmployee}")]
+        public async Task<IActionResult> UpdatePendingMedic([FromBody]MedicPendingUpdateDTO model, int idEmployee)
+        {
+            var medic = new Medic
+            {
+                IdEmployee = idEmployee,
+                IdConsultingRoom = model.IdConsultingRoom,
+                IdMedicalSpecialty = model.IdMedicalSpecialty
+            };
+
+            await _medicService.UpdatePendingMedic(medic);
+
+            return NoContent();
         }
     }
 }

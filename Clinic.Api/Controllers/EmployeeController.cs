@@ -55,11 +55,6 @@ namespace Clinic.Api.Controllers
         {
             var oEmployee = await _employeeService.GetByIdAsync(id);
 
-            if (oEmployee == null || oEmployee.AppUser.EntityStatus == EntityStatus.Disabled)
-            {
-                return NotFound(new NotFoundResponse("El recurso solicitado no existe o está desactivado."));
-            }
-
             OkResponse response = new()
             {
                 Data = (isToUpdate) ? _mapper.Map<EmployeeUpdateDTO>(oEmployee) : _mapper.Map<EmployeeDTO>(oEmployee)
@@ -100,6 +95,18 @@ namespace Clinic.Api.Controllers
             return NoContent();
         }
 
+        #region UTILITY METHODS
+        private string GetClaimValue(string claimType)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+
+            return identity.FindFirst(claimType).Value;
+        }
+        #endregion
+
+        #region DESECHADO
+        //Codigo comentado por posibilidad de reintegrar la funcionalidad
+        /*
         [HttpPatch("Fire/{id}")]
         public async Task<IActionResult> Fire(int id)
         {
@@ -115,12 +122,7 @@ namespace Clinic.Api.Controllers
 
             return NoContent();
         }
-
-        private string GetClaimValue(string claimType)
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-
-            return identity.FindFirst(claimType).Value;
-        }
+        */
+        #endregion
     }
 }

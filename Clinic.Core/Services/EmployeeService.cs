@@ -41,7 +41,12 @@ namespace Clinic.Core.Services
 
         public async Task<Employee> GetByIdAsync(int id)
         {
-            return await _unitOfWork.Employee.GetByIdAsync(id, includeProperties: $"{nameof(Employee.AppUser)},{nameof(Employee.Person)}");
+            var emp = await _unitOfWork.Employee.GetByIdAsync(id, includeProperties: $"{nameof(Employee.AppUser)},{nameof(Employee.Person)}");
+
+            if (emp.AppUser.EntityStatus == EntityStatus.Disabled)
+                throw new BusisnessException("El empleado está desactivado, debe activarlo para poder consultarlo.");
+
+            return emp;
         }
 
         public PagedList<Employee> GetAll(EmployeeQueryFilter filters)
@@ -122,12 +127,13 @@ namespace Clinic.Core.Services
         {
             var employeeList = _unitOfWork.Employee.GetAll(includeProperties: $"{nameof(Employee.Person)}");
 
-            var employeeFromDb = await _unitOfWork.Employee.GetByIdAsync(id);
+            var employeeFromDb = await _unitOfWork.Employee.GetByIdAsync(id, $"{nameof(Employee.AppUser)}");
 
             if (employeeFromDb == null)
-            {
-                throw new BusisnessException("La cuenta de empleado no existe.");
-            }
+                throw new BusisnessException("El empleado no existe.");
+
+            if (employeeFromDb.AppUser.EntityStatus == EntityStatus.Disabled)
+                throw new BusisnessException("El empleado está desactivado, debe activarlo para poder consultarlo.");
 
             int empValidationId = employeeList.Where(x => x.Person.Email.Trim().ToLower() == employee.Person.Email.Trim().ToLower()).Select(x => x.Id).FirstOrDefault();
 
@@ -209,12 +215,12 @@ namespace Clinic.Core.Services
 
             if (employee == null)
             {
-                throw new BusisnessException("La cuenta de empleado no existe.");
+                throw new BusisnessException("El empleado no existe.");
             }
 
             string passwordFromDb = employee.AppUser.Password;
 
-            if(!_passwordService.Check(passwordFromDb, pass))
+            if (!_passwordService.Check(passwordFromDb, pass))
             {
                 throw new BusisnessException("La contraseña es incorrecta.");
             }
@@ -226,13 +232,16 @@ namespace Clinic.Core.Services
             return await _unitOfWork.Save();
         }
 
+        #region DESECHADO
+        //Codigo comentado por posibilidad de reintegrar la funcionalidad
+        /*
         public async Task<bool> Fire(int id)
         {
             var employee = await _unitOfWork.Employee.GetByIdAsync(id);
 
             if (employee == null)
             {
-                throw new BusisnessException("La cuenta de empleado no existe.");
+                throw new BusisnessException("El empleado no existe.");
             }
 
             employee.EmployeeStatus = EmployeeStatus.Fired;
@@ -248,7 +257,7 @@ namespace Clinic.Core.Services
 
             if (employee == null)
             {
-                throw new BusisnessException("La cuenta de empleado no existe.");
+                throw new BusisnessException("El empleado no existe.");
             }
 
             employee.EmployeeStatus = EmployeeStatus.Active;
@@ -257,5 +266,7 @@ namespace Clinic.Core.Services
 
             return await _unitOfWork.Save();
         }
+        */
+        #endregion
     }
 }

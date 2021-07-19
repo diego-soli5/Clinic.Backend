@@ -15,11 +15,14 @@ namespace Clinic.Infrastructure.Data.Migrations
 									   p.Names,
 									   p.Surnames
 								FROM Employee e
+								INNER JOIN AppUser a
+								ON e.IdAppUser = a.Id
 								INNER JOIN Person p
 								ON e.IdPerson = p.Id
 								FULL OUTER JOIN Medic m
 								ON m.IdEmployee = e.Id
-								WHERE e.EmployeeRole = 'Medic'
+								WHERE a.EntityStatus = 'Enabled'
+								AND e.EmployeeRole = 'Medic'
 								AND m.IdEmployee IS NULL
 							END";
 

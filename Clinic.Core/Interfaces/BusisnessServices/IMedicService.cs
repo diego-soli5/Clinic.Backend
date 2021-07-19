@@ -11,5 +11,6 @@ namespace Clinic.Core.Interfaces.BusisnessServices
         Task<PagedList<Medic>> GetAllAsync(MedicQueryFilter filters);
         Task<IEnumerable<Medic>> GetAllPendingForUpdate();
         Task<Employee> GetMedicPendingForUpdate(int idEmployee);
+        Task<bool> UpdatePendingMedic(Medic entity);
     }
 }

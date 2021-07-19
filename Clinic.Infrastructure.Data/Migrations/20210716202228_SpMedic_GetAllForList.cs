@@ -14,18 +14,21 @@ namespace Clinic.Infrastructure.Data.Migrations
 							AS
 							BEGIN
 								SELECT m.Id,
-										p.Identification,
-										p.Names,
-										p.Surnames,
-										ms.Name
+									   p.Identification,
+									   p.Names,
+									   p.Surnames,
+									   ms.Name
 								FROM Medic m
 								INNER JOIN Employee e
 								ON m.IdEmployee = e.Id
+								INNER JOIN AppUser a
+								ON e.IdAppUser = a.Id
 								INNER JOIN Person p
 								ON e.IdPerson = p.Id
 								INNER JOIN MedicalSpecialty ms
 								ON m.IdMedicalSpecialty = ms.Id
-								WHERE e.EmployeeStatus = 'Active'
+								WHERE a.EntityStatus = 'Enabled' 
+								AND e.EmployeeStatus = 'Active'
 								AND ms.EntityStatus = 'Enabled'
 								AND ((@medicSpecialtyId IS NULL) OR (ms.Id = @medicSpecialtyId))
 								AND ((@identification IS NULL) OR (p.Identification LIKE CONCAT('%',@identification,'%')));
