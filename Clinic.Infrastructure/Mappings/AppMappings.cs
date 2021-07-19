@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Clinic.Core.DTOs.AppUser;
+using Clinic.Core.DTOs.ConsultingRoom;
 using Clinic.Core.DTOs.Employee;
 using Clinic.Core.DTOs.Medic;
 using Clinic.Core.DTOs.Person;
@@ -16,6 +17,13 @@ namespace Clinic.Infrastructure.Mappings
             CreateAppUserMaps();
             CreateMedicMaps();
             CreateMedicalSpecialtiesMaps();
+            CreateConsultingRoomMaps();
+        }
+
+        private void CreateConsultingRoomMaps()
+        {
+            CreateMap<ConsultingRoom, ConsultingRoomDTO>()
+               .ReverseMap();
         }
 
         private void CreateMedicMaps()

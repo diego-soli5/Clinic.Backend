@@ -75,6 +75,8 @@ namespace Clinic.Api.Controllers
 
             await _employeeService.Create(oEmployee, model.Image);
 
+            Response.Headers.Add("X-Resource-Id", oEmployee.Id.ToString());
+
             return CreatedAtRoute(nameof(GetById), new { oEmployee.Id }, null);
         }
 

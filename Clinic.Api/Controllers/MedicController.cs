@@ -77,18 +77,5 @@ namespace Clinic.Api.Controllers
 
             return Ok(response);
         }
-
-        [HttpGet("Specialties")]
-        public IActionResult GetAllSpecialties()
-        {
-            var listMedSpecialties = _medicService.GetAllMedicalSpecialties();
-
-            var response = new OkResponse
-            {
-                Data = listMedSpecialties.Select(ms => _mapper.Map<MedicalSpecialtyListDTO>(ms)).ToList()
-            };
-
-            return Ok(response);
-        }
     }
 }

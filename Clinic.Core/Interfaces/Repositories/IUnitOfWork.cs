@@ -11,6 +11,8 @@ namespace Clinic.Core.Interfaces.Repositories
         public IAppUserRepository AppUser { get; }
         public IMedicRepository Medic { get; }
         public IGenericRepository<MedicalSpecialty> MedicalSpecialty { get; }
+        public IGenericRepository<ConsultingRoom> ConsultingRoom { get; }
+
         Task BeginTransactionAsync();
         Task RollBackAsync();
         Task CommitTransactionAsync();

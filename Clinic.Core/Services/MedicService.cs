@@ -35,13 +35,6 @@ namespace Clinic.Core.Services
             return pagedMedics;
         }
 
-        public IEnumerable<MedicalSpecialty> GetAllMedicalSpecialties()
-        {
-            var listMedSpec = _unitOfWork.MedicalSpecialty.GetAll();
-
-            return listMedSpec;
-        }
-
         public async Task<IEnumerable<Medic>> GetAllPendingForUpdate()
         {
             var medicList = await _unitOfWork.Medic.GetAllPendingForUpdateAsync();

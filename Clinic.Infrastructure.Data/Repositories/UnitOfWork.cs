@@ -14,6 +14,8 @@ namespace Clinic.Infrastructure.Data.Repositories
         private readonly IAppUserRepository _appUserRepository;
         private readonly IMedicRepository _medicRepository;
         private readonly IGenericRepository<MedicalSpecialty> _medicalSpecialty;
+        private readonly IGenericRepository<ConsultingRoom> _consultingRoom;
+
 
         public UnitOfWork(AppDbContext context, IConfiguration configuration)
         {
@@ -26,6 +28,7 @@ namespace Clinic.Infrastructure.Data.Repositories
         public IAppUserRepository AppUser => _appUserRepository ?? new AppUserRepository(_context, _configuration);
         public IMedicRepository Medic => _medicRepository ?? new MedicRepository(_context, _configuration);
         public IGenericRepository<MedicalSpecialty> MedicalSpecialty => _medicalSpecialty ?? new GenericRepository<MedicalSpecialty>(_context, _configuration);
+        public IGenericRepository<ConsultingRoom> ConsultingRoom => _consultingRoom ?? new GenericRepository<ConsultingRoom>(_context, _configuration);
 
         public void Dispose()
         {
