@@ -24,7 +24,7 @@ namespace Clinic.Infrastructure.Data.Repositories
                                .Include(med => med.MedicalSpecialty)
                                .Where(med => med.Employee.AppUser.EntityStatus == Core.Enumerations.EntityStatus.Enabled)
                                .Where(med => med.IdMedicalSpecialty == (medicalSpecialtyId ?? med.IdMedicalSpecialty))
-                               .Where(med => med.Employee.Person.Identification == (identification ?? med.Employee.Person.Identification))
+                               .Where(med => med.Employee.Person.Identification.ToString().Contains(identification.ToString()))
                                .AsEnumerable();
 
             return lst;
