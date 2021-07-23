@@ -27,19 +27,18 @@ namespace Clinic.Infrastructure.ExternalServices.Azure
         {
             var blobClient = _container.GetBlobClient(fileName);
 
-            var blobDownloadInfo = await blobClient.DownloadAsync();
+            if (await blobClient.ExistsAsync())
+            {
+                var blobDownloadInfo = await blobClient.DownloadAsync();
 
-            return (blobDownloadInfo.Value.Content, blobDownloadInfo.Value.ContentType);
+                return (blobDownloadInfo.Value.Content, blobDownloadInfo.Value.ContentType);
+            }
+
+            return (null, null);
         }
 
         public async Task<string> CreateBlobAsync(IFormFile file)
         {
-
-            if (!(file.ContentType == "image/jpeg" || file.ContentType == "image/png"))
-            {
-                return null;
-            }
-
             string newFileName = $"Emp_{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";
 
             var blobClient = _container.GetBlobClient(newFileName);
@@ -57,10 +56,9 @@ namespace Clinic.Infrastructure.ExternalServices.Azure
 
         public async Task<bool> DeleteBlobAsync(string fileName)
         {
-            var blobClient = _container.GetBlobClient(fileName);
+            var blobClient = _container.GetBlobClient(fileName ?? "");
 
             return await blobClient.DeleteIfExistsAsync();
         }
-
     }
 }

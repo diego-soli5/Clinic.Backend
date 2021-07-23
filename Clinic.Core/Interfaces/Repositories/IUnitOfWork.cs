@@ -7,7 +7,7 @@ namespace Clinic.Core.Interfaces.Repositories
     public interface IUnitOfWork : IDisposable
     {
         public IEmployeeRepository Employee { get; }
-        public IGenericRepository<Person> Person { get; }
+        public IPersonRepository Person { get; }
         public IAppUserRepository AppUser { get; }
         public IMedicRepository Medic { get; }
         public IGenericRepository<MedicalSpecialty> MedicalSpecialty { get; }

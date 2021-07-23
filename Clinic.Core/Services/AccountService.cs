@@ -1,10 +1,13 @@
 ﻿using Clinic.Core.CustomExceptions;
 using Clinic.Core.DTOs.Account;
 using Clinic.Core.Entities;
+using Clinic.Core.Enumerations;
 using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Core.Interfaces.EmailServices;
+using Clinic.Core.Interfaces.ExternalServices;
 using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.Interfaces.Repositories;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -17,6 +20,7 @@ namespace Clinic.Core.Services
         private readonly ITokenService _tokenService;
         private readonly IPasswordService _passwordService;
         private readonly IBusisnessMailService _mailService;
+        private readonly IAzureBlobFileService _fileService;
         private readonly IUnitOfWork _unitOfWork;
 
         private const string _INVALIDCREDENTIALS = "Credenciales de inicio invalidas.";
@@ -25,12 +29,24 @@ namespace Clinic.Core.Services
         public AccountService(ITokenService service,
                               IUnitOfWork unitOfWork,
                               IPasswordService passwordService,
-                              IBusisnessMailService mailService)
+                              IBusisnessMailService mailService,
+                              IAzureBlobFileService fileService)
         {
             _tokenService = service;
             _unitOfWork = unitOfWork;
             _passwordService = passwordService;
             _mailService = mailService;
+            _fileService = fileService;
+        }
+
+        public async Task<Person> GetCurrentUser(int idEmployee)
+        {
+            var userInfo = await _unitOfWork.Person.GetPersonByIdEmployeeAsync(idEmployee);
+
+            if (userInfo == null)
+                throw new NotFoundException("El empleado solicitado no existe.", idEmployee);
+
+            return userInfo;
         }
 
         public async Task<(bool, string, LoginResultDTO, ClaimsPrincipal)> TryAuthenticateAsync(LoginRequestDTO login)
@@ -72,6 +88,7 @@ namespace Clinic.Core.Services
                 FullName = $"{oEmployee.Person.Names} {oEmployee.Person.Surnames}",
                 Email = oEmployee.Person.Email,
                 PhoneNumber = oEmployee.Person.PhoneNumber,
+                ImageName = oEmployee.Person.ImageName,
                 AppUserRole = oEmployee.AppUser.Role,
                 EmployeeRole = oEmployee.EmployeeRole,
                 Token = token
@@ -143,6 +160,27 @@ namespace Clinic.Core.Services
             appUser.SMToken = null;
 
             _unitOfWork.AppUser.Update(appUser);
+
+            return await _unitOfWork.Save();
+        }
+
+        public async Task<bool> ChangeImage(int id, IFormFile image)
+        {
+            var emp = await _unitOfWork.Employee.GetByIdAsync(id, $"{nameof(Employee.AppUser)},{nameof(Employee.Person)}");
+
+            if (emp == null)
+                throw new BusisnessException("El empleado no existe.");
+
+            if (emp.AppUser.EntityStatus == EntityStatus.Disabled)
+                throw new BusisnessException("El empleado está desactivado, debe activarlo para poder consultarlo.");
+
+            await _fileService.DeleteBlobAsync(emp.Person.ImageName);
+
+            string newImgName = await _fileService.CreateBlobAsync(image);
+
+            emp.Person.ImageName = newImgName;
+
+            _unitOfWork.Person.Update(emp.Person);
 
             return await _unitOfWork.Save();
         }

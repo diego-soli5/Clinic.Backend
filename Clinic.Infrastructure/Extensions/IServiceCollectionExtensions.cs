@@ -51,6 +51,7 @@ namespace Clinic.Infrastructure.Extensions
 
             services.AddScoped<IConsultingRoomService, ConsultingRoomService>();
 
+            services.AddScoped<IResourceService, ResourceService>();
         }
 
         public static void AddInfrastructureServices(this IServiceCollection services)

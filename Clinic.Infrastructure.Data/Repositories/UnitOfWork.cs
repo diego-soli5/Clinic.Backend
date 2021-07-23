@@ -10,7 +10,7 @@ namespace Clinic.Infrastructure.Data.Repositories
         private readonly AppDbContext _context;
         private readonly IConfiguration _configuration;
         private readonly IEmployeeRepository _employeeRepository;
-        private readonly IGenericRepository<Person> _personRepository;
+        private readonly IPersonRepository _personRepository;
         private readonly IAppUserRepository _appUserRepository;
         private readonly IMedicRepository _medicRepository;
         private readonly IGenericRepository<MedicalSpecialty> _medicalSpecialty;
@@ -24,7 +24,7 @@ namespace Clinic.Infrastructure.Data.Repositories
         }
 
         public IEmployeeRepository Employee => _employeeRepository ?? new EmployeeRepository(_context, _configuration);
-        public IGenericRepository<Person> Person => _personRepository ?? new GenericRepository<Person>(_context, _configuration);
+        public IPersonRepository Person => _personRepository ?? new PersonRepository(_context, _configuration);
         public IAppUserRepository AppUser => _appUserRepository ?? new AppUserRepository(_context, _configuration);
         public IMedicRepository Medic => _medicRepository ?? new MedicRepository(_context, _configuration);
         public IGenericRepository<MedicalSpecialty> MedicalSpecialty => _medicalSpecialty ?? new GenericRepository<MedicalSpecialty>(_context, _configuration);

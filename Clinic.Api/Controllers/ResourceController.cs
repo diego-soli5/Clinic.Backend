@@ -1,4 +1,4 @@
-﻿using Clinic.Core.Interfaces.ExternalServices;
+﻿using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Infrastructure.Responses;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -9,20 +9,20 @@ namespace Clinic.Api.Controllers
     [ApiController]
     public class ResourceController : ControllerBase
     {
-        private readonly IAzureBlobFileService _fileService;
+        private readonly IResourceService _resourceService;
 
-        public ResourceController(IAzureBlobFileService fileService)
+        public ResourceController(IResourceService resourceService)
         {
-            _fileService = fileService;
+            _resourceService = resourceService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetFile(string name)
+        public async Task<IActionResult> GetImage(int id)
         {
-            if (name == null)
-                return NotFound(new NotFoundResponse());
+            var file = await _resourceService.GetEntityImageAsync(id);
 
-            var file = await _fileService.GetBlobAsync(name);
+            if (file.Item1 == null)
+                return NotFound(new NotFoundResponse());
 
             return File(file.Item1, file.Item2);
         }
