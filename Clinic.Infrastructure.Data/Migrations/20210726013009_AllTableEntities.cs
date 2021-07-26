@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Clinic.Infrastructure.Data.Migrations
 {
-    public partial class CreationOfAllInitialTables : Migration
+    public partial class AllTableEntities : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,8 +44,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(25)", maxLength: 25, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     EntityStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -66,7 +65,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     PhoneNumber = table.Column<int>(type: "int", nullable: false),
                     Birthdate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    ImageName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,7 +156,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     IdPatient = table.Column<int>(type: "int", nullable: false),
-                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 16, 14, 21, 54, 65, DateTimeKind.Local).AddTicks(9875))
+                    CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 25, 19, 30, 8, 647, DateTimeKind.Local).AddTicks(3545))
                 },
                 constraints: table =>
                 {
@@ -198,7 +197,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Observations = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     IdClinicalHistory = table.Column<int>(type: "int", nullable: false),
-                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 16, 14, 21, 54, 83, DateTimeKind.Local).AddTicks(4192)),
+                    CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2021, 7, 25, 19, 30, 8, 664, DateTimeKind.Local).AddTicks(2210)),
                     EntityStatus = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -264,54 +263,6 @@ namespace Clinic.Infrastructure.Data.Migrations
                         principalTable: "Patient",
                         principalColumn: "Id");
                 });
-
-            migrationBuilder.InsertData(
-                table: "AppUser",
-                columns: new[] { "Id", "EntityStatus", "Password", "Role", "SMToken", "UserName" },
-                values: new object[,]
-                {
-                    { 1, "Enabled", "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=", "User", null, "Usuario001" },
-                    { 2, "Disabled", "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=", "User", null, "Usuario002" },
-                    { 3, "Enabled", "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=", "Administrator", null, "1diego321" },
-                    { 4, "Enabled", "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=", "User", null, "Karamiko" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "ConsultingRoom",
-                columns: new[] { "Id", "EntityStatus", "NameIdentifier" },
-                values: new object[] { 4, "Enabled", "Cons-001" });
-
-            migrationBuilder.InsertData(
-                table: "MedicalSpecialty",
-                columns: new[] { "Id", "Description", "EntityStatus", "Name" },
-                values: new object[] { 4, "Hace algo ahí de medicina", "Enabled", "Medicina General" });
-
-            migrationBuilder.InsertData(
-                table: "Person",
-                columns: new[] { "Id", "Address", "Birthdate", "Email", "Identification", "ImageName", "Names", "PhoneNumber", "Surnames" },
-                values: new object[,]
-                {
-                    { 1, "San Jose Costa Rica", new DateTime(2021, 7, 16, 14, 21, 54, 126, DateTimeKind.Local).AddTicks(9606), "usuario001@mail.com", 1231651631, null, "Miguel", 88556161, "Hernandez Corrales" },
-                    { 2, "Cartago Costa Rica", new DateTime(2021, 7, 16, 14, 21, 54, 127, DateTimeKind.Local).AddTicks(4361), "usuario002@mail.com", 1891925, null, "Susan", 8919651, "Brenes Ilama" },
-                    { 3, "Santa Elena abajo, barrio la Rosa.", new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "1diego321@gmail.com", 117310010, null, "Luis Diego", 83358092, "Solis Camacho" },
-                    { 4, "Santa Elena Abajo de San Jose Costa Rica", new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "1221sdsadas@gmail.com", 988310010, null, "Martes Trece", 159156, "Solis Camacho" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Employee",
-                columns: new[] { "Id", "EmployeeRole", "EmployeeStatus", "HireDate", "IdAppUser", "IdPerson" },
-                values: new object[,]
-                {
-                    { 1, "Secretary", "Active", new DateTime(2021, 7, 16, 14, 21, 54, 123, DateTimeKind.Local).AddTicks(1778), 1, 1 },
-                    { 2, "Secretary", "Active", new DateTime(2021, 7, 16, 14, 21, 54, 127, DateTimeKind.Local).AddTicks(4105), 2, 2 },
-                    { 3, "Secretary", "Active", new DateTime(2021, 7, 16, 14, 21, 54, 127, DateTimeKind.Local).AddTicks(4639), 3, 3 },
-                    { 4, "Medic", "Active", new DateTime(2021, 7, 16, 14, 21, 54, 127, DateTimeKind.Local).AddTicks(4860), 4, 4 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Medic",
-                columns: new[] { "Id", "IdConsultingRoom", "IdEmployee", "IdMedicalSpecialty" },
-                values: new object[] { 4, 4, 4, 4 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Appointment_IdMedic",

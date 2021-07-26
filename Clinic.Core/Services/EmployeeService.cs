@@ -32,14 +32,14 @@ namespace Clinic.Core.Services
                                IAzureBlobFileService blobFileService,
                                IBusisnessMailService mailService,
                                IPasswordService passwordService,
-                               ImageOptions imageOptions)
+                               IOptions<ImageOptions> imageOptions)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = paginationOptions.Value;
             _blobFileService = blobFileService;
             _mailService = mailService;
             _passwordService = passwordService;
-            _imageOptions = imageOptions;
+            _imageOptions = imageOptions.Value;
         }
 
         public async Task<Employee> GetByIdAsync(int id)

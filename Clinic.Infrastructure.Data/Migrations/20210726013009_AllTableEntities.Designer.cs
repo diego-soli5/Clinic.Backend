@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinic.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20210716202155_CreationOfAllInitialTables")]
-    partial class CreationOfAllInitialTables
+    [Migration("20210726013009_AllTableEntities")]
+    partial class AllTableEntities
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -56,40 +56,6 @@ namespace Clinic.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("AppUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EntityStatus = "Enabled",
-                            Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
-                            Role = "User",
-                            UserName = "Usuario001"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EntityStatus = "Disabled",
-                            Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
-                            Role = "User",
-                            UserName = "Usuario002"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EntityStatus = "Enabled",
-                            Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
-                            Role = "Administrator",
-                            UserName = "1diego321"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            EntityStatus = "Enabled",
-                            Password = "10000.yhX0027sMaMDfYMN7QwJ8A==.aSVkgEyagtuOxaFcfUkA7sQSFhXnK8wh/e/pES9nO/k=",
-                            Role = "User",
-                            UserName = "Karamiko"
-                        });
                 });
 
             modelBuilder.Entity("Clinic.Core.Entities.Appointment", b =>
@@ -139,7 +105,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreationDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 16, 14, 21, 54, 65, DateTimeKind.Local).AddTicks(9875));
+                        .HasDefaultValue(new DateTime(2021, 7, 25, 19, 30, 8, 647, DateTimeKind.Local).AddTicks(3545));
 
                     b.Property<int>("IdPatient")
                         .HasColumnType("int");
@@ -174,14 +140,6 @@ namespace Clinic.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("ConsultingRoom");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 4,
-                            EntityStatus = "Enabled",
-                            NameIdentifier = "Cons-001"
-                        });
                 });
 
             modelBuilder.Entity("Clinic.Core.Entities.Diagnostic", b =>
@@ -194,7 +152,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2021, 7, 16, 14, 21, 54, 83, DateTimeKind.Local).AddTicks(4192));
+                        .HasDefaultValue(new DateTime(2021, 7, 25, 19, 30, 8, 664, DateTimeKind.Local).AddTicks(2210));
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
@@ -251,44 +209,6 @@ namespace Clinic.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Employee");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            EmployeeRole = "Secretary",
-                            EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 16, 14, 21, 54, 123, DateTimeKind.Local).AddTicks(1778),
-                            IdAppUser = 1,
-                            IdPerson = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            EmployeeRole = "Secretary",
-                            EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 16, 14, 21, 54, 127, DateTimeKind.Local).AddTicks(4105),
-                            IdAppUser = 2,
-                            IdPerson = 2
-                        },
-                        new
-                        {
-                            Id = 3,
-                            EmployeeRole = "Secretary",
-                            EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 16, 14, 21, 54, 127, DateTimeKind.Local).AddTicks(4639),
-                            IdAppUser = 3,
-                            IdPerson = 3
-                        },
-                        new
-                        {
-                            Id = 4,
-                            EmployeeRole = "Medic",
-                            EmployeeStatus = "Active",
-                            HireDate = new DateTime(2021, 7, 16, 14, 21, 54, 127, DateTimeKind.Local).AddTicks(4860),
-                            IdAppUser = 4,
-                            IdPerson = 4
-                        });
                 });
 
             modelBuilder.Entity("Clinic.Core.Entities.Medic", b =>
@@ -317,15 +237,6 @@ namespace Clinic.Infrastructure.Data.Migrations
                     b.HasIndex("IdMedicalSpecialty");
 
                     b.ToTable("Medic");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 4,
-                            IdConsultingRoom = 4,
-                            IdEmployee = 4,
-                            IdMedicalSpecialty = 4
-                        });
                 });
 
             modelBuilder.Entity("Clinic.Core.Entities.MedicAttentionHour", b =>
@@ -386,19 +297,14 @@ namespace Clinic.Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
                     b.Property<string>("EntityStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(25)
-                        .HasColumnType("nvarchar(25)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -406,15 +312,6 @@ namespace Clinic.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("MedicalSpecialty");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 4,
-                            Description = "Hace algo ahí de medicina",
-                            EntityStatus = "Enabled",
-                            Name = "Medicina General"
-                        });
                 });
 
             modelBuilder.Entity("Clinic.Core.Entities.Patient", b =>
@@ -467,6 +364,7 @@ namespace Clinic.Infrastructure.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ImageName")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -495,52 +393,6 @@ namespace Clinic.Infrastructure.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Person");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Address = "San Jose Costa Rica",
-                            Birthdate = new DateTime(2021, 7, 16, 14, 21, 54, 126, DateTimeKind.Local).AddTicks(9606),
-                            Email = "usuario001@mail.com",
-                            Identification = 1231651631,
-                            Names = "Miguel",
-                            PhoneNumber = 88556161,
-                            Surnames = "Hernandez Corrales"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Address = "Cartago Costa Rica",
-                            Birthdate = new DateTime(2021, 7, 16, 14, 21, 54, 127, DateTimeKind.Local).AddTicks(4361),
-                            Email = "usuario002@mail.com",
-                            Identification = 1891925,
-                            Names = "Susan",
-                            PhoneNumber = 8919651,
-                            Surnames = "Brenes Ilama"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Address = "Santa Elena abajo, barrio la Rosa.",
-                            Birthdate = new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "1diego321@gmail.com",
-                            Identification = 117310010,
-                            Names = "Luis Diego",
-                            PhoneNumber = 83358092,
-                            Surnames = "Solis Camacho"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Address = "Santa Elena Abajo de San Jose Costa Rica",
-                            Birthdate = new DateTime(1999, 1, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Email = "1221sdsadas@gmail.com",
-                            Identification = 988310010,
-                            Names = "Martes Trece",
-                            PhoneNumber = 159156,
-                            Surnames = "Solis Camacho"
-                        });
                 });
 
             modelBuilder.Entity("Clinic.Core.Entities.Appointment", b =>

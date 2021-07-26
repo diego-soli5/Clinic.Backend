@@ -1,6 +1,8 @@
 ﻿using Clinic.Core.Interfaces.BusisnessServices;
 using Clinic.Infrastructure.Responses;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Clinic.Api.Controllers
@@ -17,14 +19,35 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetImage(int id)
+        public async Task<IActionResult> GetReource(string n, string type)
         {
-            var file = await _resourceService.GetEntityImageAsync(id);
+            (Stream, string) file = (null, null);
+
+            if (!ResourceTypes.Any(rt => rt == type))
+            {
+                return BadRequest(new BadRequestResponse());
+            }
+
+            if (type == "img")
+            {
+                file = await _resourceService.GetEntityImageAsync(n);
+            }
 
             if (file.Item1 == null)
                 return NotFound(new NotFoundResponse());
 
             return File(file.Item1, file.Item2);
+        }
+
+        private string[] ResourceTypes
+        {
+            get
+            {
+                return new[] {
+
+                    "img",
+                };
+            }
         }
     }
 }

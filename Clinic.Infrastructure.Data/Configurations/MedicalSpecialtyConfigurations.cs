@@ -13,7 +13,7 @@ namespace Clinic.Infrastructure.Data.Configurations
             builder.HasKey(m => m.Id);
 
             builder.Property(m => m.Name)
-                .HasMaxLength(25)
+                .HasMaxLength(50)
                 .IsRequired();
 
             builder.HasIndex(m => m.Name).IsUnique();
