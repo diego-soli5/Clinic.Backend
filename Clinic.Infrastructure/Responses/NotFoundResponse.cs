@@ -15,10 +15,10 @@
         public NotFoundResponse(string message, int id)
         {
             Message = message;
-            Id = id;
+            NotFoundResourceId = id;
         }
 
         public string Message { get; set; }
-        public int? Id { get; set; }
+        public int? NotFoundResourceId { get; set; }
     }
 }

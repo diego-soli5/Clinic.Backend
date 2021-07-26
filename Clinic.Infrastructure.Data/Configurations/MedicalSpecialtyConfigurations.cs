@@ -18,10 +18,6 @@ namespace Clinic.Infrastructure.Data.Configurations
 
             builder.HasIndex(m => m.Name).IsUnique();
 
-            builder.Property(m => m.Description)
-                .HasMaxLength(100)
-                .IsRequired();
-
             builder.Property(m => m.EntityStatus)
                 .IsRequired()
                 .HasConversion(x => x.ToString(),

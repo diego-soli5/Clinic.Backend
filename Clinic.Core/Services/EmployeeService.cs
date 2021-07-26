@@ -24,19 +24,22 @@ namespace Clinic.Core.Services
         private readonly IAzureBlobFileService _blobFileService;
         private readonly IBusisnessMailService _mailService;
         private readonly IPasswordService _passwordService;
+        private readonly ImageOptions _imageOptions;
         private readonly PaginationOptions _paginationOptions;
 
         public EmployeeService(IUnitOfWork unitOfWork,
                                IOptions<PaginationOptions> paginationOptions,
                                IAzureBlobFileService blobFileService,
                                IBusisnessMailService mailService,
-                               IPasswordService passwordService)
+                               IPasswordService passwordService,
+                               ImageOptions imageOptions)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = paginationOptions.Value;
             _blobFileService = blobFileService;
             _mailService = mailService;
             _passwordService = passwordService;
+            _imageOptions = imageOptions;
         }
 
         public async Task<Employee> GetByIdAsync(int id)
@@ -117,9 +120,9 @@ namespace Clinic.Core.Services
             employee.AppUser.Password = encryptedPassword;
 
             if (image != null)
-            {
                 employee.Person.ImageName = await _blobFileService.CreateBlobAsync(image);
-            }
+            else
+                employee.Person.ImageName = _imageOptions.DefaultEmployeeImage;
 
             _unitOfWork.Employee.Create(employee);
 

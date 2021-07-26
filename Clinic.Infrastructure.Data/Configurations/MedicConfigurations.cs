@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.Infrastructure.Data.Configurations
 {
-    public class MedicConfiguration : IEntityTypeConfiguration<Medic>
+    public class MedicConfigurations : IEntityTypeConfiguration<Medic>
     {
         public void Configure(EntityTypeBuilder<Medic> builder)
         {

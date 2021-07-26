@@ -89,6 +89,8 @@ namespace Clinic.Infrastructure.Extensions
             services.Configure<AuthenticationOptions>(configuration.GetSection("ApplicationOptions:AuthenticationOptions"));
 
             services.Configure<PasswordOptions>(configuration.GetSection("ApplicationOptions:PasswordOptions"));
+            
+            services.Configure<ImageOptions>(configuration.GetSection("ApplicationOptions:ImageOptions"));
         }
 
         public static void AddAzureClients(this IServiceCollection services, IConfiguration configuration)

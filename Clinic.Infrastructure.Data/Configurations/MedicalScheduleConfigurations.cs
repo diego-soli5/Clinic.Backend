@@ -6,7 +6,7 @@ using System;
 
 namespace Clinic.Infrastructure.Data.Configurations
 {
-    public class MedicalScheduleConfiguration : IEntityTypeConfiguration<MedicalSchedule>
+    public class MedicalScheduleConfigurations : IEntityTypeConfiguration<MedicalSchedule>
     {
         public void Configure(EntityTypeBuilder<MedicalSchedule> builder)
         {

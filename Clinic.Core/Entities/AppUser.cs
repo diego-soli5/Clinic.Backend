@@ -1,5 +1,4 @@
 ﻿using Clinic.Core.Enumerations;
-using System.Collections.Generic;
 
 namespace Clinic.Core.Entities
 {

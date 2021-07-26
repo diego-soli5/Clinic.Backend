@@ -18,9 +18,9 @@ namespace Clinic.Core.CustomExceptions
         public NotFoundException(string message, int id)
             : base(message)
         {
-            Id = id;
+            NotFoundResourceId = id;
         }
 
-        public int? Id { get; set; }
+        public int? NotFoundResourceId { get; set; }
     }
 }

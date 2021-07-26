@@ -28,8 +28,8 @@ namespace Clinic.Infrastructure.Filters
 
                 var response = new NotFoundResponse(exception.Message);
 
-                if (exception.Id.HasValue)
-                    response.Id = exception.Id;
+                if (exception.NotFoundResourceId.HasValue)
+                    response.NotFoundResourceId = exception.NotFoundResourceId;
 
                 context.Result = new NotFoundObjectResult(response);
                 context.HttpContext.Response.StatusCode = StatusCodes.Status404NotFound;

@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.Infrastructure.Data.Configurations
 {
-    public class PersonConfiguration : IEntityTypeConfiguration<Person>
+    public class PersonConfigurations : IEntityTypeConfiguration<Person>
     {
         public void Configure(EntityTypeBuilder<Person> builder)
         {
@@ -45,7 +45,7 @@ namespace Clinic.Infrastructure.Data.Configurations
 
             builder.Property(p => p.ImageName)
                 .HasMaxLength(50)
-                .IsRequired(false);
+                .IsRequired();
 
             builder.HasOne<Employee>(p => p.Employee)
                 .WithOne(e => e.Person)
