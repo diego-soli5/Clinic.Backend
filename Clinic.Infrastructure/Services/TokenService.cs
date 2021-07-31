@@ -48,7 +48,7 @@ namespace Clinic.Infrastructure.Services
                 _options.Audience,
                 claims,
                 DateTime.Now,
-                DateTime.UtcNow.AddMinutes(2));
+                DateTime.UtcNow.AddMinutes(60));
 
             //signature
             var token = new JwtSecurityToken(header, payload);

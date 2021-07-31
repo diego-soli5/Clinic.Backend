@@ -35,9 +35,9 @@ namespace Clinic.Core.Services
             return pagedMedics;
         }
 
-        public async Task<IEnumerable<Medic>> GetAllPendingForUpdate()
+        public IEnumerable<Employee> GetAllPendingForUpdate()
         {
-            var medicList = await _unitOfWork.Medic.GetAllPendingForUpdateAsync();
+            var medicList = _unitOfWork.Employee.GetAllMedicsPendingForUpdate();
 
             return medicList;
         }

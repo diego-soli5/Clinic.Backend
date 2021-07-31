@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Clinic.Infrastructure.Data.Repositories
 {
@@ -28,32 +27,6 @@ namespace Clinic.Infrastructure.Data.Repositories
                                .AsEnumerable();
 
             return lst;
-        }
-
-        public async Task<IEnumerable<Medic>> GetAllPendingForUpdateAsync()
-        {
-            List<Medic> medicList = new List<Medic>();
-
-            var table = await ExecuteQuery(SpMedic_GetAllPendingForUpdate);
-
-            foreach (DataRow row in table?.Rows)
-            {
-                medicList.Add(new Medic
-                {
-                    Employee = new Employee
-                    {
-                        Id = (int)row["Id"],
-                        Person = new Person
-                        {
-                            Identification = (int)row["Identification"],
-                            Names = (string)row["Names"],
-                            Surnames = (string)row["Surnames"]
-                        }
-                    },
-                });
-            }
-
-            return medicList;
         }
     }
 }

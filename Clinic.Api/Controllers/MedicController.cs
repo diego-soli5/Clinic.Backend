@@ -36,13 +36,13 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllForList([FromQuery] MedicQueryFilter filters)
+        public IActionResult GetAllForList([FromQuery] MedicQueryFilter filters)
         {
             OkResponse response;
 
             if (filters.PendingUpdate)
             {
-                var medPendingList = await _medicService.GetAllPendingForUpdate();
+                var medPendingList = _medicService.GetAllPendingForUpdate();
 
                 response = new OkResponse
                 {

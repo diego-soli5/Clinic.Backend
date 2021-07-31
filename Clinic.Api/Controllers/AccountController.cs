@@ -68,7 +68,9 @@ namespace Clinic.Api.Controllers
             if (!ValidImageTypes().Any(x => x == image.ContentType))
                 return BadRequest(new BadRequestResponse("Sólo se aceptan imagenes de tipo png, jpg o jpeg."));
 
-            await _accountService.ChangeImage(id, image);
+            string newImgName = await _accountService.ChangeImage(id, image);
+
+            Response.Headers.Add("X-Resource-Name", newImgName);
 
             return Ok(new OkResponse());
         }

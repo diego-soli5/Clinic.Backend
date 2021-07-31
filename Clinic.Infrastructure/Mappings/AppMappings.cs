@@ -39,15 +39,15 @@ namespace Clinic.Infrastructure.Mappings
                            opt => opt.MapFrom(src => src.MedicalSpecialty.Name))
                 .ReverseMap();
 
-            CreateMap<Medic, MedicDisplayPendingForUpdateDTO>()
+            CreateMap<Employee, MedicDisplayPendingForUpdateDTO>()
                 .ForMember(dest => dest.EmployeeId,
-                           opt => opt.MapFrom(src => src.Employee.Id))
+                           opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Identification,
-                           opt => opt.MapFrom(src => src.Employee.Person.Identification))
+                           opt => opt.MapFrom(src => src.Person.Identification))
                 .ForMember(dest => dest.Names,
-                           opt => opt.MapFrom(src => src.Employee.Person.Names))
+                           opt => opt.MapFrom(src => src.Person.Names))
                 .ForMember(dest => dest.Surnames,
-                           opt => opt.MapFrom(src => src.Employee.Person.Surnames))
+                           opt => opt.MapFrom(src => src.Person.Surnames))
                 .ReverseMap();
 
             CreateMap<Employee, MedicPendingUpdateDTO>()

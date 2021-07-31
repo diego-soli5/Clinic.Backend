@@ -18,8 +18,19 @@ namespace Clinic.Api.Controllers
             _resourceService = resourceService;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetEntityImgById(int id)
+        {
+            var img = await _resourceService.GetEntityImageById(id);
+
+            if (img.Item1 == null)
+                return NotFound(new NotFoundResponse());
+
+            return File(img.Item1, img.Item2);
+        }
+
         [HttpGet]
-        public async Task<IActionResult> GetReource(string n, string type)
+        public async Task<IActionResult> GetResource(string n, string type)
         {
             (Stream, string) file = (null, null);
 

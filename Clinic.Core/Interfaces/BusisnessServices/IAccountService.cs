@@ -12,6 +12,6 @@ namespace Clinic.Core.Interfaces.BusisnessServices
         Task<bool> PasswordChangeRequest(PasswordChangeRequestDTO request);
         Task<bool> ChangePassword(ChangePasswordDTO request);
         Task<Person> GetCurrentUser(int idEmployee);
-        Task<bool> ChangeImage(int id, IFormFile image);
+        Task<string> ChangeImage(int id, IFormFile image);
     }
 }

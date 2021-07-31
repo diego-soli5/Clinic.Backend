@@ -7,7 +7,9 @@ using Clinic.Core.Interfaces.EmailServices;
 using Clinic.Core.Interfaces.ExternalServices;
 using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.Interfaces.Repositories;
+using Clinic.Core.Options;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Security.Claims;
@@ -22,6 +24,7 @@ namespace Clinic.Core.Services
         private readonly IBusisnessMailService _mailService;
         private readonly IAzureBlobFileService _fileService;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ImageOptions _imageOptions;
 
         private const string _INVALIDCREDENTIALS = "Credenciales de inicio invalidas.";
         private const string _DISABLEDACCOUNT = "La cuenta está deshabilidata.";
@@ -30,13 +33,15 @@ namespace Clinic.Core.Services
                               IUnitOfWork unitOfWork,
                               IPasswordService passwordService,
                               IBusisnessMailService mailService,
-                              IAzureBlobFileService fileService)
+                              IAzureBlobFileService fileService,
+                              IOptions<ImageOptions> imageOptions)
         {
             _tokenService = service;
             _unitOfWork = unitOfWork;
             _passwordService = passwordService;
             _mailService = mailService;
             _fileService = fileService;
+            _imageOptions = imageOptions.Value;
         }
 
         public async Task<Person> GetCurrentUser(int idEmployee)
@@ -139,7 +144,7 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("La cuenta de empleado no existe.");
             }
 
-            if (appUser.EntityStatus == Enumerations.EntityStatus.Disabled)
+            if (appUser.EntityStatus == EntityStatus.Disabled)
             {
                 throw new BusisnessException("La cuenta de empleado está deshabilitada.");
             }
@@ -164,7 +169,7 @@ namespace Clinic.Core.Services
             return await _unitOfWork.Save();
         }
 
-        public async Task<bool> ChangeImage(int id, IFormFile image)
+        public async Task<string> ChangeImage(int id, IFormFile image)
         {
             var emp = await _unitOfWork.Employee.GetByIdAsync(id, $"{nameof(Employee.AppUser)},{nameof(Employee.Person)}");
 
@@ -174,7 +179,10 @@ namespace Clinic.Core.Services
             if (emp.AppUser.EntityStatus == EntityStatus.Disabled)
                 throw new BusisnessException("El empleado está desactivado, debe activarlo para poder consultarlo.");
 
-            await _fileService.DeleteBlobAsync(emp.Person.ImageName);
+            if(emp.Person.ImageName != _imageOptions.DefaultEmployeeImage)
+            {
+                await _fileService.DeleteBlobAsync(emp.Person.ImageName);
+            }
 
             string newImgName = await _fileService.CreateBlobAsync(image);
 
@@ -182,7 +190,9 @@ namespace Clinic.Core.Services
 
             _unitOfWork.Person.Update(emp.Person);
 
-            return await _unitOfWork.Save();
+            await _unitOfWork.Save();
+
+            return newImgName;
         }
     }
 }

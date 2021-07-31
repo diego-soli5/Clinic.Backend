@@ -1,4 +1,5 @@
 ﻿using Clinic.Core.Entities;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Clinic.Core.Interfaces.Repositories
@@ -7,5 +8,6 @@ namespace Clinic.Core.Interfaces.Repositories
     {
         Task<Employee> GetByEmail(string email);
         Task<Employee> GetByIdentification(int identification);
+        IEnumerable<Employee> GetAllMedicsPendingForUpdate();
     }
 }

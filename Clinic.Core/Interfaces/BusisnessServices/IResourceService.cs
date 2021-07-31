@@ -6,5 +6,6 @@ namespace Clinic.Core.Interfaces.BusisnessServices
     public interface IResourceService
     {
         Task<(Stream, string)> GetEntityImageAsync(string name);
+        Task<(Stream, string)> GetEntityImageById(int id);
     }
 }

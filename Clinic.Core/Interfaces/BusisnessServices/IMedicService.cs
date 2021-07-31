@@ -9,7 +9,7 @@ namespace Clinic.Core.Interfaces.BusisnessServices
     public interface IMedicService
     {
         PagedList<Medic> GetAllForList(MedicQueryFilter filters);
-        Task<IEnumerable<Medic>> GetAllPendingForUpdate();
+        IEnumerable<Employee> GetAllPendingForUpdate();
         Task<Employee> GetMedicPendingForUpdate(int idEmployee);
         Task<bool> UpdatePendingMedic(Medic entity);
     }
