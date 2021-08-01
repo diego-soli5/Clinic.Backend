@@ -60,6 +60,17 @@ namespace Clinic.Infrastructure.Mappings
                 .ForMember(dest => dest.IdEmployee,
                            opt => opt.MapFrom(src => src.Id))
                 .ReverseMap();
+
+            CreateMap<Medic, MedicUpdateDTO>()
+                .ForMember(dest => dest.Names,
+                           opt => opt.MapFrom(src => src.Employee.Person.Names))
+                .ForMember(dest => dest.Surnames,
+                           opt => opt.MapFrom(src => src.Employee.Person.Surnames))
+                .ForMember(dest => dest.Identification,
+                           opt => opt.MapFrom(src => src.Employee.Person.Identification))
+                .ForMember(dest => dest.Id,
+                           opt => opt.MapFrom(src => src.Id))
+                .ReverseMap();
         }
 
         private void CreateMedicalSpecialtiesMaps()

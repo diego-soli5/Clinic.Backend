@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Clinic.Infrastructure.Data.Repositories
 {
@@ -27,6 +28,15 @@ namespace Clinic.Infrastructure.Data.Repositories
                                .AsEnumerable();
 
             return lst;
+        }
+
+        public async Task<Medic> GetByIdForEditAsync(int id)
+        {
+            var med = await _dbEntity.Include(med => med.Employee).ThenInclude(emp => emp.Person)
+                                     .Include(med => med.Employee).ThenInclude(emp => emp.AppUser)
+                                     .FirstOrDefaultAsync(med => med.Id == id);
+
+            return med;
         }
     }
 }

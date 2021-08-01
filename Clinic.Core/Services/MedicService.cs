@@ -42,6 +42,19 @@ namespace Clinic.Core.Services
             return medicList;
         }
 
+        public async Task<Medic> GetMedicForEdit(int id)
+        {
+            var med = await _unitOfWork.Medic.GetByIdForEditAsync(id);
+
+            if (med == null)
+                throw new NotFoundException("El médico no existe.", id);
+
+            if (med.Employee.AppUser.EntityStatus == Enumerations.EntityStatus.Disabled)
+                throw new BusisnessException("El empleado está desactivado, debe activarlo para poder consultarlo.");
+
+            return med;
+        }
+
         public async Task<Employee> GetMedicPendingForUpdate(int idEmployee)
         {
             var emp = await _unitOfWork.Employee.GetByIdAsync(idEmployee, includeProperties: $"{nameof(Employee.Medic)},{nameof(Employee.Person)},{nameof(Employee.AppUser)}");
@@ -59,6 +72,24 @@ namespace Clinic.Core.Services
                 throw new BusisnessException("El médico ya tiene su información actualizada.");
 
             return emp;
+        }
+
+        public async Task<bool> Edit(Medic entity)
+        {
+            var medicFromDb = await _unitOfWork.Medic.GetByIdForEditAsync(entity.Id);
+
+            if (medicFromDb == null)
+                throw new NotFoundException("El médico no existe.");
+
+            if (medicFromDb.Employee.AppUser.EntityStatus == Enumerations.EntityStatus.Disabled)
+                throw new BusisnessException("El empleado está desactivado, debe activarlo para poder consultarlo.");
+
+            medicFromDb.IdConsultingRoom = entity.IdConsultingRoom;
+            medicFromDb.IdMedicalSpecialty = entity.IdMedicalSpecialty;
+
+            _unitOfWork.Medic.Update(medicFromDb);
+
+            return await _unitOfWork.Save();
         }
 
         public async Task<bool> UpdatePendingMedic(Medic entity)

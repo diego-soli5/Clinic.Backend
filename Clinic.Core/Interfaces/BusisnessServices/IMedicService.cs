@@ -12,5 +12,7 @@ namespace Clinic.Core.Interfaces.BusisnessServices
         IEnumerable<Employee> GetAllPendingForUpdate();
         Task<Employee> GetMedicPendingForUpdate(int idEmployee);
         Task<bool> UpdatePendingMedic(Medic entity);
+        Task<Medic> GetMedicForEdit(int id);
+        Task<bool> Edit(Medic entity);
     }
 }

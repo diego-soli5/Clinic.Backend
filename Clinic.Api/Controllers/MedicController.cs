@@ -7,11 +7,8 @@ using Clinic.Core.Interfaces.InfrastructureServices;
 using Clinic.Core.QueryFilters;
 using Clinic.Infrastructure.Responses;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -51,7 +48,7 @@ namespace Clinic.Api.Controllers
 
                 return Ok(response);
             }
-            
+
             var pagedListMedics = _medicService.GetAllForList(filters);
 
             var metadata = Metadata.Create(filters, pagedListMedics, Url.RouteUrl(nameof(GetAllForList)), _uriService);
@@ -64,6 +61,34 @@ namespace Clinic.Api.Controllers
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetMedicForEdit(int id)
+        {
+            var med = await _medicService.GetMedicForEdit(id);
+
+            var response = new OkResponse()
+            {
+                Data = _mapper.Map<MedicUpdateDTO>(med)
+            };
+
+            return Ok(response);
+        }
+
+        [HttpPatch("Edit/{id}")]
+        public async Task<IActionResult> EditMedic([FromBody] MedicUpdateDTO model, int id)
+        {
+            Medic entity = new Medic
+            {
+                Id = id,
+                IdConsultingRoom = model.IdConsultingRoom,
+                IdMedicalSpecialty = model.IdMedicalSpecialty
+            };
+
+            await _medicService.Edit(entity);
+
+            return NoContent();
         }
 
         [HttpGet("Pending/{idEmployee}")]
@@ -80,7 +105,7 @@ namespace Clinic.Api.Controllers
         }
 
         [HttpPatch("{idEmployee}")]
-        public async Task<IActionResult> UpdatePendingMedic([FromBody]MedicPendingUpdateDTO model, int idEmployee)
+        public async Task<IActionResult> UpdatePendingMedic([FromBody] MedicPendingUpdateDTO model, int idEmployee)
         {
             var medic = new Medic
             {
